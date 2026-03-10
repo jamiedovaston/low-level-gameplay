@@ -1,20 +1,14 @@
 #pragma once
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include "player.h"
 
-class Body 
+class Game 
 {
 	// SCREEN
 	sf::Vector2u screenSize;
 
-	// PLAYER
-	sf::CircleShape player;
-	float radius = 25.0f;
-	sf::Vector2f position;
-	float speed = 500.0f;
-
-	// IGNORE
-	// float directionX = -1.0f, directionY = -1.0f;
+	Behaviour* player;
 
 public:
 	void Start(sf::Vector2u screenSize);
