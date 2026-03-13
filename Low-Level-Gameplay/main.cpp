@@ -5,12 +5,12 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 960, 540 }), "SFML works!");
 
-    Game* body = new Game();
+    Game* game = new Game();
 
     std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
     float deltaTime = 0.0f;
 
-    body->Start(window.getSize());
+    game->Start(window.getSize());
 
     while (window.isOpen())
     {
@@ -27,8 +27,8 @@ int main()
         deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(now - lastTime).count() / 1000000.0f;
         lastTime = now;
 
-        body->Update(deltaTime);
-        body->Render(&window);
+        game->Update(deltaTime);
+        game->Render(&window);
 
         window.display();
     }

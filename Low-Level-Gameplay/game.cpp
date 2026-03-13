@@ -6,8 +6,8 @@ void Game::Start(sf::Vector2u screen)
 
     std::cout << "X: " << screen.x << " Y: " << screen.y;
 
-    player = new Player();
-    player->Start(screen);
+    player = new Player(screen);
+    player->Start();
 }
 
 void Game::Update(float deltaTime)
