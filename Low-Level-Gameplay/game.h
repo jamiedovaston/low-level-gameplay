@@ -8,10 +8,16 @@ class Game
 	// SCREEN
 	sf::Vector2u screenSize;
 
+	sf::Texture background;
 	Behaviour* player;
 
+	sf::Texture* border;
+	sf::Sprite* sprite;
+
 public:
-	void Start(sf::Vector2u screenSize);
+	Game(sf::Vector2u screenSize);
+	~Game();
+
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
 };

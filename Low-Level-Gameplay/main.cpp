@@ -3,14 +3,12 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 960, 540 }), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode({ 630, 720 }), "SFML works!");
 
-    Game* game = new Game();
+    Game* game = new Game(window.getSize());
 
     std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
     float deltaTime = 0.0f;
-
-    game->Start(window.getSize());
 
     while (window.isOpen())
     {
@@ -32,4 +30,7 @@ int main()
 
         window.display();
     }
+
+    delete game;
+    game = nullptr;
 }

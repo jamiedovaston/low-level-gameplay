@@ -1,5 +1,6 @@
 #include "player.h"
 #include <iostream>
+#include <cmath>
 
 Behaviour::Behaviour(sf::Vector2u screen)
 {
@@ -29,6 +30,11 @@ void Player::Update(float deltaTime)
 {
     // INPUT DIRECTION
     sf::Vector2f direction(0.0f, 0.0f);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+    {
+        projectedVelocity.y = 600.0f;
+    }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
@@ -69,15 +75,24 @@ void Player::Update(float deltaTime)
 
     if (freeze) return;
 
-
+    // X
     // INPUT * SPEED
     float projectedVelocityX = direction.x * horizontalSpeed;
     if(velocity.x + projectedVelocityX < maxHorizontalSpeed && velocity.x + projectedVelocityX > -maxHorizontalSpeed)
         velocity.x += projectedVelocityX;
-    velocity += sf::Vector2f(0.0f, 1.0f) * direction.y * verticalSpeed;
 
-    // GRAVITY
-    velocity.y += gravity;
+    // Y
+    // GRAVITY + (INPUT * SPEED)
+    // CLAMP
+    // if (velocity.y + projectedVelocityY < maxVerticalSpeed && velocity.y + projectedVelocityY > -maxVerticalSpeed)
+    //     velocity.y += projectedVelocityY > maxVerticalSpeed;
+
+    float projectedVelocityY = gravity * (projectedVelocity.y < 0.0f ? (direction.y < 0.0f ? 2.0f : 1.0f) : (direction.y > 0.0f ? .5f : direction.y < 0.0f ? 2.0f : 1.0f));
+
+    projectedVelocity.y += projectedVelocityY;
+    velocity.y = std::clamp(projectedVelocity.y, -maxVerticalSpeed, maxVerticalSpeed);
+
+    // DRAG
     velocity.x *= drag;
 
     std::cout << CollisionBoxTest() << std::endl;
@@ -100,22 +115,24 @@ void Player::Render(sf::RenderWindow* window)
 
 void Player::ScreenBoundsCollision() 
 {
-    if (position.x + radius > screenSize.x) {
-        position.x = screenSize.x - radius;
+    if (position.x + radius > screenSize.x - borderSize) {
+        position.x = screenSize.x - radius - borderSize;
         velocity.x = 0.0f;
     }
-    if (position.x - radius < 0.0f) {
-        position.x = 0.0f + radius;
+    if (position.x - radius < 0.0f + borderSize) {
+        position.x = 0.0f + radius + borderSize;
         velocity.x = 0.0f;
     }
 
-    if (position.y + radius > screenSize.y) {
-        position.y = screenSize.y - radius;
+    if (position.y + radius > screenSize.y - borderSize) {
+        position.y = screenSize.y - radius - borderSize;
         velocity.y = 0.0f;
+        projectedVelocity.y = 0.0f;
     }
-    if (position.y - radius < 0.0f) {
-        position.y = 0.0f + radius;
+    if (position.y - radius < 0.0f + borderSize) {
+        position.y = 0.0f + radius + borderSize;
         velocity.y = 0.0f;
+        projectedVelocity.y = 0.0f;
     }
 }
 
@@ -134,7 +151,6 @@ bool Player::CollisionBoxTest()
 
         if (minX < minY)
         {
-            // Resolve X collision
             if (left < right)
                 position.x = x - radius;
             else
@@ -144,13 +160,13 @@ bool Player::CollisionBoxTest()
         }
         else
         {
-            // Resolve Y collision
             if (top < bottom)
                 position.y = y - radius;
             else
                 position.y = y + h + radius;
 
             velocity.y = 0.0f;
+            projectedVelocity.y = 0.0f;
         }
 
         return true;

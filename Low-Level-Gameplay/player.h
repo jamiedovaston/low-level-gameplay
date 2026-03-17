@@ -9,6 +9,8 @@ public:
 	// SCREEN
 	sf::Vector2u screenSize;
 
+	int borderSize = 23; // px
+
 	Behaviour(sf::Vector2u screen);
 	virtual void Start() = 0;
 	virtual void Update(float deltaTime) = 0;
@@ -23,15 +25,16 @@ class Player : public Behaviour
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
+	sf::Vector2f projectedVelocity;
 
 	// INPUT PRESSED DOWN
 	std::map<sf::Keyboard::Key, bool> is_pressed;
 
-	float verticalSpeed = .8f, horizontalSpeed = .4f;
-	float maxVerticalSpeed = 100.0f, maxHorizontalSpeed = 200.0f;
+	float verticalSpeed = .8f, horizontalSpeed = 1.2f;
+	float maxVerticalSpeed = 500.0f, maxHorizontalSpeed = 350.0f;
 	float jumpSpeed = 30.0f;
-	float gravity = -.45f;
-	float drag = .9995f;
+	float gravity = -.15f;
+	float drag = .995f;
 
 	// TEST BOX
 	sf::RectangleShape box;
