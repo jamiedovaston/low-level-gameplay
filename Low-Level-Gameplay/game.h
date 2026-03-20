@@ -2,17 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "player.h"
+#include "collisions.h"
+#include <vector>
 
 class Game 
 {
 	// SCREEN
 	sf::Vector2u screenSize;
 
-	sf::Texture background;
 	Behaviour* player;
 
-	sf::Texture* border;
-	sf::Sprite* sprite;
+	sf::Texture* background;
+	sf::Sprite* backgroundSprite;
+
+	std::vector<Collider*> collisions;
 
 public:
 	Game(sf::Vector2u screenSize);

@@ -131,11 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="block.cpp" />
+    <ClCompile Include="collisions.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="screenbounds.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="behaviour.h" />
+    <ClInclude Include="collisions.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="player.h" />
