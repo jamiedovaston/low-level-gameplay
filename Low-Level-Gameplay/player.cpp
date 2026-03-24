@@ -5,16 +5,35 @@
 Behaviour::Behaviour(sf::Vector2u screen)
 {
     screenSize = screen;
+
+    sprite = nullptr;
+    texture = nullptr;
+}
+
+Behaviour::~Behaviour()
+{
+    delete texture;
+    texture = nullptr;
+
+    delete sprite;
+    sprite = nullptr;
 }
 
 Player::Player(sf::Vector2u screen) : Behaviour(screen)
 {
     // CREATE PLAYER
-    sprite = sf::CircleShape(radius);
+    spriteSize = sf::Vector2i(65, 68);
+    texture = new sf::Texture("../Images/jack-sprite-sheet.png");
+    sprite = new sf::Sprite(*texture);
+    sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
+
     // SPAWN AT POSITION
     position = sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f);
-    // SET COLOUR
-    sprite.setFillColor(sf::Color::Green);
+}
+
+Player::~Player()
+{
+
 }
 
 void Player::Update(float deltaTime) 
@@ -29,8 +48,7 @@ void Player::Update(float deltaTime)
             projectedVelocity.y = jumpSpeed;
         }
         else {
-            if(projectedVelocity.y < 0.0f)
-                projectedVelocity.y = 0.0f;
+            projectedVelocity.y = 0.0f;
         }
     }
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && is_pressed[sf::Keyboard::Key::Space])
@@ -66,6 +84,10 @@ void Player::Update(float deltaTime)
 
     if (freeze) return;
 
+    // ANIMATIONS
+    inpDirectionX = direction.x;
+    Animations(deltaTime);
+
     // X
     // INPUT * SPEED
     float projectedVelocityX = direction.x * horizontalSpeed;
@@ -84,10 +106,66 @@ void Player::Update(float deltaTime)
     // INVERT VELOCITY Y (defaults to downwards being positive) AND ADDS TO POSITION
     position += sf::Vector2f(velocity.x, -velocity.y) * deltaTime;
 
-    sprite.setPosition(sf::Vector2f(position.x - radius, position.y - radius));
+    sprite->setPosition(sf::Vector2f(position.x - spriteRect.position.x - spriteRect.size.x, position.y - spriteRect.position.y - spriteRect.size.y));
 }
 
 void Player::Render(sf::RenderWindow* window) 
 {
-    window->draw(sprite);
+    if (sprite != nullptr) { window->draw(*sprite); }
+}
+
+void Player::Animations(float deltaTime)
+{
+    elapsedTime += deltaTime;
+
+    // DIRECTION X
+    if (previousDirectionX != inpDirectionX) {
+        elapsedTime = 0.0f;
+        frame = 0;
+        previousDirectionX = inpDirectionX;
+        std::cout << "Direction Changed!" << std::endl;
+    }
+    else if (isGrounded) // GROUNDED
+    {
+        if (inpDirectionX > 0.0f) // RIGHT
+        {
+            if (elapsedTime > .075f) {
+                elapsedTime = 0.0f;
+                frame++;
+                if (frame > 3) { frame = 0; }
+            }
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y), spriteSize));
+        }
+        else if (inpDirectionX < 0.0f) // LEFT
+        {
+            if (elapsedTime > .075f) {
+                elapsedTime = 0.0f;
+                frame++;
+                if (frame > 3) { frame = 0; }
+            }
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y * 2), spriteSize));
+        }
+        else // STRAIGHT
+        {
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
+        }
+    }
+    else // AIRBORNE
+    {
+        if (velocity.y > 0.0f) {
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0.0f, spriteSize.y * 3), spriteSize));
+        }
+        else {
+            if (inpDirectionX > 0.0f) // RIGHT
+                sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * 2, spriteSize.y * 3), spriteSize));
+            else if (inpDirectionX < 0.0f) // LEFT
+                sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * 3, spriteSize.y * 3), spriteSize));
+            else // STRAIGHT
+                sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x, spriteSize.y * 3), spriteSize));
+        }
+    }
+
+    // DIRECTION Y
+
+    // ======================================================
 }

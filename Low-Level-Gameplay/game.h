@@ -8,7 +8,7 @@
 class Game 
 {
 	// SCREEN
-	sf::Vector2u screenSize;
+	sf::Vector2u screen;
 
 	Behaviour* player;
 
@@ -17,6 +17,7 @@ class Game
 
 	std::vector<Collider*> collisions;
 
+	sf::Vector2f originPoint = sf::Vector2f(0.0f, 100.0f);
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();

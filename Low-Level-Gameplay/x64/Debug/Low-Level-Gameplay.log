@@ -1,2 +1,10 @@
-﻿  block.cpp
+﻿  main.cpp
+  player.cpp
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\player.cpp(156,61): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\player.cpp(156,61): warning C4244:         with
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\player.cpp(156,61): warning C4244:         [
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\player.cpp(156,61): warning C4244:             T=int
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\player.cpp(156,61): warning C4244:         ]
+  screenbounds.cpp
+  Generating Code...
   Low-Level-Gameplay.vcxproj -> C:\Users\d010949n\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe

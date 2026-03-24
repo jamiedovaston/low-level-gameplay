@@ -1,9 +1,11 @@
 #include "collisions.h"
 
-ScreenBounds::ScreenBounds(sf::Vector2u screen) : Collider(screen)
+ScreenBounds::ScreenBounds(sf::Vector2f originPoint) : Collider(originPoint)
 {
+    this->originPoint = originPoint;
     border = new sf::Texture("../Images/Border.png");
     sprite = new sf::Sprite(*border);
+    sprite->setPosition(originPoint);
 }
 
 ScreenBounds::~ScreenBounds()
@@ -18,30 +20,27 @@ ScreenBounds::~ScreenBounds()
 bool ScreenBounds::Collision(Behaviour* behaviour)
 {
     bool isGrounded = false;
-    if (behaviour->position.x + behaviour->radius > screenSize.x - borderSize) {
-        behaviour->position.x = screenSize.x - behaviour->radius - borderSize;
+    if (behaviour->position.x + behaviour->spriteRect.size.x > levelSize.x - (borderSize + originPoint.x)) {
+        behaviour->position.x = originPoint.x + levelSize.x - behaviour->spriteRect.size.x - borderSize;
 
         behaviour->projectedVelocity.x = 0.0f;
         behaviour->velocity.x = 0.0f;
     }
-    if (behaviour->position.x - behaviour->radius < 0.0f + borderSize) {
-        behaviour->position.x = 0.0f + behaviour->radius + borderSize;
+    if (behaviour->position.x - behaviour->spriteRect.size.x < 0.0f + (borderSize + originPoint.x)) {
+        behaviour->position.x = originPoint.x + behaviour->spriteRect.size.x + borderSize;
 
         behaviour->projectedVelocity.x = 0.0f;
         behaviour->velocity.x = 0.0f;
     }
 
-    if (behaviour->position.y + behaviour->radius > screenSize.y - borderSize - 10.0f) {
+    if (behaviour->position.y + behaviour->spriteRect.size.y > originPoint.y + levelSize.y - borderSize) {
+        behaviour->position.y = originPoint.y + levelSize.y - behaviour->spriteRect.size.y - borderSize;
         isGrounded = true;
-    }
-
-    if (behaviour->position.y + behaviour->radius > screenSize.y - borderSize) {
-        behaviour->position.y = screenSize.y - behaviour->radius - borderSize;
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
     }
-    if (behaviour->position.y - behaviour->radius < 0.0f + borderSize) {
-        behaviour->position.y = 0.0f + behaviour->radius + borderSize;
+    if (behaviour->position.y - behaviour->spriteRect.size.y < 0.0f + (borderSize + originPoint.y)) {
+        behaviour->position.y = originPoint.y + behaviour->spriteRect.size.y + borderSize;
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
     }

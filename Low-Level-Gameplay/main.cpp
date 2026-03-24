@@ -3,7 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 630, 720 }), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode({ 630, 920 }), "SFML works!");
 
     Game* game = new Game(window.getSize());
 

@@ -1,6 +1,6 @@
 #include "collisions.h"
 
-Collider::Collider(sf::Vector2u screen)
+Collider::Collider(sf::Vector2f originPoint)
 {
-    screenSize = screen;
+    this->originPoint = originPoint;
 }

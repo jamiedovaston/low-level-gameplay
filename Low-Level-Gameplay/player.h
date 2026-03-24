@@ -13,10 +13,20 @@ class Player : public Behaviour
 	float gravity = -.15f;
 	float drag = .995f;
 
+	// ANIMATIONS
+	float inpDirectionX = 0.0f;
+	float previousDirectionX = 0.0f;
+	float elapsedTime = 0.0f;
+	int frame = 1;
+
 public:
 	bool freeze = false;
 
 	Player(sf::Vector2u screen);
+	~Player();
+
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
+
+	void Animations(float deltaTime);
 };
