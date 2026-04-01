@@ -19,15 +19,15 @@
     <Filter Include="Source Files\Colliders">
       <UniqueIdentifier>{317ddf7a-2e38-44e4-bb39-b982102939b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{ae57c972-5fa5-48d1-a23a-d902383a668d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="collisions.cpp">
@@ -39,6 +39,21 @@
     <ClCompile Include="screenbounds.cpp">
       <Filter>Source Files\Colliders</Filter>
     </ClCompile>
+    <ClCompile Include="level.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -47,10 +62,7 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="behaviour.h">
+    <ClInclude Include="entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="collisions.h">

@@ -1,0 +1,30 @@
+{
+  "background" : "../Images/bombjackbg.png",
+  "origin" : [0, 100],
+  
+  "map" : [
+    { 
+      "type" : "Block",
+      "rect" : [350, 625, 9, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [260, 465, 6, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [70, 550, 3.5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [140, 225, 3.5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [340, 150, 7, 1]
+    },
+    { 
+      "type" : "ScreenBounds"
+    }
+  ]
+}

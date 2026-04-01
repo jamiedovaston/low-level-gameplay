@@ -17,7 +17,7 @@ ScreenBounds::~ScreenBounds()
     sprite = nullptr;
 }
 
-bool ScreenBounds::Collision(Behaviour* behaviour)
+bool ScreenBounds::Collision(Entity* behaviour)
 {
     bool isGrounded = false;
     if (behaviour->position.x + behaviour->spriteRect.size.x > levelSize.x - (borderSize + originPoint.x)) {

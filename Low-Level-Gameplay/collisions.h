@@ -1,5 +1,5 @@
 #pragma once
-#include "player.h"
+#include "entity.h"
 
 class Collider
 {
@@ -8,7 +8,7 @@ protected:
 public:
 	Collider(sf::Vector2f originPoint);
 	virtual void Render(sf::RenderWindow* window) = 0;
-	virtual bool Collision(Behaviour* behaviour) = 0;
+	virtual bool Collision(Entity* behaviour) = 0;
 };
 
 class Block : public Collider 
@@ -25,7 +25,7 @@ private:
 	~Block();
 
 public:
-	bool Collision(Behaviour* behaviour) override;
+	bool Collision(Entity* behaviour) override;
 	void Render(sf::RenderWindow* window) override;
 };
 
@@ -44,7 +44,7 @@ private:
 	~ScreenBounds();
 
 public:
-	bool Collision(Behaviour* behaviour) override;
+	bool Collision(Entity* behaviour) override;
 	void Render(sf::RenderWindow* window) override;
 	
 };

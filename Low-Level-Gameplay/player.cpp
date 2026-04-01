@@ -1,25 +1,6 @@
-#include "player.h"
-#include <iostream>
-#include <cmath>
+#include "entity.h"
 
-Behaviour::Behaviour(sf::Vector2u screen)
-{
-    screenSize = screen;
-
-    sprite = nullptr;
-    texture = nullptr;
-}
-
-Behaviour::~Behaviour()
-{
-    delete texture;
-    texture = nullptr;
-
-    delete sprite;
-    sprite = nullptr;
-}
-
-Player::Player(sf::Vector2u screen) : Behaviour(screen)
+Player::Player(sf::Vector2u screen) : Entity(screen)
 {
     // CREATE PLAYER
     spriteSize = sf::Vector2i(65, 68);
@@ -88,6 +69,10 @@ void Player::Update(float deltaTime)
     inpDirectionX = direction.x;
     Animations(deltaTime);
 
+    // GROUNDED BUFFER
+    groundedBuffer -= deltaTime;
+    isGrounded = groundedBuffer > 0.0f;
+
     // X
     // INPUT * SPEED
     float projectedVelocityX = direction.x * horizontalSpeed;
@@ -123,7 +108,6 @@ void Player::Animations(float deltaTime)
         elapsedTime = 0.0f;
         frame = 0;
         previousDirectionX = inpDirectionX;
-        std::cout << "Direction Changed!" << std::endl;
     }
     else if (isGrounded) // GROUNDED
     {
@@ -164,8 +148,4 @@ void Player::Animations(float deltaTime)
                 sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x, spriteSize.y * 3), spriteSize));
         }
     }
-
-    // DIRECTION Y
-
-    // ======================================================
 }

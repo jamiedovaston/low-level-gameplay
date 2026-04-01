@@ -133,17 +133,20 @@
   <ItemGroup>
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisions.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="level.cpp" />
+    <ClCompile Include="level.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="screenbounds.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="behaviour.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="collisions.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

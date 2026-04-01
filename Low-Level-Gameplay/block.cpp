@@ -24,7 +24,7 @@ Block::~Block()
     sprite = nullptr;
 }
 
-bool Block::Collision(Behaviour* behaviour)
+bool Block::Collision(Entity* behaviour)
 {
     bool isGrounded = false;
     if (behaviour->position.x + behaviour->spriteRect.size.x > x && behaviour->position.x - behaviour->spriteRect.size.x < x + w &&

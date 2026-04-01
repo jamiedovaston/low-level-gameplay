@@ -1,23 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "player.h"
-#include "collisions.h"
 #include <vector>
+
+#include "entity.h"
+#include "collisions.h"
+#include "level.h"
 
 class Game 
 {
-	// SCREEN
 	sf::Vector2u screen;
 
-	Behaviour* player;
+	Player* player;
+	Level* level;
 
-	sf::Texture* background;
-	sf::Sprite* backgroundSprite;
-
-	std::vector<Collider*> collisions;
-
-	sf::Vector2f originPoint = sf::Vector2f(0.0f, 100.0f);
+	sf::Text* text;
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();
