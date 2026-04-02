@@ -23,6 +23,7 @@ public:
 	sf::Vector2f velocity;
 	sf::Vector2f projectedVelocity;
 
+	sf::Vector2f aiDirection = sf::Vector2f(1.0f, 0.0f);
 public:
 	Entity(sf::Vector2u screen);
 	~Entity();
@@ -59,6 +60,7 @@ public:
 
 class Enemy : public Entity 
 {
+	bool isGroundedChanged = false;
 public:
 	Enemy(sf::Vector2u screen);
 	~Enemy();

@@ -136,7 +136,9 @@
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="level.cpp" />
+    <ClCompile Include="level.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="level.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />

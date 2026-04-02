@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cmath>
 #include "level.h"
+#include "collisions.h"
+#include "entity.h"
 
 class Game 
 {

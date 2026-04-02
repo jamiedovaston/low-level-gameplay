@@ -1,7 +1,2 @@
-﻿x64\Debug\level.obj : warning LNK4042: object specified more than once; extras ignored
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-game.obj : error LNK2019: unresolved external symbol "public: __cdecl Level::Level(class std::vector<class Entity *,class std::allocator<class Entity *> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0Level@@QEAA@V?$vector@PEAVEntity@@V?$allocator@PEAVEntity@@@std@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@Z) referenced in function "public: __cdecl Game::Game(class sf::Vector2<unsigned int>)" (??0Game@@QEAA@V?$Vector2@I@sf@@@Z)
-game.obj : error LNK2019: unresolved external symbol "public: __cdecl Level::~Level(void)" (??1Level@@QEAA@XZ) referenced in function "public: void * __cdecl Level::`scalar deleting destructor'(unsigned int)" (??_GLevel@@QEAAPEAXI@Z)
-game.obj : error LNK2019: unresolved external symbol "public: void __cdecl Level::Update(float)" (?Update@Level@@QEAAXM@Z) referenced in function "public: void __cdecl Game::Update(float)" (?Update@Game@@QEAAXM@Z)
-game.obj : error LNK2019: unresolved external symbol "public: void __cdecl Level::Render(class sf::RenderWindow *)" (?Render@Level@@QEAAXPEAVRenderWindow@sf@@@Z) referenced in function "public: void __cdecl Game::Render(class sf::RenderWindow *)" (?Render@Game@@QEAAXPEAVRenderWindow@sf@@@Z)
-C:\Users\jamie\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe : fatal error LNK1120: 4 unresolved externals
+﻿  enemy.cpp
+  Low-Level-Gameplay.vcxproj -> C:\Users\jamie\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe
