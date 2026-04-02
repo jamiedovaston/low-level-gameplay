@@ -24,9 +24,8 @@ Block::~Block()
     sprite = nullptr;
 }
 
-bool Block::Collision(Entity* behaviour)
+void Block::Collision(Entity* behaviour)
 {
-    bool isGrounded = false;
     if (behaviour->position.x + behaviour->spriteRect.size.x > x && behaviour->position.x - behaviour->spriteRect.size.x < x + w &&
         behaviour->position.y + behaviour->spriteRect.size.y > y && behaviour->position.y - behaviour->spriteRect.size.y < y + h)
     {
@@ -48,7 +47,7 @@ bool Block::Collision(Entity* behaviour)
             behaviour->position.x + behaviour->spriteRect.size.x > x &&
             behaviour->position.x - behaviour->spriteRect.size.x < x + w)
         {
-            isGrounded = true;
+            behaviour->groundedBuffer = 0.01f;
         }
 
         if (minX < minY)
@@ -74,8 +73,6 @@ bool Block::Collision(Entity* behaviour)
             behaviour->velocity.y = 0.0f;
         }
     }
-
-    return isGrounded;
 }
 
 void Block::Render(sf::RenderWindow* window)

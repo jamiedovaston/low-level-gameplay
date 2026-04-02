@@ -7,39 +7,70 @@ Game::Game(sf::Vector2u screen)
     std::cout << "X: " << screen.x << " Y: " << screen.y << std::endl;
 
     player = new Player(screen);
-    level = new Level(player, "../Data/Levels/level.json");
 
-    sf::Font font("../font.ttf");
-    text = new sf::Text(font);
-    text->setString("Helllooooo!");
+    enemies = {
+		new Enemy(screen)
+	};
 
-    text->setCharacterSize(24);
-    text->setFillColor(sf::Color::Red);
-    text->setStyle(sf::Text::Bold | sf::Text::Underlined);
+    std::vector<Entity*> e = {
+        player
+    };
+
+    e.insert(e.end(), enemies.begin(), enemies.end());
+
+    lvl = new Level(e, "../Data/Levels/level.json");
+
+    if (!font.openFromFile("../font.ttf"))
+        std::cout << "Failed to load font\n";
+
+	text = new sf::Text(font);
+
+    text->setFont(font);
+
+    text->setCharacterSize(60);
+    text->setFillColor(sf::Color::White);
+    text->setStyle(sf::Text::Bold);
+    text->setPosition(sf::Vector2f(10.0f, 10.0f));
 }
 
 Game::~Game()
 {
-    delete level;
-    level = nullptr;
-
     delete player;
     player = nullptr;
 
+    for (int i = 0; i < enemies.size(); i++) {
+		delete enemies[i];
+    }
+    enemies.clear();
+
     delete text;
-    text = nullptr;
+	text = nullptr;
+
+    delete lvl;
+    lvl = nullptr;
 }
 
 void Game::Update(float deltaTime)
 {
-    level->Update(deltaTime);
+    lvl->Update(deltaTime);
     player->Update(deltaTime);
+
+    for (int i = 0; i < enemies.size(); i++) {
+		enemies[i]->Update(deltaTime);
+    }
+
+    runtime += deltaTime;
 }
 
 void Game::Render(sf::RenderWindow* window)
 {
-    level->Render(window);
+    lvl->Render(window);
     player->Render(window);
 
+    for (int i = 0; i < enemies.size(); i++) {
+        enemies[i]->Render(window);
+    }
+
+    text->setString(std::string("Runtime: ") + std::to_string(runtime));
     window->draw(*text);
 }

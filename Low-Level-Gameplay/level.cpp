@@ -1,6 +1,6 @@
 #include "level.h"
 
-Level::Level(Player* player, std::string levelPath)
+Level::Level(std::vector<Entity*> entities, std::string levelPath)
 {
     // FILE STREAM
     nlohmann::json json = nlohmann::json::parse(std::ifstream{ levelPath });
@@ -28,7 +28,7 @@ Level::Level(Player* player, std::string levelPath)
     backgroundSprite = new sf::Sprite(*background);
     backgroundSprite->setPosition(originPoint);
 
-    this->player = player;
+    this->entities = entities;
 }
 
 Level::~Level()
@@ -41,15 +41,16 @@ Level::~Level()
 
     for (int i = 0; i < collisions.size(); i++) {
         delete collisions[i];
-        collisions[i] = nullptr;
     }
+    collisions.clear();
 }
 
 void Level::Update(float deltaTime)
 {
     for (int i = 0; i < collisions.size(); i++) {
-        if (collisions[i]->Collision(player))
-            player->groundedBuffer = 0.01f;
+        for (int k = 0; k < entities.size(); k++) {
+            collisions[i]->Collision(entities[k]);
+        }
     }
 }
 

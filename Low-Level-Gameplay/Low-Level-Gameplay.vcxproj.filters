@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Colliders">
-      <UniqueIdentifier>{0def8aaa-4192-44d8-b944-75496382cf19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Colliders">
       <UniqueIdentifier>{317ddf7a-2e38-44e4-bb39-b982102939b2}</UniqueIdentifier>
     </Filter>
@@ -66,7 +63,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="collisions.h">
-      <Filter>Header Files\Colliders</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

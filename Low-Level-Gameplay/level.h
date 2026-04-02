@@ -1,5 +1,6 @@
-#pragma onces
+#pragma once
 #include "collisions.h"
+#include "entity.h"
 #include "../Library/json.hpp"
 #include <iostream>
 #include <fstream>
@@ -7,7 +8,7 @@
 
 class Level 
 {
-	Player* player;
+	std::vector<Entity*> entities;
 
 	sf::Vector2f originPoint;
 	
@@ -16,7 +17,7 @@ class Level
 
 	std::vector<Collider*> collisions;
 public:
-	Level(Player* player, std::string levelPath);
+	Level(std::vector<Entity*> entities, std::string levelPath);
 	~Level();
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);

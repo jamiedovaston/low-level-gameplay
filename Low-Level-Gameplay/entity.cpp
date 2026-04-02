@@ -2,8 +2,6 @@
 
 Entity::Entity(sf::Vector2u screen)
 {
-    screenSize = screen;
-
     sprite = nullptr;
     texture = nullptr;
 }

@@ -6,11 +6,10 @@ class Entity
 {
 public:
 	bool isGrounded = false;
+	float maxVerticalSpeed = 500.0f, maxHorizontalSpeed = 400.0f;
 	float groundedBuffer = 0.0f;
-
-	// SCREEN
-	sf::Vector2u screenSize;
-	int borderSize = 23; // px
+	float gravity = -.15f;
+	float drag = .995f;
 
 	// ENTITY
 	sf::Vector2i spriteSize;
@@ -39,9 +38,6 @@ class Player : public Entity
 	std::map<sf::Keyboard::Key, bool> is_pressed;
 
 	float jumpSpeed = 1000.0f, horizontalSpeed = 1.4f;
-	float maxVerticalSpeed = 500.0f, maxHorizontalSpeed = 400.0f;
-	float gravity = -.15f;
-	float drag = .995f;
 
 	// ANIMATIONS
 	float inpDirectionX = 0.0f;

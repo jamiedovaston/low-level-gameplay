@@ -7,6 +7,7 @@ Player::Player(sf::Vector2u screen) : Entity(screen)
     texture = new sf::Texture("../Images/jack-sprite-sheet.png");
     sprite = new sf::Sprite(*texture);
     sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
+    spriteRect = sf::FloatRect(sf::Vector2f(28.0f / 2.0f, 25.0f), sf::Vector2f(37.0f / 2.0f, 43.0f / 2.0f));
 
     // SPAWN AT POSITION
     position = sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f);
@@ -39,7 +40,7 @@ void Player::Update(float deltaTime)
     {
         direction.y += 1.0f;
     }
-
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
         direction.x -= 1.0f;
@@ -137,7 +138,7 @@ void Player::Animations(float deltaTime)
     else // AIRBORNE
     {
         if (velocity.y > 0.0f) {
-            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0.0f, spriteSize.y * 3), spriteSize));
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, spriteSize.y * 3), spriteSize));
         }
         else {
             if (inpDirectionX > 0.0f) // RIGHT

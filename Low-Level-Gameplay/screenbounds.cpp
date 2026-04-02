@@ -17,9 +17,8 @@ ScreenBounds::~ScreenBounds()
     sprite = nullptr;
 }
 
-bool ScreenBounds::Collision(Entity* behaviour)
+void ScreenBounds::Collision(Entity* behaviour)
 {
-    bool isGrounded = false;
     if (behaviour->position.x + behaviour->spriteRect.size.x > levelSize.x - (borderSize + originPoint.x)) {
         behaviour->position.x = originPoint.x + levelSize.x - behaviour->spriteRect.size.x - borderSize;
 
@@ -35,7 +34,8 @@ bool ScreenBounds::Collision(Entity* behaviour)
 
     if (behaviour->position.y + behaviour->spriteRect.size.y > originPoint.y + levelSize.y - borderSize) {
         behaviour->position.y = originPoint.y + levelSize.y - behaviour->spriteRect.size.y - borderSize;
-        isGrounded = true;
+
+        behaviour->groundedBuffer = 0.01f; // GROUNDED
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
     }
@@ -44,7 +44,6 @@ bool ScreenBounds::Collision(Entity* behaviour)
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
     }
-    return isGrounded;
 }
 
 void ScreenBounds::Render(sf::RenderWindow* window)

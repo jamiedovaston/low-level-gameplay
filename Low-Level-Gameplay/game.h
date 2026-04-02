@@ -1,10 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <vector>
-
-#include "entity.h"
-#include "collisions.h"
+#include <cmath>
 #include "level.h"
 
 class Game 
@@ -12,9 +9,14 @@ class Game
 	sf::Vector2u screen;
 
 	Player* player;
-	Level* level;
+	Level* lvl;
 
+	std::vector<Enemy*> enemies;
+
+	sf::Font font;
 	sf::Text* text;
+
+	float runtime = 0.0f;
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();

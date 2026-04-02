@@ -8,7 +8,7 @@ protected:
 public:
 	Collider(sf::Vector2f originPoint);
 	virtual void Render(sf::RenderWindow* window) = 0;
-	virtual bool Collision(Entity* behaviour) = 0;
+	virtual void Collision(Entity* behaviour) = 0;
 };
 
 class Block : public Collider 
@@ -21,11 +21,10 @@ class Block : public Collider
 
 public:
 	Block(sf::Vector2f originPoint, float x, float y, float w = 100.0f, float h = 100.0f);
-private:
 	~Block();
 
 public:
-	bool Collision(Entity* behaviour) override;
+	void Collision(Entity* behaviour) override;
 	void Render(sf::RenderWindow* window) override;
 };
 
@@ -40,11 +39,10 @@ class ScreenBounds : public Collider
 
 public:
 	ScreenBounds(sf::Vector2f originPoint);
-private:
 	~ScreenBounds();
 
 public:
-	bool Collision(Entity* behaviour) override;
+	void Collision(Entity* behaviour) override;
 	void Render(sf::RenderWindow* window) override;
 	
 };
