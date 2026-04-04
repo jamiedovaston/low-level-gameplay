@@ -1,5 +1,6 @@
 #pragma once
 #include "entity.h"
+#include "iostream"
 
 class Collider
 {

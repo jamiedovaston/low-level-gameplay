@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <map>
+#include <iostream>
 
 class Entity
 {
@@ -23,7 +24,7 @@ public:
 	sf::Vector2f velocity;
 	sf::Vector2f projectedVelocity;
 
-	sf::Vector2f aiDirection = sf::Vector2f(1.0f, 0.0f);
+	sf::Vector2f direction = sf::Vector2f(0.0f, 0.0f);
 public:
 	Entity(sf::Vector2u screen);
 	~Entity();
@@ -41,7 +42,6 @@ class Player : public Entity
 	float jumpSpeed = 1000.0f, horizontalSpeed = 1.4f;
 
 	// ANIMATIONS
-	float inpDirectionX = 0.0f;
 	float previousDirectionX = 0.0f;
 	float elapsedTime = 0.0f;
 	int frame = 1;
@@ -60,11 +60,37 @@ public:
 
 class Enemy : public Entity 
 {
-	bool isGroundedChanged = false;
+	// ANIMATIONS
+protected:
+	float elapsedTime = 0.0f;
+	int frame = 1;
 public:
+	enum Enemy_Flags {
+		NONE = 0,
+		TRANSFORM,
+		KILL
+	} flags = Enemy_Flags::NONE;
+
 	Enemy(sf::Vector2u screen);
 	~Enemy();
 
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
+
+	virtual void Animations(float deltaTime) = 0;
+};
+
+class Skeleton : public Enemy
+{
+	bool isGroundedChanged = false;
+
+	int directionChangeCount = 3;
+public:
+	Skeleton(sf::Vector2u screen);
+	~Skeleton();
+
+	void Update(float deltaTime) override;
+
+	void ChangeDirection(sf::Vector2f direction);
+	void Animations(float deltaTime) override;
 };

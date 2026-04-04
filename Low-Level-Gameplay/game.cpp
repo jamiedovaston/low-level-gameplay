@@ -8,20 +8,14 @@ Game::Game(sf::Vector2u screen)
 
     player = new Player(screen);
 
-    enemies = {
-		new Enemy(screen)
-	};
+    lvl = new Level("../Data/Levels/level.json");
 
-    std::vector<Entity*> e = {
-        player
-    };
-
-    e.insert(e.end(), enemies.begin(), enemies.end());
-
-    lvl = new Level(e, "../Data/Levels/level.json");
+	entityManager = new EntityManager();
+    entityManager->Spawn(lvl, new Skeleton(screen), sf::Vector2f(400.0f, 100.0f));
 
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
+
 
 	text = new sf::Text(font);
 
@@ -38,10 +32,8 @@ Game::~Game()
     delete player;
     player = nullptr;
 
-    for (int i = 0; i < enemies.size(); i++) {
-		delete enemies[i];
-    }
-    enemies.clear();
+    delete entityManager;
+	entityManager = nullptr;
 
     delete text;
 	text = nullptr;
@@ -55,22 +47,29 @@ void Game::Update(float deltaTime)
     lvl->Update(deltaTime);
     player->Update(deltaTime);
 
-    for (int i = 0; i < enemies.size(); i++) {
-		enemies[i]->Update(deltaTime);
+    for (int i = 0; i < lvl->collisions.size(); i++) {
+        lvl->collisions[i]->Collision(player);
     }
 
+    entityManager->Update(deltaTime);
+
     runtime += deltaTime;
+
+    if (runtime >= 5.0f) {
+		runtime = 0.0f;
+		entityManager->Spawn(lvl, new Skeleton(screen), sf::Vector2f(400.0f, 100.0f));
+    }
 }
 
 void Game::Render(sf::RenderWindow* window)
 {
     lvl->Render(window);
-    player->Render(window);
 
-    for (int i = 0; i < enemies.size(); i++) {
-        enemies[i]->Render(window);
-    }
+	entityManager->Render(window);
+
+    player->Render(window);
 
     text->setString(std::string("Runtime: ") + std::to_string(runtime));
     window->draw(*text);
 }
+

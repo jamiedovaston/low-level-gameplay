@@ -19,6 +19,7 @@ ScreenBounds::~ScreenBounds()
 
 void ScreenBounds::Collision(Entity* behaviour)
 {
+
     if (behaviour->position.x + behaviour->spriteRect.size.x > levelSize.x - (borderSize + originPoint.x)) {
         behaviour->position.x = originPoint.x + levelSize.x - behaviour->spriteRect.size.x - borderSize;
 
@@ -38,6 +39,8 @@ void ScreenBounds::Collision(Entity* behaviour)
         behaviour->groundedBuffer = 0.01f; // GROUNDED
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
+
+        if (Enemy* e = dynamic_cast<Enemy*>(behaviour)) e->flags = Enemy::Enemy_Flags::TRANSFORM;
     }
     if (behaviour->position.y - behaviour->spriteRect.size.y < 0.0f + (borderSize + originPoint.y)) {
         behaviour->position.y = originPoint.y + behaviour->spriteRect.size.y + borderSize;

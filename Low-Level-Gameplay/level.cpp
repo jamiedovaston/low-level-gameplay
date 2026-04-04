@@ -1,6 +1,6 @@
 #include "level.h"
 
-Level::Level(std::vector<Entity*> entities, std::string levelPath)
+Level::Level(std::string levelPath)
 {
     // FILE STREAM
     nlohmann::json json = nlohmann::json::parse(std::ifstream{ levelPath });
@@ -27,8 +27,6 @@ Level::Level(std::vector<Entity*> entities, std::string levelPath)
     background = new sf::Texture(json["background"]);
     backgroundSprite = new sf::Sprite(*background);
     backgroundSprite->setPosition(originPoint);
-
-    this->entities = entities;
 }
 
 Level::~Level()
@@ -47,11 +45,7 @@ Level::~Level()
 
 void Level::Update(float deltaTime)
 {
-    for (int i = 0; i < collisions.size(); i++) {
-        for (int k = 0; k < entities.size(); k++) {
-            collisions[i]->Collision(entities[k]);
-        }
-    }
+
 }
 
 void Level::Render(sf::RenderWindow* window)

@@ -34,6 +34,18 @@ void Block::Collision(Entity* behaviour)
         float top = (behaviour->position.y + behaviour->spriteRect.size.y) - y;
         float bottom = (y + h) - (behaviour->position.y - behaviour->spriteRect.size.y);
 
+        // AI BEHAVIOUR
+        if (Skeleton* e = dynamic_cast<Skeleton*>(behaviour))
+        {
+            if (e->position.x + behaviour->spriteRect.size.x > (x + w)) { // RIGHT
+                e->ChangeDirection(sf::Vector2f(-1.0f, 0.0f));
+            }
+            if (e->position.x - behaviour->spriteRect.size.x < (x)) { // LEFT
+                e->ChangeDirection(sf::Vector2f(1.0f, 0.0f));
+            }
+        }
+        // ====
+
         float minX = (left < right) ? left : right;
         float minY = (top < bottom) ? top : bottom;
 

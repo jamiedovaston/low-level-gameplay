@@ -20,9 +20,6 @@ Player::~Player()
 
 void Player::Update(float deltaTime) 
 {
-    // INPUT DIRECTION
-    sf::Vector2f direction(0.0f, 0.0f);
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !is_pressed[sf::Keyboard::Key::Space])
     {
         is_pressed[sf::Keyboard::Key::Space] = true;
@@ -67,7 +64,6 @@ void Player::Update(float deltaTime)
     if (freeze) return;
 
     // ANIMATIONS
-    inpDirectionX = direction.x;
     Animations(deltaTime);
 
     // GROUNDED BUFFER
@@ -93,6 +89,8 @@ void Player::Update(float deltaTime)
     position += sf::Vector2f(velocity.x, -velocity.y) * deltaTime;
 
     sprite->setPosition(sf::Vector2f(position.x - spriteRect.position.x - spriteRect.size.x, position.y - spriteRect.position.y - spriteRect.size.y));
+
+	direction = sf::Vector2f(0.0f, 0.0f);
 }
 
 void Player::Render(sf::RenderWindow* window) 
@@ -105,14 +103,14 @@ void Player::Animations(float deltaTime)
     elapsedTime += deltaTime;
 
     // DIRECTION X
-    if (previousDirectionX != inpDirectionX) {
+    if (previousDirectionX != direction.x) {
         elapsedTime = 0.0f;
         frame = 0;
-        previousDirectionX = inpDirectionX;
+        previousDirectionX = direction.x;
     }
     else if (isGrounded) // GROUNDED
     {
-        if (inpDirectionX > 0.0f) // RIGHT
+        if (direction.x > 0.0f) // RIGHT
         {
             if (elapsedTime > .075f) {
                 elapsedTime = 0.0f;
@@ -121,7 +119,7 @@ void Player::Animations(float deltaTime)
             }
             sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y), spriteSize));
         }
-        else if (inpDirectionX < 0.0f) // LEFT
+        else if (direction.x < 0.0f) // LEFT
         {
             if (elapsedTime > .075f) {
                 elapsedTime = 0.0f;
@@ -141,9 +139,9 @@ void Player::Animations(float deltaTime)
             sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, spriteSize.y * 3), spriteSize));
         }
         else {
-            if (inpDirectionX > 0.0f) // RIGHT
+            if (direction.x > 0.0f) // RIGHT
                 sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * 2, spriteSize.y * 3), spriteSize));
-            else if (inpDirectionX < 0.0f) // LEFT
+            else if (direction.x < 0.0f) // LEFT
                 sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * 3, spriteSize.y * 3), spriteSize));
             else // STRAIGHT
                 sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x, spriteSize.y * 3), spriteSize));
