@@ -20,46 +20,56 @@ Player::~Player()
 
 void Player::Update(float deltaTime) 
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !is_pressed[sf::Keyboard::Key::Space])
+    if (isDead) 
     {
-        is_pressed[sf::Keyboard::Key::Space] = true;
-        if (isGrounded) {
-            projectedVelocity.y = jumpSpeed;
-        }
-        else {
+        if (velocity.y >= 0.0f) {
+            velocity.y = 0.0f;
             projectedVelocity.y = 0.0f;
         }
+		direction = sf::Vector2f(0.0f, 0.0f);
     }
-    if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && is_pressed[sf::Keyboard::Key::Space])
-        is_pressed[sf::Keyboard::Key::Space] = false;
+    else {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !is_pressed[sf::Keyboard::Key::Space])
+        {
+            is_pressed[sf::Keyboard::Key::Space] = true;
+            if (isGrounded) {
+                projectedVelocity.y = jumpSpeed;
+            }
+            else {
+                projectedVelocity.y = 0.0f;
+            }
+        }
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && is_pressed[sf::Keyboard::Key::Space])
+            is_pressed[sf::Keyboard::Key::Space] = false;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-    {
-        direction.y += 1.0f;
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        {
+            direction.y += 1.0f;
+        }
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
-    {
-        direction.x -= 1.0f;
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+        {
+            direction.x -= 1.0f;
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-    {
-        direction.y -= 1.0f;
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        {
+            direction.y -= 1.0f;
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-    {
-        direction.x += 1.0f;
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+        {
+            direction.x += 1.0f;
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && !is_pressed[sf::Keyboard::Key::LShift])
-    {
-        is_pressed[sf::Keyboard::Key::LShift] = true;
-        freeze = !freeze;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && !is_pressed[sf::Keyboard::Key::LShift])
+        {
+            is_pressed[sf::Keyboard::Key::LShift] = true;
+            freeze = !freeze;
+        }
+        if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && is_pressed[sf::Keyboard::Key::LShift])
+            is_pressed[sf::Keyboard::Key::LShift] = false;
     }
-    if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && is_pressed[sf::Keyboard::Key::LShift])
-        is_pressed[sf::Keyboard::Key::LShift] = false;
 
     if (freeze) return;
 
@@ -98,9 +108,43 @@ void Player::Render(sf::RenderWindow* window)
     if (sprite != nullptr) { window->draw(*sprite); }
 }
 
+void Player::Hit()
+{
+    if (!isDead) {
+		std::cout << "Player Hit!" << std::endl;
+		isDead = true;
+        elapsedTime = 0.0f;
+        frame = 0;
+    }
+}
+
+void Player::Movement(float deltaTime)
+{
+
+}
+
 void Player::Animations(float deltaTime)
 {
-    elapsedTime += deltaTime;
+
+    if (isDead) 
+    {
+        if (isGrounded) {
+            elapsedTime += deltaTime;
+            if (elapsedTime > .25f) {
+                if (frame < 1)
+                    frame++;
+            }
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * (frame + 1), spriteSize.y * 4), spriteSize));
+        }
+        else {
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, spriteSize.y * 4), spriteSize));
+        }
+        return;
+    }
+    else
+    {
+        elapsedTime += deltaTime;
+    }
 
     // DIRECTION X
     if (previousDirectionX != direction.x) {
@@ -136,7 +180,7 @@ void Player::Animations(float deltaTime)
     else // AIRBORNE
     {
         if (velocity.y > 0.0f) {
-            sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, spriteSize.y * 3), spriteSize));
+            sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * 0, spriteSize.y * 3), spriteSize));
         }
         else {
             if (direction.x > 0.0f) // RIGHT

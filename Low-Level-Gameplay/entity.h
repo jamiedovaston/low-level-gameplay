@@ -6,12 +6,6 @@
 class Entity
 {
 public:
-	bool isGrounded = false;
-	float maxVerticalSpeed = 500.0f, maxHorizontalSpeed = 400.0f;
-	float groundedBuffer = 0.0f;
-	float gravity = -.15f;
-	float drag = .995f;
-
 	// ENTITY
 	sf::Vector2i spriteSize;
 	sf::Texture* texture = nullptr;
@@ -25,6 +19,15 @@ public:
 	sf::Vector2f projectedVelocity;
 
 	sf::Vector2f direction = sf::Vector2f(0.0f, 0.0f);
+	
+	bool isGrounded = false;
+	float maxVerticalSpeed = 500.0f, maxHorizontalSpeed = 400.0f;
+	float groundedBuffer = 0.0f;
+	float gravity = -.15f;
+	float drag = .995f;
+
+	bool isDead = false;
+	bool freeze = false;
 public:
 	Entity(sf::Vector2u screen);
 	~Entity();
@@ -32,6 +35,8 @@ public:
 public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(sf::RenderWindow* window) = 0;
+
+	virtual void Hit() = 0;
 };
 
 class Player : public Entity
@@ -47,7 +52,6 @@ class Player : public Entity
 	int frame = 1;
 
 public:
-	bool freeze = false;
 
 	Player(sf::Vector2u screen);
 	~Player();
@@ -55,11 +59,17 @@ public:
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
 
+	void Hit() override;
+
+	void Movement(float deltaTime);
 	void Animations(float deltaTime);
 };
 
 class Enemy : public Entity 
 {
+protected:
+	Player* player;
+
 	// ANIMATIONS
 protected:
 	float elapsedTime = 0.0f;
@@ -71,11 +81,12 @@ public:
 		KILL
 	} flags = Enemy_Flags::NONE;
 
-	Enemy(sf::Vector2u screen);
+	Enemy(Player* player, sf::Vector2u screen);
 	~Enemy();
 
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
+	void Hit() override;
 
 	virtual void Animations(float deltaTime) = 0;
 };
@@ -86,11 +97,21 @@ class Skeleton : public Enemy
 
 	int directionChangeCount = 3;
 public:
-	Skeleton(sf::Vector2u screen);
+	Skeleton(Player* player, sf::Vector2u screen);
 	~Skeleton();
 
 	void Update(float deltaTime) override;
+	void Animations(float deltaTime) override;
 
 	void ChangeDirection(sf::Vector2f direction);
+};
+
+class Ball : public Enemy 
+{
+public:
+	Ball(Player* player, sf::Vector2u screen);
+	~Ball();
+
+	void Update(float deltaTime) override;
 	void Animations(float deltaTime) override;
 };

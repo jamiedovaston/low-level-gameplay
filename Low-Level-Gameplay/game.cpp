@@ -10,8 +10,7 @@ Game::Game(sf::Vector2u screen)
 
     lvl = new Level("../Data/Levels/level.json");
 
-	entityManager = new EntityManager();
-    entityManager->Spawn(lvl, new Skeleton(screen), sf::Vector2f(400.0f, 100.0f));
+	entityManager = new EntityManager(player, screen);
 
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
@@ -53,11 +52,12 @@ void Game::Update(float deltaTime)
 
     entityManager->Update(deltaTime);
 
-    runtime += deltaTime;
+    if(!player->isDead)
+        runtime -= deltaTime;
 
-    if (runtime >= 5.0f) {
-		runtime = 0.0f;
-		entityManager->Spawn(lvl, new Skeleton(screen), sf::Vector2f(400.0f, 100.0f));
+    if (runtime <= 0.0f) {
+		runtime = 5.0f;
+		entityManager->Spawn(lvl, new Skeleton(player, screen), sf::Vector2f(400.0f, 100.0f));
     }
 }
 

@@ -32,10 +32,12 @@ public:
 
 class EntityManager
 {
+	sf::Vector2u screen;
+	Player* player;
 public:
 	std::map<Level*, std::vector<Enemy*>> parent;
 
-	EntityManager();
+	EntityManager(Player* player, sf::Vector2u screen);
 	~EntityManager();
 	int Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);

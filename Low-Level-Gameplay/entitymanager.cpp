@@ -1,8 +1,9 @@
 #include "game.h"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager(Player* player, sf::Vector2u screen)
 {
-
+	this->screen = screen;
+	this->player = player;
 }
 
 EntityManager::~EntityManager()
@@ -34,17 +35,15 @@ void EntityManager::Update(float deltaTime)
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies[i]->Update(deltaTime);
 
-			enemies.erase(
-				std::remove_if(enemies.begin(), enemies.end(),
-					[](Enemy* ptr) {
-						if (ptr->flags == (Enemy::Enemy_Flags::TRANSFORM || Enemy::Enemy_Flags::KILL)) {
-							delete ptr;
-							return true;
-						}
-						return false;
-					}),
-				enemies.end()
-			);
+			Enemy* e = enemies[i];
+			if (e->flags == Enemy::Enemy_Flags::TRANSFORM || e->flags == Enemy::Enemy_Flags::KILL) {
+				if (dynamic_cast<Skeleton*>(e))
+				{
+					EntityManager::Spawn(lvl, new Ball(player, screen), e->position - lvl->originPoint);
+				}
+				delete e;
+				enemies.erase(enemies.begin() + i);
+			}
 		}
 		// ENEMY COLLISIONS
 		for (int i = 0; i < lvl->collisions.size(); i++) {

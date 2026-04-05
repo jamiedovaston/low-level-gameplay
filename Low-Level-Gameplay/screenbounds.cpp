@@ -40,7 +40,7 @@ void ScreenBounds::Collision(Entity* behaviour)
         behaviour->velocity.y = 0.0f;
         behaviour->projectedVelocity.y = 0.0f;
 
-        if (Enemy* e = dynamic_cast<Enemy*>(behaviour)) e->flags = Enemy::Enemy_Flags::TRANSFORM;
+        if (Enemy* e = dynamic_cast<Skeleton*>(behaviour)) e->flags = Enemy::Enemy_Flags::TRANSFORM;
     }
     if (behaviour->position.y - behaviour->spriteRect.size.y < 0.0f + (borderSize + originPoint.y)) {
         behaviour->position.y = originPoint.y + behaviour->spriteRect.size.y + borderSize;

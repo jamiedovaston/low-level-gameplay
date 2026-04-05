@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Skeleton::Skeleton(sf::Vector2u screen) : Enemy(screen)
+Skeleton::Skeleton(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 {
 	spriteSize = sf::Vector2i(39, 45);
 	texture = new sf::Texture("../Images/skeleton-sprite-sheet.png");
@@ -8,18 +8,20 @@ Skeleton::Skeleton(sf::Vector2u screen) : Enemy(screen)
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(3.0f, 2.0f), sf::Vector2f(34.0f / 2.0f, 43.0f / 2.0f));
 
-	// SPAWN AT POSITION
-	position = sf::Vector2f(400.0f, 200.0f);
-
 	direction = sf::Vector2f(1.0f, 0.0f);
 }
 
 Skeleton::~Skeleton()
 {
+
 }
 
 void Skeleton::Update(float deltaTime)
 {
+	Enemy::Update(deltaTime);
+
+	if (player->isDead) return;
+
 	float projectedVelocityY = gravity;
 	projectedVelocity.y += projectedVelocityY;
 	velocity.y = std::clamp(projectedVelocity.y, -maxVerticalSpeed, maxVerticalSpeed);
