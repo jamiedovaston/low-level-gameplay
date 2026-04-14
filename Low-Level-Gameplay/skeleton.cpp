@@ -3,8 +3,7 @@
 Skeleton::Skeleton(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 {
 	spriteSize = sf::Vector2i(39, 45);
-	texture = new sf::Texture("../Images/skeleton-sprite-sheet.png");
-	sprite = new sf::Sprite(*texture);
+	sprite = new sf::Sprite(*LoadResource("../Images/skeleton-sprite-sheet.png").get());
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(3.0f, 2.0f), sf::Vector2f(34.0f / 2.0f, 43.0f / 2.0f));
 

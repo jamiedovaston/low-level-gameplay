@@ -8,8 +8,7 @@ Block::Block(sf::Vector2f originPoint, float x, float y, float w, float h) : Col
     this->w = w;
     this->h = h;
 
-    block = new sf::Texture("../Images/block.png");
-    sprite = new sf::Sprite(*block);
+    sprite = new sf::Sprite(*LoadResource("../Images/block.png"));
 
     sprite->setScale(sf::Vector2f(w / 23.0f, h / 23.0f));
     sprite->setPosition(sf::Vector2f(this->x, this->y));
@@ -17,9 +16,6 @@ Block::Block(sf::Vector2f originPoint, float x, float y, float w, float h) : Col
 
 Block::~Block()
 {
-    delete block;
-    block = nullptr;
-
     delete sprite;
     sprite = nullptr;
 }
@@ -51,7 +47,7 @@ void Block::Collision(Entity* behaviour)
                 e->ChangeDirection(sf::Vector2f(1.0f, 0.0f));
             }
         }
-        if (Ball* e = dynamic_cast<Ball*>(behaviour))
+        if (Club* e = dynamic_cast<Club*>(behaviour))
         {
             if (minX < minY)
             {
@@ -75,7 +71,7 @@ void Block::Collision(Entity* behaviour)
             behaviour->groundedBuffer = 0.01f;
         }
 
-        bool isBall = dynamic_cast<Ball*>(behaviour) != nullptr;
+        bool isBall = dynamic_cast<Club*>(behaviour) != nullptr;
 
         if (minX < minY)
         {

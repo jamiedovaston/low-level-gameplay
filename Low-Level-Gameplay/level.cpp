@@ -13,10 +13,10 @@ Level::Level(std::string levelPath)
         std::string type = j["type"];
 
         if (type == "Block") {
-            collisions.push_back(new Block(originPoint, j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
+            collisions.push_back(std::make_unique<Block>(originPoint, j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
         }
         else if (type == "ScreenBounds") {
-            collisions.push_back(new ScreenBounds(originPoint));
+            collisions.push_back(std::make_unique<ScreenBounds>(originPoint));
         }
         else {
             std::cout << "(!) Insufficient block type! : " << type << " (!)" << std::endl;
@@ -24,23 +24,10 @@ Level::Level(std::string levelPath)
     }
 
     // BACKGROUND
-    background = new sf::Texture(json["background"]);
-    backgroundSprite = new sf::Sprite(*background);
+    background = std::make_unique<sf::Texture>(json["background"]);
+
+    backgroundSprite = std::make_unique<sf::Sprite>(*background);
     backgroundSprite->setPosition(originPoint);
-}
-
-Level::~Level()
-{
-    delete background;
-    background = nullptr;
-
-    delete backgroundSprite;
-    backgroundSprite = nullptr;
-
-    for (int i = 0; i < collisions.size(); i++) {
-        delete collisions[i];
-    }
-    collisions.clear();
 }
 
 void Level::Update(float deltaTime)

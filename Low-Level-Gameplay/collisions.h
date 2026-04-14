@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "iostream"
+#include "assetmanagement.h"
 
 class Collider
 {
@@ -14,7 +15,6 @@ public:
 
 class Block : public Collider 
 {
-	sf::Texture* block;
 	sf::Sprite* sprite;
 
 	float x, y;
@@ -31,7 +31,6 @@ public:
 
 class ScreenBounds : public Collider 
 {
-	sf::Texture* border;
 	sf::Sprite* sprite;
 
 	sf::Vector2i levelSize = sf::Vector2i(630, 720); // DEFAULT SCREEN SIZE

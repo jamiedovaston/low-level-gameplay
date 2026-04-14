@@ -1,20 +1,19 @@
 #include "entity.h"
 
-Ball::Ball(Player* player, sf::Vector2u screen) : Enemy(player, screen)
+Club::Club(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 {
-	spriteSize = sf::Vector2i(42, 42);
-	texture = new sf::Texture("../Images/ball-sprite-sheet.png");
-	sprite = new sf::Sprite(*texture);
+	spriteSize = sf::Vector2i(45, 48);
+	sprite = new sf::Sprite(*LoadResource("../Images/club-sprite-sheet.png"));
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(42.0f / 2.0f, 42.0f / 2.0f));
 }
 
-Ball::~Ball()
+Club::~Club()
 {
 
 }
 
-void Ball::Update(float deltaTime) 
+void Club::Update(float deltaTime) 
 {
 	Enemy::Update(deltaTime);
 
@@ -38,15 +37,22 @@ void Ball::Update(float deltaTime)
 	sprite->setPosition(sf::Vector2f(position.x - spriteRect.position.x - spriteRect.size.x, position.y - spriteRect.position.y - spriteRect.size.y));
 }
 
-void Ball::Animations(float deltaTime)
+void Club::Animations(float deltaTime)
 {
 	elapsedTime += deltaTime;
 
-	if (elapsedTime > .075f) {
+	if (elapsedTime > .15f) {
 		elapsedTime = 0.0f;
 		frame++;
-		if (frame > 8) { frame = 0; }
+		if (frame > 3) { frame = 0; }
 	}
 
-	sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, 0), spriteSize));
+	if (direction.x > 0.0f) {
+		sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y), spriteSize));
+	}
+	else 
+	{
+		sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, 0), spriteSize));
+	}
+
 }

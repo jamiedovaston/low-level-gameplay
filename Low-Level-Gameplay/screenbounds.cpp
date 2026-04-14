@@ -3,16 +3,12 @@
 ScreenBounds::ScreenBounds(sf::Vector2f originPoint) : Collider(originPoint)
 {
     this->originPoint = originPoint;
-    border = new sf::Texture("../Images/Border.png");
-    sprite = new sf::Sprite(*border);
+    sprite = new sf::Sprite(*LoadResource("../Images/Border.png"));
     sprite->setPosition(originPoint);
 }
 
 ScreenBounds::~ScreenBounds()
 {
-    delete border;
-    border = nullptr;
-
     delete sprite;
     sprite = nullptr;
 }

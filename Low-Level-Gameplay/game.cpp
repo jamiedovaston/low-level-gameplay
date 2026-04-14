@@ -15,7 +15,6 @@ Game::Game(sf::Vector2u screen)
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
 
-
 	text = new sf::Text(font);
 
     text->setFont(font);

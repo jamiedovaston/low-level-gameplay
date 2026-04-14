@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="assetmanagement.cpp" />
+    <ClCompile Include="assetmanagement.h" />
     <ClCompile Include="ball.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisions.cpp" />
@@ -139,9 +141,10 @@
     <ClCompile Include="entitymanager.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="level.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="level.h" />
+    <ClInclude Include="level.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="screenbounds.cpp" />

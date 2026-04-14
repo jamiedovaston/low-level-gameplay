@@ -2,13 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <iostream>
+#include "assetmanagement.h"
 
 class Entity
 {
 public:
 	// ENTITY
 	sf::Vector2i spriteSize;
-	sf::Texture* texture = nullptr;
 	sf::Sprite* sprite = nullptr;
 
 	// POSITION = OFFSET | SIZE = ORIGINAL SPRITE SIZE
@@ -106,11 +106,11 @@ public:
 	void ChangeDirection(sf::Vector2f direction);
 };
 
-class Ball : public Enemy 
+class Club : public Enemy 
 {
 public:
-	Ball(Player* player, sf::Vector2u screen);
-	~Ball();
+	Club(Player* player, sf::Vector2u screen);
+	~Club();
 
 	void Update(float deltaTime) override;
 	void Animations(float deltaTime) override;

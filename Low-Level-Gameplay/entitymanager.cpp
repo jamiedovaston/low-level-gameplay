@@ -39,7 +39,7 @@ void EntityManager::Update(float deltaTime)
 			if (e->flags == Enemy::Enemy_Flags::TRANSFORM || e->flags == Enemy::Enemy_Flags::KILL) {
 				if (dynamic_cast<Skeleton*>(e))
 				{
-					EntityManager::Spawn(lvl, new Ball(player, screen), e->position - lvl->originPoint);
+					EntityManager::Spawn(lvl, new Club(player, screen), e->position - lvl->originPoint);
 				}
 				delete e;
 				enemies.erase(enemies.begin() + i);
