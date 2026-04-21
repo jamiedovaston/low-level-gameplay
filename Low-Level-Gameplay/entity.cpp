@@ -10,3 +10,4 @@ Entity::~Entity()
     delete sprite;
     sprite = nullptr;
 }
+

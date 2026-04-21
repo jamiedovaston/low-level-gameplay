@@ -18,10 +18,13 @@ Level::Level(std::string levelPath)
         else if (type == "ScreenBounds") {
             collisions.push_back(std::make_unique<ScreenBounds>(originPoint));
         }
-        else {
-            std::cout << "(!) Insufficient block type! : " << type << " (!)" << std::endl;
+        else if (type == "SpawnPoint") {
+            collisions.push_back(std::make_unique<SpawnPoint>(originPoint, j["position"][0], j["position"][1]));
         }
+        else std::cout << "(!) Insufficient block type! : " << type << " (!)" << std::endl;
     }
+
+    enemyList = json["enemies"];
 
     // BACKGROUND
     background = std::make_unique<sf::Texture>(json["background"]);

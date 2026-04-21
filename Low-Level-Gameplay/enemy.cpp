@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "enemy.h"
 
 Enemy::Enemy(Player* player, sf::Vector2u screen) : Entity(screen)
 {
@@ -14,11 +14,11 @@ void Enemy::Update(float deltaTime)
 {
     if (player == nullptr) return;
 
-
-    if (position.x + spriteRect.size.x > player->position.x - player->spriteRect.size.x &&
-        position.x - spriteRect.size.x < player->position.x + player->spriteRect.size.x &&
-        position.y + spriteRect.size.y > player->position.y - player->spriteRect.size.y &&
-        position.y - spriteRect.size.y < player->position.y + player->spriteRect.size.y)
+    // MULTIPLIED FOR AFFORDANCE
+    if (position.x + (spriteRect.size.x * .8f) > player->position.x - player->spriteRect.size.x &&
+        position.x - (spriteRect.size.x * .8f) < player->position.x + player->spriteRect.size.x &&
+        position.y + (spriteRect.size.y * .8f) > player->position.y - player->spriteRect.size.y &&
+        position.y - (spriteRect.size.y * .8f) < player->position.y + player->spriteRect.size.y)
     {
 		player->Hit();
     }

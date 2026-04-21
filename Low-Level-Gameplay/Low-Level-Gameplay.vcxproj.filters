@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{ae57c972-5fa5-48d1-a23a-d902383a668d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\Enemies">
+      <UniqueIdentifier>{74bcfae7-935d-4fa6-a265-39db969241cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{4e60bdcf-79e1-4525-96c1-ffbacdf5b5c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,26 +48,38 @@
     <ClCompile Include="entity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="skeleton.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="entitymanager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ball.cpp">
-      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="assetmanagement.h">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="assetmanagement.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="currencymanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="orb.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="skeleton.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="sphere.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="club.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="spawnpoint.cpp">
+      <Filter>Source Files\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,14 +89,20 @@
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="collisions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="level.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="pickup.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

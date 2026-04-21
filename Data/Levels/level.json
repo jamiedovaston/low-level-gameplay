@@ -25,6 +25,20 @@
     },
     { 
       "type" : "ScreenBounds"
+    },
+    { 
+      "type" : "SpawnPoint",
+      "position" : [400, 0]
+    },
+    { 
+      "type" : "SpawnPoint",
+      "position" : [175, 50]
     }
+  ],
+    
+  "enemies" : [
+	"Club",
+	"Orb",
+	"Sphere"
   ]
 }

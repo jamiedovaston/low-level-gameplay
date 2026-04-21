@@ -36,11 +36,22 @@ class EntityManager
 	Player* player;
 public:
 	std::map<Level*, std::vector<Enemy*>> parent;
+	std::map<Level*, int> enemySpawnCount;
 
 	EntityManager(Player* player, sf::Vector2u screen);
 	~EntityManager();
+
 	int Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
 	void Clear(Level* lvl);
+};
+
+class CurrencyManager 
+{
+	sf::Vector2u screen;
+	Player* player;
+public:
+	CurrencyManager(Player* player, sf::Vector2u screen);
+	~CurrencyManager();
 };

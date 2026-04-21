@@ -21,6 +21,10 @@ void Player::Update(float deltaTime)
 {
     if (isDead) 
     {
+        if (velocity.x > 0.0f || velocity.x < 0.0f) {
+            velocity.x = 0.0f;
+            projectedVelocity.x = 0.0f;
+        }
         if (velocity.y >= 0.0f) {
             velocity.y = 0.0f;
             projectedVelocity.y = 0.0f;
@@ -28,18 +32,23 @@ void Player::Update(float deltaTime)
 		direction = sf::Vector2f(0.0f, 0.0f);
     }
     else {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !is_pressed[sf::Keyboard::Key::Space])
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
         {
-            is_pressed[sf::Keyboard::Key::Space] = true;
-            if (isGrounded) {
-                projectedVelocity.y = jumpSpeed;
+            if (!is_pressed[sf::Keyboard::Key::Space]) {
+                is_pressed[sf::Keyboard::Key::Space] = true;
+                if (isGrounded) {
+                    canHover = false;
+                    projectedVelocity.y = jumpSpeed;
+                }
             }
-            else {
-                projectedVelocity.y = 0.0f;
+            else if (canHover) {
+                projectedVelocity.y = glideValue;
             }
         }
-        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && is_pressed[sf::Keyboard::Key::Space])
+        if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && is_pressed[sf::Keyboard::Key::Space]) {
             is_pressed[sf::Keyboard::Key::Space] = false;
+            canHover = true;
+        }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
         {
@@ -124,7 +133,6 @@ void Player::Movement(float deltaTime)
 
 void Player::Animations(float deltaTime)
 {
-
     if (isDead) 
     {
         if (isGrounded) {

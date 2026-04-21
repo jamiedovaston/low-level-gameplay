@@ -47,7 +47,7 @@ void Block::Collision(Entity* behaviour)
                 e->ChangeDirection(sf::Vector2f(1.0f, 0.0f));
             }
         }
-        if (Club* e = dynamic_cast<Club*>(behaviour))
+        else if (Club* e = dynamic_cast<Club*>(behaviour))
         {
             if (minX < minY)
             {
@@ -60,6 +60,37 @@ void Block::Collision(Entity* behaviour)
                 e->projectedVelocity.y = e->velocity.y;
             }
         }
+        else if (Sphere* e = dynamic_cast<Sphere*>(behaviour))
+        {
+            if (minX < minY)
+            {
+                e->velocity.x *= -5.0f;
+                e->projectedVelocity.x = e->velocity.x;
+            }
+            else
+            {
+                e->velocity.y *= -5.0f;
+                e->projectedVelocity.y = e->velocity.y;
+
+                e->direction.y = -e->direction.y;
+            }
+        }
+        else if (Orb* e = dynamic_cast<Orb*>(behaviour))
+        {
+            if (minX < minY)
+            {
+                e->velocity.x *= -5.0f;
+                e->projectedVelocity.x = e->velocity.x;
+
+                e->direction.x = -e->direction.x;
+            }
+            else
+            {
+                e->velocity.y *= -5.0f;
+                e->projectedVelocity.y = e->velocity.y;
+            }
+        }
+
         // ====
 
         // Same idea as ScreenBounds

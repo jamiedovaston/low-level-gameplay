@@ -56,7 +56,29 @@ void Game::Update(float deltaTime)
 
     if (runtime <= 0.0f) {
 		runtime = 5.0f;
-		entityManager->Spawn(lvl, new Skeleton(player, screen), sf::Vector2f(400.0f, 100.0f));
+        if (entityManager->parent[lvl].size() < lvl->enemyList.size()) 
+        {
+            SpawnPoint* furthest = nullptr;
+            float maxDist = -1.0f;
+
+            // GET THE FURTHEST AWAY
+            for (const auto& colPtr : lvl->collisions) {
+                Collider* col = colPtr.get();
+
+                if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
+                    float d = sp->Distance(player);
+
+                    if (d > maxDist) {
+                        maxDist = d;
+                        furthest = sp;
+                    }
+                }
+            }
+
+            if (furthest) {
+                entityManager->Spawn(lvl, new Skeleton(player, screen), furthest->Position());
+            }
+        }
     }
 }
 

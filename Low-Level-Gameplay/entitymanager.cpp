@@ -39,7 +39,18 @@ void EntityManager::Update(float deltaTime)
 			if (e->flags == Enemy::Enemy_Flags::TRANSFORM || e->flags == Enemy::Enemy_Flags::KILL) {
 				if (dynamic_cast<Skeleton*>(e))
 				{
-					EntityManager::Spawn(lvl, new Club(player, screen), e->position - lvl->originPoint);
+					if (lvl->enemyList[enemySpawnCount[lvl]] == "Orb") {
+						EntityManager::Spawn(lvl, new Orb(player, screen), e->position - lvl->originPoint);
+					}
+					else if (lvl->enemyList[enemySpawnCount[lvl]] == "Club") {
+						EntityManager::Spawn(lvl, new Club(player, screen), e->position - lvl->originPoint);
+					}
+					else if (lvl->enemyList[enemySpawnCount[lvl]] == "Sphere") {
+						EntityManager::Spawn(lvl, new Sphere(player, screen), e->position - lvl->originPoint);
+					}
+					else std::cout << "# Invalid spawn type! : " << lvl->enemyList[enemySpawnCount[lvl]] << std::endl;
+
+					enemySpawnCount[lvl]++;
 				}
 				delete e;
 				enemies.erase(enemies.begin() + i);

@@ -6,7 +6,6 @@
 #include "collisions.h"
 #include "entity.h"
 
-
 class Level 
 {
 	std::unique_ptr<sf::Texture> background;
@@ -14,6 +13,9 @@ class Level
 
 public:
 	std::vector<std::unique_ptr<Collider>> collisions;
+
+	int enemyCount;
+	std::vector<std::string> enemyList;
 
 	sf::Vector2f originPoint;
 

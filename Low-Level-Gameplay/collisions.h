@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "enemy.h"
 #include "iostream"
 #include "assetmanagement.h"
 
@@ -17,6 +17,7 @@ class Block : public Collider
 {
 	sf::Sprite* sprite;
 
+protected:
 	float x, y;
 	float w = 100.0f, h = 100.0f;
 
@@ -45,4 +46,17 @@ public:
 	void Collision(Entity* behaviour) override;
 	void Render(sf::RenderWindow* window) override;
 	
+};
+
+class SpawnPoint : public Block
+{
+public:
+	SpawnPoint(sf::Vector2f originPoint, float x, float y);
+	~SpawnPoint();
+
+	void Collision(Entity* behaviour) override;
+	void Render(sf::RenderWindow* window) override;
+
+	float Distance(Player* player);
+	sf::Vector2f Position();
 };

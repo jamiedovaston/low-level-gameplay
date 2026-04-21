@@ -133,9 +133,10 @@
   <ItemGroup>
     <ClCompile Include="assetmanagement.cpp" />
     <ClCompile Include="assetmanagement.h" />
-    <ClCompile Include="ball.cpp" />
+    <ClCompile Include="club.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisions.cpp" />
+    <ClCompile Include="currencymanager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="entitymanager.cpp" />
@@ -144,6 +145,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="orb.cpp" />
+    <ClCompile Include="spawnpoint.cpp" />
+    <ClCompile Include="sphere.cpp" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="pickup.h" />
     <ClInclude Include="level.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />

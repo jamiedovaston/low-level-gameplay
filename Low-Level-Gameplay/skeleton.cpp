@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "enemy.h"
 
 Skeleton::Skeleton(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 {
@@ -32,7 +32,6 @@ void Skeleton::Update(float deltaTime)
 	if (isGroundedChanged != isGrounded) {
 		isGroundedChanged = isGrounded;
 		if (isGrounded) {
-			std::cout << "Landed" << std::endl;
 			directionChangeCount = 3;
 		}
 	}
