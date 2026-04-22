@@ -10,7 +10,12 @@ Game::Game(sf::Vector2u screen)
 
     lvl = new Level("../Data/Levels/level.json");
 
-	entityManager = new EntityManager(player, screen);
+    entityManager = std::make_unique<EntityManager>(player, screen);
+    currencyManager = std::make_unique<CurrencyManager>(player, screen);
+
+    for (sf::Vector2f p : lvl->bombs) {
+        currencyManager->Spawn(lvl, new Bomb(player, screen), p);
+    }
 
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
@@ -30,9 +35,6 @@ Game::~Game()
     delete player;
     player = nullptr;
 
-    delete entityManager;
-	entityManager = nullptr;
-
     delete text;
 	text = nullptr;
 
@@ -50,6 +52,7 @@ void Game::Update(float deltaTime)
     }
 
     entityManager->Update(deltaTime);
+    currencyManager->Update(deltaTime);
 
     if(!player->isDead)
         runtime -= deltaTime;
@@ -87,6 +90,7 @@ void Game::Render(sf::RenderWindow* window)
     lvl->Render(window);
 
 	entityManager->Render(window);
+    currencyManager->Render(window);
 
     player->Render(window);
 

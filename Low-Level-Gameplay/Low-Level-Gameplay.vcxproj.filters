@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{4e60bdcf-79e1-4525-96c1-ffbacdf5b5c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\Pickups">
+      <UniqueIdentifier>{25c88add-71ff-4e1d-81f3-4abe6b515099}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="spawnpoint.cpp">
       <Filter>Source Files\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="bomb.cpp">
+      <Filter>Source Files\Entities\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="pickup.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

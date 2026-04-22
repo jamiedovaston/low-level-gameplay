@@ -15,18 +15,13 @@ EntityManager::~EntityManager()
 	}
 }
 
-int EntityManager::Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location)
+void EntityManager::Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location)
 {
-	if (parent[lvl].empty()) {
-		parent[lvl] = std::vector<Enemy*>();
-	}
+	if (parent[lvl].empty()) parent[lvl] = std::vector<Enemy*>();
 
 	parent[lvl].push_back(enemy);
-	sf::Vector2f spawnPoint = lvl->originPoint + location;
 
-	enemy->position = spawnPoint;
-
-	return 0;
+	enemy->position = lvl->originPoint + location;
 }
 
 void EntityManager::Update(float deltaTime)
@@ -50,7 +45,10 @@ void EntityManager::Update(float deltaTime)
 					}
 					else std::cout << "# Invalid spawn type! : " << lvl->enemyList[enemySpawnCount[lvl]] << std::endl;
 
-					enemySpawnCount[lvl]++;
+					if (enemySpawnCount[lvl] >= lvl->enemyList.size() - 1) enemySpawnCount[lvl] = 0;
+					else enemySpawnCount[lvl]++;
+
+					std::cout << "Enemy Count : " << enemySpawnCount[lvl] << std::endl;
 				}
 				delete e;
 				enemies.erase(enemies.begin() + i);

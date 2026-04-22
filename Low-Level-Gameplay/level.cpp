@@ -26,6 +26,10 @@ Level::Level(std::string levelPath)
 
     enemyList = json["enemies"];
 
+    for (nlohmann::json j : json["bombs"]) {
+        bombs.push_back(sf::Vector2f(j["position"][0], j["position"][1]));
+    }
+
     // BACKGROUND
     background = std::make_unique<sf::Texture>(json["background"]);
 

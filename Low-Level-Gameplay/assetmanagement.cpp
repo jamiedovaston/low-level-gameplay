@@ -6,7 +6,7 @@ std::shared_ptr<sf::Texture> LoadResource(std::string file) {
 	auto it = assets.find(file);
 
 	if (it == assets.end()) {
-		std::cout << "# New resource loaded!" << std::endl;
+		std::cout << "# New resource loaded! Location : "  << file << std::endl;
 		assets[file] = std::make_shared<sf::Texture>(file);
 		return assets[file];
 	}

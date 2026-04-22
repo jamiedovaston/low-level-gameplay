@@ -7,6 +7,8 @@ Orb::Orb(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(42.0f / 2.0f, 39.0f / 2.0f));
 
+	maxVerticalSpeed = 5.0f;
+
 	direction.x = 1.0f;
 }
 
@@ -23,14 +25,14 @@ void Orb::Update(float deltaTime)
 
 	Animations(deltaTime);
 
-	direction.y = std::clamp(player->position.y - position.y, -1.0f, 1.0f);
+	projectedDirection += std::clamp(player->position.y - position.y, -.01f, .01f);
+	projectedDirection = std::clamp(projectedDirection, -maxVerticalSpeed, maxVerticalSpeed);
+	direction.y = std::clamp(projectedDirection, -1.0f, 1.0f);
 
-	sf::Vector2f maxVel(maxHorizontalSpeed, maxVerticalSpeed);
 
 	projectedVelocity = direction.normalized() * 0.5f;
 
-	if (velocity.length() < maxVel.length())
-		velocity += projectedVelocity;
+	velocity += projectedVelocity;
 
 	velocity *= drag;
 

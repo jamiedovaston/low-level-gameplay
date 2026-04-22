@@ -3,6 +3,7 @@
 
 class Enemy : public Entity
 {
+	float runtime;
 protected:
 	Player* player;
 
@@ -22,7 +23,6 @@ public:
 
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
-	void Hit() override;
 
 	virtual void Animations(float deltaTime) = 0;
 };
@@ -54,6 +54,7 @@ public:
 
 class Sphere : public Enemy
 {
+	float projectedDirection = 0.0f;
 public:
 	Sphere(Player* player, sf::Vector2u screen);
 	~Sphere();
@@ -64,6 +65,7 @@ public:
 
 class Orb : public Enemy
 {
+	float projectedDirection = 0.0f;
 public:
 	Orb(Player* player, sf::Vector2u screen);
 	~Orb();

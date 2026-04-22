@@ -12,7 +12,12 @@ Enemy::~Enemy()
 
 void Enemy::Update(float deltaTime)
 {
+    runtime += deltaTime;
+
     if (player == nullptr) return;
+
+    // WAIT FOR A SECOND
+    if (runtime <= 1.0f) return;
 
     // MULTIPLIED FOR AFFORDANCE
     if (position.x + (spriteRect.size.x * .8f) > player->position.x - player->spriteRect.size.x &&
@@ -27,8 +32,4 @@ void Enemy::Update(float deltaTime)
 void Enemy::Render(sf::RenderWindow* window)
 {
 	if (sprite != nullptr) { window->draw(*sprite); }
-}
-
-void Enemy::Hit()
-{
 }

@@ -17,6 +17,8 @@ public:
 	int enemyCount;
 	std::vector<std::string> enemyList;
 
+	std::vector<sf::Vector2f> bombs;
+
 	sf::Vector2f originPoint;
 
 	Level(std::string levelPath);

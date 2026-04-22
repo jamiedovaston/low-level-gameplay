@@ -35,10 +35,92 @@
       "position" : [175, 50]
     }
   ],
-    
+  
   "enemies" : [
 	"Club",
 	"Orb",
 	"Sphere"
+  ],
+
+  "bombs" : [
+    {
+      "position" : [330, 210]
+    },
+    {
+      "position" : [390, 210]
+    },
+    {
+      "position" : [450, 210]
+    },
+    {
+      "position" : [510, 210]
+    },
+
+    {
+      "position" : [580, 280]
+    },
+    {
+      "position" : [580, 360]
+    },
+    {
+      "position" : [580, 440]
+    },
+    {
+      "position" : [580, 520]
+    },
+
+    
+    {
+      "position" : [50, 280]
+    },
+    {
+      "position" : [50, 360]
+    },
+    {
+      "position" : [50, 440]
+    },
+    {
+      "position" : [50, 520]
+    },
+
+    {
+      "position" : [110, 60]
+    },
+    {
+      "position" : [180, 60]
+    },
+    {
+      "position" : [250, 60]
+    },
+
+    {
+      "position" : [510, 610]
+    },
+    {
+      "position" : [440, 610]
+    },
+    {
+      "position" : [370, 610]
+    },
+
+    {
+      "position" : [250, 680]
+    },
+    {
+      "position" : [180, 680]
+    },
+    {
+      "position" : [110, 680]
+    },
+
+    {
+      "position" : [580, 60]
+    },
+    {
+      "position" : [510, 60]
+    },
+    {
+      "position" : [440, 60]
+    }
   ]
 }

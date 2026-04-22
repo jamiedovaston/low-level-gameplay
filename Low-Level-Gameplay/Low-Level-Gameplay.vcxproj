@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="assetmanagement.cpp" />
     <ClCompile Include="assetmanagement.h" />
+    <ClCompile Include="bomb.cpp" />
     <ClCompile Include="club.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisions.cpp" />
@@ -146,6 +147,7 @@
       </ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="orb.cpp" />
+    <ClCompile Include="pickup.cpp" />
     <ClCompile Include="spawnpoint.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClInclude Include="enemy.h" />

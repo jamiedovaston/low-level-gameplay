@@ -47,11 +47,10 @@ void Club::Animations(float deltaTime)
 		if (frame > 3) { frame = 0; }
 	}
 
-	if (direction.x > 0.0f) {
+	if (direction.x > 0.0f) { // LEFT
 		sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y), spriteSize));
 	}
-	else 
-	{
+	else { // RIGHT
 		sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, 0), spriteSize));
 	}
 

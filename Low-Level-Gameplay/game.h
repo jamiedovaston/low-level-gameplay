@@ -4,9 +4,10 @@
 #include <cmath>
 #include "level.h"
 #include "collisions.h"
-#include "entity.h"
+#include "pickup.h"
 
 class EntityManager;
+class CurrencyManager;
 
 class Game 
 {
@@ -15,7 +16,8 @@ class Game
 	Player* player;
 	Level* lvl;
 
-	EntityManager* entityManager;
+	std::unique_ptr<EntityManager> entityManager;
+	std::unique_ptr<CurrencyManager> currencyManager;
 
 	sf::Font font;
 	sf::Text* text;
@@ -41,7 +43,7 @@ public:
 	EntityManager(Player* player, sf::Vector2u screen);
 	~EntityManager();
 
-	int Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
+	void Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
 	void Clear(Level* lvl);
@@ -52,6 +54,13 @@ class CurrencyManager
 	sf::Vector2u screen;
 	Player* player;
 public:
+	std::map<Level*, std::vector<Pickup*>> parent;
+
 	CurrencyManager(Player* player, sf::Vector2u screen);
 	~CurrencyManager();
+
+	void Spawn(Level* lvl, Pickup* enemy, sf::Vector2f location);
+
+	void Update(float deltaTime);
+	void Render(sf::RenderWindow* window);
 };

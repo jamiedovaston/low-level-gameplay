@@ -7,6 +7,8 @@ Sphere::Sphere(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(42.0f / 2.0f, 42.0f / 2.0f));
 
+	maxHorizontalSpeed = 5.0f;
+
 	direction.y = 1.0f;
 }
 
@@ -23,14 +25,13 @@ void Sphere::Update(float deltaTime)
 
 	Animations(deltaTime);
 
-	direction.x = std::clamp(player->position.x - position.x, -1.0f, 1.0f);
-
-	sf::Vector2f maxVel(maxHorizontalSpeed, maxVerticalSpeed);
+	projectedDirection += std::clamp(player->position.x - position.x, -.01f, .01f);
+	projectedDirection = std::clamp(projectedDirection, -maxHorizontalSpeed, maxHorizontalSpeed);
+	direction.x = std::clamp(projectedDirection, -1.0f, 1.0f);
 
 	projectedVelocity = direction.normalized() * 0.5f;
 
-	if (velocity.length() < maxVel.length())
-		velocity += projectedVelocity;
+	velocity += projectedVelocity;
 
 	velocity *= drag;
 

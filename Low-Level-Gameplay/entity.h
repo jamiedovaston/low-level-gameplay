@@ -35,8 +35,6 @@ public:
 public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Render(sf::RenderWindow* window) = 0;
-
-	virtual void Hit() = 0;
 };
 
 class Player : public Entity
@@ -62,7 +60,7 @@ public:
 	void Update(float deltaTime) override;
 	void Render(sf::RenderWindow* window) override;
 
-	void Hit() override;
+	void Hit();
 
 	void Movement(float deltaTime);
 	void Animations(float deltaTime);
