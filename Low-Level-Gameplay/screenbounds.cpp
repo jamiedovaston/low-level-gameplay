@@ -15,15 +15,20 @@ ScreenBounds::~ScreenBounds()
 
 void ScreenBounds::Collision(Entity* behaviour)
 {
-
     if (behaviour->position.x + behaviour->spriteRect.size.x > levelSize.x - (borderSize + originPoint.x)) {
         behaviour->position.x = originPoint.x + levelSize.x - behaviour->spriteRect.size.x - borderSize;
 
         behaviour->projectedVelocity.x = 0.0f;
         behaviour->velocity.x = 0.0f;
 
+        if (Sphere* e = dynamic_cast<Sphere*>(behaviour)) {
+            e->projectedDirection = -1.0f;
+        }
         if (Orb* e = dynamic_cast<Orb*>(behaviour)) {
             e->direction.x = -1.0f;
+        }
+        if (PowerUpCoin* p = dynamic_cast<PowerUpCoin*>(behaviour)) {
+            p->direction.x = -1.0f;
         }
     }
     if (behaviour->position.x - behaviour->spriteRect.size.x < 0.0f + (borderSize + originPoint.x)) {
@@ -32,8 +37,14 @@ void ScreenBounds::Collision(Entity* behaviour)
         behaviour->projectedVelocity.x = 0.0f;
         behaviour->velocity.x = 0.0f;
 
-        if (Orb* e = dynamic_cast<Orb*>(behaviour)) {
+        if (Sphere* e = dynamic_cast<Sphere*>(behaviour)) {
+            e->projectedDirection = 1.0f;
+        }
+        else if (Orb* e = dynamic_cast<Orb*>(behaviour)) {
             e->direction.x = 1.0f;
+        }
+        else if (PowerUpCoin* p = dynamic_cast<PowerUpCoin*>(behaviour)) {
+            p->direction.x = 1.0f;
         }
     }
 
@@ -47,8 +58,16 @@ void ScreenBounds::Collision(Entity* behaviour)
         if (Sphere* e = dynamic_cast<Sphere*>(behaviour)) {
             e->direction.y = -1.0f;
         }
+        else if (Orb* e = dynamic_cast<Orb*>(behaviour)) {
+            e->projectedDirection = -1.0f;
+        }
+        else if (PowerUpCoin* p = dynamic_cast<PowerUpCoin*>(behaviour)) {
+            p->direction.y = -1.0f;
+        }
 
-        if (Enemy* e = dynamic_cast<Skeleton*>(behaviour)) e->flags = Enemy::Enemy_Flags::TRANSFORM;
+        if (Enemy* e = dynamic_cast<Skeleton*>(behaviour)) {
+            e->flags = Enemy::Enemy_Flags::TRANSFORM;
+        }
     }
     if (behaviour->position.y - behaviour->spriteRect.size.y < 0.0f + (borderSize + originPoint.y)) {
         behaviour->position.y = originPoint.y + behaviour->spriteRect.size.y + borderSize;
@@ -57,6 +76,12 @@ void ScreenBounds::Collision(Entity* behaviour)
 
         if (Sphere* e = dynamic_cast<Sphere*>(behaviour)) {
             e->direction.y = 1.0f;
+        }
+        else if (Orb* e = dynamic_cast<Orb*>(behaviour)) {
+            e->projectedDirection = 1.0f;
+        }
+        else if (PowerUpCoin* p = dynamic_cast<PowerUpCoin*>(behaviour)) {
+            p->direction.y = 1.0f;
         }
     }
 }

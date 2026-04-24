@@ -10,13 +10,21 @@ Game::Game(sf::Vector2u screen)
 
     lvl = new Level("../Data/Levels/level.json");
 
-    entityManager = std::make_unique<EntityManager>(player, screen);
-    currencyManager = std::make_unique<CurrencyManager>(player, screen);
+    scoreManager = std::make_unique<ScoreManager>();
+    entityManager = std::make_unique<EntityManager>(player, screen, scoreManager.get());
+    currencyManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
 
     for (sf::Vector2f p : lvl->bombs) {
         currencyManager->Spawn(lvl, new Bomb(player, screen), p);
     }
 
+    for (auto& colPtr : lvl->collisions) {
+        Collider* col = colPtr.get();
+
+        if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
+            currencyManager->Spawn(lvl, new PowerUpCoin(player, screen), sp->Position());
+        }
+    }
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
 
@@ -54,6 +62,8 @@ void Game::Update(float deltaTime)
     entityManager->Update(deltaTime);
     currencyManager->Update(deltaTime);
 
+    text->setString(std::string("Score: ") + std::to_string(scoreManager.get()->score));
+
     if(!player->isDead)
         runtime -= deltaTime;
 
@@ -65,7 +75,7 @@ void Game::Update(float deltaTime)
             float maxDist = -1.0f;
 
             // GET THE FURTHEST AWAY
-            for (const auto& colPtr : lvl->collisions) {
+            for (auto& colPtr : lvl->collisions) {
                 Collider* col = colPtr.get();
 
                 if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
@@ -94,7 +104,5 @@ void Game::Render(sf::RenderWindow* window)
 
     player->Render(window);
 
-    text->setString(std::string("Runtime: ") + std::to_string(runtime));
     window->draw(*text);
 }
-

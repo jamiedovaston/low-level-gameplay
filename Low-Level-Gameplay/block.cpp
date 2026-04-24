@@ -53,11 +53,14 @@ void Block::Collision(Entity* behaviour)
             {
                 e->velocity.x *= -5.0f;
                 e->projectedVelocity.x = e->velocity.x;
+                e->projectedDirection.x = -e->projectedDirection.x;
             }
             else
             {
                 e->velocity.y *= -5.0f;
                 e->projectedVelocity.y = e->velocity.y;
+
+                e->projectedDirection.y = -e->projectedDirection.y;
             }
         }
         else if (Sphere* e = dynamic_cast<Sphere*>(behaviour))
@@ -66,6 +69,8 @@ void Block::Collision(Entity* behaviour)
             {
                 e->velocity.x *= -5.0f;
                 e->projectedVelocity.x = e->velocity.x;
+
+                e->projectedDirection = -e->projectedDirection;
             }
             else
             {
@@ -88,6 +93,19 @@ void Block::Collision(Entity* behaviour)
             {
                 e->velocity.y *= -5.0f;
                 e->projectedVelocity.y = e->velocity.y;
+
+                e->projectedDirection = -e->projectedDirection;
+            }
+        }
+        else if (PowerUpCoin* p = dynamic_cast<PowerUpCoin*>(behaviour))
+        {
+            if (minX < minY)
+            {
+                p->direction.x = -p->direction.x;
+            }
+            else
+            {
+                p->direction.y = -p->direction.y;
             }
         }
 

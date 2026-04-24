@@ -1,5 +1,6 @@
 #pragma once
 #include "enemy.h"
+#include "pickup.h"
 #include "iostream"
 #include "assetmanagement.h"
 

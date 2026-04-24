@@ -137,7 +137,7 @@
     <ClCompile Include="club.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="collisions.cpp" />
-    <ClCompile Include="currencymanager.cpp" />
+    <ClCompile Include="pickupmanager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="entitymanager.cpp" />
@@ -148,6 +148,8 @@
     </ClCompile>
     <ClCompile Include="orb.cpp" />
     <ClCompile Include="pickup.cpp" />
+    <ClCompile Include="powerupcoin.cpp" />
+    <ClCompile Include="scoremanager.cpp" />
     <ClCompile Include="spawnpoint.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClInclude Include="enemy.h" />

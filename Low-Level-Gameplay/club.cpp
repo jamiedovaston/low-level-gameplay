@@ -23,9 +23,21 @@ void Club::Update(float deltaTime)
 
 	direction = player->position - position;
 
+	sf::Vector2f _direction = player->position - position;
+
+	_direction.y = std::clamp(_direction.y, -1.0f, 1.0f);
+	_direction.x = std::clamp(_direction.x, -1.0f, 1.0f);
+
+	projectedDirection += _direction;
+	projectedDirection.x = std::clamp(projectedDirection.x, -maxHorizontalSpeed, maxHorizontalSpeed);
+	projectedDirection.y = std::clamp(projectedDirection.y, -maxVerticalSpeed, maxVerticalSpeed);
+
+	direction.y = std::clamp(projectedDirection.y, -1.0f, 1.0f);
+	direction.x = std::clamp(projectedDirection.x, -1.0f, 1.0f);
+
 	sf::Vector2f maxVel(maxHorizontalSpeed, maxVerticalSpeed);
 
-	sf::Vector2f projectedVelocity = (direction != sf::Vector2f(0.0f, 0.0f) ? direction.normalized() : sf::Vector2f(0.0f, 0.0f)) * 0.5f;
+	projectedVelocity = (direction != sf::Vector2f(0.0f, 0.0f) ? direction.normalized() : sf::Vector2f(0.0f, 0.0f)) * 0.5f;
 
 	if (velocity.length() < maxVel.length())
 		velocity += projectedVelocity;

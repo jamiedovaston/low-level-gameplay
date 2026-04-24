@@ -1,9 +1,10 @@
 #include "game.h"
 
-EntityManager::EntityManager(Player* player, sf::Vector2u screen)
+EntityManager::EntityManager(Player* player, sf::Vector2u screen, ScoreManager* score)
 {
 	this->screen = screen;
 	this->player = player;
+	this->score = score;
 }
 
 EntityManager::~EntityManager()
@@ -78,4 +79,9 @@ void EntityManager::Clear(Level* lvl)
 		delete e;
 	}
 	parent[lvl].clear();
+}
+
+void EntityManager::ChangeState(State state)
+{
+
 }

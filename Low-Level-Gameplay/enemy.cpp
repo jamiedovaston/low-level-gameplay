@@ -3,6 +3,7 @@
 Enemy::Enemy(Player* player, sf::Vector2u screen) : Entity(screen)
 {
 	this->player = player;
+    coin = new sf::Sprite(*LoadResource("../Images/coins.png").get());
 }
 
 Enemy::~Enemy()

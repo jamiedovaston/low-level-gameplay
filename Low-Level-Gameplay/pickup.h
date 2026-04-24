@@ -12,7 +12,6 @@ protected:
 public:
 	enum State {
 		NONE,
-		FUSED,
 		PICKED_UP
 	} state = State::NONE;
 
@@ -29,9 +28,26 @@ public:
 class Bomb : public Pickup 
 {
 public:
+	enum BState {
+		NONE,
+		FUSED
+	} bstate = BState::NONE;
+
 	Bomb(Player* player, sf::Vector2u screen);
 	~Bomb();
 	
+	void OnPickup() override;
+	void Animations(float deltaTime) override;
+};
+
+class PowerUpCoin : public Pickup 
+{
+public:
+	PowerUpCoin(Player* player, sf::Vector2u screen);
+	~PowerUpCoin();
+
+	void Update(float deltaTime) override;
+
 	void OnPickup() override;
 	void Animations(float deltaTime) override;
 };

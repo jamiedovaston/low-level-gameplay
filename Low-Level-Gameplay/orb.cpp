@@ -29,7 +29,6 @@ void Orb::Update(float deltaTime)
 	projectedDirection = std::clamp(projectedDirection, -maxVerticalSpeed, maxVerticalSpeed);
 	direction.y = std::clamp(projectedDirection, -1.0f, 1.0f);
 
-
 	projectedVelocity = direction.normalized() * 0.5f;
 
 	velocity += projectedVelocity;

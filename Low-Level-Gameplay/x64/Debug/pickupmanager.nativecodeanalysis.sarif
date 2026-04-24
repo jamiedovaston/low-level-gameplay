@@ -1,0 +1,787 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26819",
+          "message": {
+            "text": "Unannotated fallthrough between switch labels (es.78)."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/pickupmanager.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/d010949n/Documents/GitHub/low-level-gameplay/Library/json.hpp"
+                },
+                "region": {
+                  "startLine": 7891,
+                  "startColumn": 18
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "nlohmann::json_abi_v3_12_0::detail::lexer<nlohmann::json_abi_v3_12_0::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::json_abi_v3_12_0::adl_serializer,std::vector<unsigned char,std::allocator<unsigned char> >,void>,nlohmann::json_abi_v3_12_0::detail::iterator_input_adapter<char const *> >::scan_comment",
+                  "decoratedName": "?scan_comment@?$lexer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@json_abi_v3_12_0@nlohmann@@V?$vector@EV?$allocator@E@std@@@2@X@json_abi_v3_12_0@nlohmann@@V?$iterator_input_adapter@PEBD@detail@23@@detail@json_abi_v3_12_0@nlohmann@@AEAA_NXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26819",
+          "message": {
+            "text": "Unannotated fallthrough between switch labels (es.78)."
+          },
+          "analysisTarget": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/pickupmanager.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/d010949n/Documents/GitHub/low-level-gameplay/Library/json.hpp"
+                },
+                "region": {
+                  "startLine": 7928,
+                  "startColumn": 17,
+                  "endLine": 7928,
+                  "endColumn": 33
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "nlohmann::json_abi_v3_12_0::detail::lexer<nlohmann::json_abi_v3_12_0::basic_json<std::map,std::vector,std::basic_string<char,std::char_traits<char>,std::allocator<char> >,bool,__int64,unsigned __int64,double,std::allocator,nlohmann::json_abi_v3_12_0::adl_serializer,std::vector<unsigned char,std::allocator<unsigned char> >,void>,nlohmann::json_abi_v3_12_0::detail::iterator_input_adapter<char const *> >::scan_comment",
+                  "decoratedName": "?scan_comment@?$lexer@V?$basic_json@Vmap@std@@Vvector@2@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@_N_J_KNVallocator@2@Uadl_serializer@json_abi_v3_12_0@nlohmann@@V?$vector@EV?$allocator@E@std@@@2@X@json_abi_v3_12_0@nlohmann@@V?$iterator_input_adapter@PEBD@detail@23@@detail@json_abi_v3_12_0@nlohmann@@AEAA_NXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34444.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/pickupmanager.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "81491ec621dfe3e36e50bb97592deb1f6aa4c877d3fb5ebaf67d753192226f2b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Users/d010949n/Documents/GitHub/low-level-gameplay/Library/json.hpp"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "5f09d1eebe9b3557f21df155869af13bcde79b74a0748f82ca946e8cc088aaa0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/game.h"
+          },
+          "hashes": {
+            "sha-256": "b959d3447301ebd3ef74ae4a4b6b681b25396450f90ae1c9d6dd4fc11034e858"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics.hpp"
+          },
+          "hashes": {
+            "sha-256": "8ea25f1e09bc32d38fb45782c2ccad96f3e9c0706fef094ad726341d4c407785"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/blendmode.hpp"
+          },
+          "hashes": {
+            "sha-256": "4ec38fe042c2eded7da4e372555a78f44d73d08394b438ab7b804c11c269fd24"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "5d75607ea04c18b509b487ee3b5d2604cb7c8c5e509aec718524bdea9d8f0fe9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/config.hpp"
+          },
+          "hashes": {
+            "sha-256": "46cf8326eda1696534b708bc09a919c76ff44aff92649ff1785c0810c90ba5ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/circleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "ea71b42bda66167fcb3638bf496f059e791f035013b867b4e10c5494c50990ca"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/shape.hpp"
+          },
+          "hashes": {
+            "sha-256": "02ef3353f7c42e617ce7986eba9721f42e0b659bb398ee5ce0cee42bb0021749"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/color.hpp"
+          },
+          "hashes": {
+            "sha-256": "ca14c5278f0cd976f0ceabf7377710aeed51d983775cd6af7005f6a292aac2fb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/color.inl"
+          },
+          "hashes": {
+            "sha-256": "dbc761e1cced258b755c14b9622a730a58383c2e8890e7f0c67b072cce0d3181"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/drawable.hpp"
+          },
+          "hashes": {
+            "sha-256": "dbb5b5c0c36e0b153e96c21d85642103355e0f737324b8e03814c71aa3eba4f7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/primitivetype.hpp"
+          },
+          "hashes": {
+            "sha-256": "0423aa1843e64eb3329549de053faf919245f6271d6b4438cf095b20a1e70bec"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/rect.hpp"
+          },
+          "hashes": {
+            "sha-256": "5a3b4e370ff02e86765b0455bce6bd8fcc9fbe467e6aea5352c4d44ce82e9b06"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/vector2.hpp"
+          },
+          "hashes": {
+            "sha-256": "603491ccb612a4c9f9c902aabddc20efb5b9d66deafbed6f7303593a94016763"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "4f943f63d8694f243433b93a2f5ab2b2faeb64039a74819a02415b5681a86942"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/angle.hpp"
+          },
+          "hashes": {
+            "sha-256": "330b324e8e60cd4fe80fa36854e434c5917002b15f2a69b63d4c4412a7f8ebbb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/angle.inl"
+          },
+          "hashes": {
+            "sha-256": "ae8747d7fac473762f434c74b54a1bd27b817fa0819aa4df548fad5ab7a5e7bf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/vector2.inl"
+          },
+          "hashes": {
+            "sha-256": "6e8493a8c9af96f61795512bd7a58841b8928b41c8747ed484b31c801e242213"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/rect.inl"
+          },
+          "hashes": {
+            "sha-256": "394d14a5b062472168d3fbf871d5e163c72ba3eef25019dc2589eb2613286686"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/renderstates.hpp"
+          },
+          "hashes": {
+            "sha-256": "302116039c0936cb521f575457e69bbc14c135eb93f578996b88e9dabe1c7cd3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/coordinatetype.hpp"
+          },
+          "hashes": {
+            "sha-256": "d2979a008e5e93a01bc42df6bf7a97f5c373e2ef509f167b514baccae00fe23e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/stencilmode.hpp"
+          },
+          "hashes": {
+            "sha-256": "531bcf59987a9d9774695fa083e9b648e580ffd39095d63e68bbf410122435fc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "21bb38236b553a2b831b287e6878575fdb38b78aeff3d857a3fa2036f26296d4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/transform.inl"
+          },
+          "hashes": {
+            "sha-256": "ff77e379f5c848491116a847879c18e17b63bc46e81b3b475a2d2b67a0f9899f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/transformable.hpp"
+          },
+          "hashes": {
+            "sha-256": "ceda59823911cee63aab88946c840f80b6780db30fe8fdbe14084ce38795c7de"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/vertexarray.hpp"
+          },
+          "hashes": {
+            "sha-256": "d0bbf1a4880e1367ee1ce0412d11768b6eeda39adcd118b86ca3ccd8e13eab50"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/vertex.hpp"
+          },
+          "hashes": {
+            "sha-256": "5b26f6f600f16bdf5150b8ed7a2b41c26b705bb6b069cb70fcc0101b98eb00b1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/convexshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "b01bd8615230f4f4981f5adada3896420ab6b1264151532b0265fd327f353e01"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/font.hpp"
+          },
+          "hashes": {
+            "sha-256": "288cc42cdb8ef7ffb88fcd3ebd725d86187c6d33415e2f889bfb9a097b397553"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/glyph.hpp"
+          },
+          "hashes": {
+            "sha-256": "b2098b2b9b2d0bfe98a0a85d2c1317453664bb30f6819269a933dfc45fbb671c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/texture.hpp"
+          },
+          "hashes": {
+            "sha-256": "0516636cbe7c8e8ac59f32144f9388b1afe68a4054ebac2924ef0d1205c08032"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/glresource.hpp"
+          },
+          "hashes": {
+            "sha-256": "fa7458b27a4bc454ad6b0c2fd672db8d30c8f86a6ffa806cbd5da48fd4615dc7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "1a905dd420c34a92fa068266c235206c7f2438cfa6fa55a0f67fc13b3ac7689c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/image.hpp"
+          },
+          "hashes": {
+            "sha-256": "a90a917dbfae8ff1d3b05249dfd5e52e07e02a133fc8d7c96b2e6ec040232ca6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/rectangleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "98d78cbb47c5f0ce15da105755f68474da1372c2a92d80d07b157ba1211c1b72"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/rendertarget.hpp"
+          },
+          "hashes": {
+            "sha-256": "85b5173108505be499c7e94028d3ee9e3f1f413fd42a6dbccf74b56e906d2a2f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/view.hpp"
+          },
+          "hashes": {
+            "sha-256": "cfe6ad62518f15f667d656af5b65e75fba3c44d45be9be5302c5698d0b6e7463"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/rendertexture.hpp"
+          },
+          "hashes": {
+            "sha-256": "ba1e4baa48870ba3db6293b67a3e21aba3662ad391dc0371f01802d51c7640c8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/contextsettings.hpp"
+          },
+          "hashes": {
+            "sha-256": "364e6574cb4ded360d16600600c39792410fc49a0c987bd51b3a1ef59672da84"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/renderwindow.hpp"
+          },
+          "hashes": {
+            "sha-256": "a83eaf02c0e007fa904015cc85ad67c4e7f9eb686e176bf729466803cf87c884"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/videomode.hpp"
+          },
+          "hashes": {
+            "sha-256": "83f0e11064c8acf4c88e47f52b20e5750484d33b8ae937a2772677577783de71"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "75f3657f6e287aa8a0d36dac85d0eb206999f2a4fa5dd5b9e9b5458c6b050c45"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/windowbase.hpp"
+          },
+          "hashes": {
+            "sha-256": "398ed2b0870d32e3accbcd81ce22757c24ec1c04d5bd5e64b57b425fc8c308e6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/vulkan.hpp"
+          },
+          "hashes": {
+            "sha-256": "5759a07f10dec824d51648e59778d9f82fda664465c22c932f43bdc68890a4c6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/windowenums.hpp"
+          },
+          "hashes": {
+            "sha-256": "9af85ffb291d85d27af0a806e1b1d3b8be320c17eee0f4f14a245d5971404a5e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/windowhandle.hpp"
+          },
+          "hashes": {
+            "sha-256": "a9c5bd8ad7c6b4b9df9970665038865efc77bdafc44126918f1ff94d80bc78ff"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/time.hpp"
+          },
+          "hashes": {
+            "sha-256": "9b7db520296ecb534c877397df49e3cd3c3dd4f89437b4931727f917f0fc2502"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/time.inl"
+          },
+          "hashes": {
+            "sha-256": "9b98d44830684455cf2af49dfdac50013b388769f565668250d741b71431ea75"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/windowbase.inl"
+          },
+          "hashes": {
+            "sha-256": "fe80e2f8ccd6bfe382f48f5b3d922b4f79e983829ab3f2fd0aacb994b9e5fc76"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/event.hpp"
+          },
+          "hashes": {
+            "sha-256": "30bc6dd811edba7cee76dde7b41699dd015f8663abcbdf8b4b110c7ffc726646"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/joystick.hpp"
+          },
+          "hashes": {
+            "sha-256": "757d75679bd81b27f09fd923e78a2a65b798c9a826c11b5fe154cd115afcddea"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/string.hpp"
+          },
+          "hashes": {
+            "sha-256": "b38537aaf0d34772d9db8ead014080137a00d80948945bbd644a861b27bdb328"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/utf.hpp"
+          },
+          "hashes": {
+            "sha-256": "26d3f2d1a8be072ec386b042e85614f27455905b970b59cd42034356e7e76fae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/utf.inl"
+          },
+          "hashes": {
+            "sha-256": "45a017e619aaa821dfcb643bea1a37c946db6b0564ffee5ea2bfa4c7f96bae56"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/string.inl"
+          },
+          "hashes": {
+            "sha-256": "46f2aae2651d238ae5b9abb41e04345f400d26ae326614711dd2eecb2ee590b7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/keyboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "32388241d8fb1d93eb364b32f66a8c286a6af37b8516788da59a1f2ea5b3179b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/mouse.hpp"
+          },
+          "hashes": {
+            "sha-256": "09d542d09f54ad762d05ddd8ba5bcfbdfb3fc24c2ff3bd811aa67f4a6faf3a7a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/sensor.hpp"
+          },
+          "hashes": {
+            "sha-256": "a29f189afde3d16cb782fb4d1e5ceef9692792827d3f18fcd82305d5e0bd1b0c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/vector3.hpp"
+          },
+          "hashes": {
+            "sha-256": "9f8c826c13eac88fcb2d87cae939463afdbc86c38416d9e7ab9491bee6c40927"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/vector3.inl"
+          },
+          "hashes": {
+            "sha-256": "80ae793d65ac32779ebdfd8ecf8fca25127c538df5c8baf3540aca8594b48988"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/event.inl"
+          },
+          "hashes": {
+            "sha-256": "bba15d0f5f46cfd2c7608f4d6143cfbe48179ceb9365ed39afb5e8bb90ac0cbe"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/clock.hpp"
+          },
+          "hashes": {
+            "sha-256": "ad201cb63a43eca2d39148e7f076e2742356707f127c6af0c4ba1cc256482c87"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/shader.hpp"
+          },
+          "hashes": {
+            "sha-256": "4410b8ec3c1132a30f1f7998b2b444407c8713d71c9b02ddeec2aa4373198ea9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/glsl.hpp"
+          },
+          "hashes": {
+            "sha-256": "00cbaee822d748c84baa8782917676550b0f6468cf5ece2119be0d853d9a3696"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/glsl.inl"
+          },
+          "hashes": {
+            "sha-256": "e0a99cae01a894628a2def9de002b0d673cfb090a7f8d13b6bc97a557a5d7080"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/sprite.hpp"
+          },
+          "hashes": {
+            "sha-256": "047c93b04a208d13925637d507b4371b6aa8251bcc15f775f0626d50f09a84fd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/text.hpp"
+          },
+          "hashes": {
+            "sha-256": "2aae2ffac0ea176985296703db939e23619f0e5a8198cd2d4a558b67a278893f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/graphics/vertexbuffer.hpp"
+          },
+          "hashes": {
+            "sha-256": "922c3bd0e6782b5466ca0ad298cb9c877b7ae11ba60d63d0a63e90ca86668fc2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "7543c85c8410f36b9556f1521221158e937768d1e031377ca1240128eb5f3f13"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/clipboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "f7a69bf7ca5bdadc6d4f448a6c8d15ebd22ab9875e6beffa412b911fac623e30"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/context.hpp"
+          },
+          "hashes": {
+            "sha-256": "717ba44a04b654faf1c10006972c254940b32133dc22ba50a6356bcea84d7c78"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/cursor.hpp"
+          },
+          "hashes": {
+            "sha-256": "25023fdcb3e6ad4ad1917ddb6209d8252db160fe4627b470dd5628919699056b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/window/touch.hpp"
+          },
+          "hashes": {
+            "sha-256": "29810d418a02737afe75b3e71afe443424eef620ca7d01590d28dbedf71cd4b8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system.hpp"
+          },
+          "hashes": {
+            "sha-256": "a4f392a09b35ed7fe30c0555e2681a28c72e09d99438edeabbc8458a841084e1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/err.hpp"
+          },
+          "hashes": {
+            "sha-256": "ebab350d5cb13e35960eff74e47d64bd8df97c9992aa2f2fc8d9834e1e438115"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/exception.hpp"
+          },
+          "hashes": {
+            "sha-256": "1f9e1c90863d2a0768850ecc3509d565cbf155b773c67e63900efa92def9b321"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/fileinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "b52bf045ee7165b64e0944af3b09d4ad797f382c6467878d7e855304599e2a8b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/inputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "5730dd4186f0e07e3b67201c92c826241526f5ce853be71013c3fb604d1a592a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/memoryinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "57b612053bedfbe9c7e45fa0cdeca9129ef7aee58381619b94639d3eabc34c16"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/sfml/include/sfml/system/sleep.hpp"
+          },
+          "hashes": {
+            "sha-256": "96398969aae170ef97b939db16b96ee48226a86df752bb30d3a7c5ea5f1aa013"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/level.h"
+          },
+          "hashes": {
+            "sha-256": "1b40c209d8371691e4227fea33c8651c464c2bd062164ad55b54f167ab884cbc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/collisions.h"
+          },
+          "hashes": {
+            "sha-256": "feb204488ac887e13d6b44c003b32d6d3bbee02c6f0fe9d758ce9465c89a20c4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/enemy.h"
+          },
+          "hashes": {
+            "sha-256": "3a7a278aba7b30a1a69ca0c6fbd123a81fb0769fc8346c7fa203b391b52cf260"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/entity.h"
+          },
+          "hashes": {
+            "sha-256": "1e2b231461c50138bfe5ad0e10f92c7ad77d6f143b2558a3b9147119bcdb2012"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/assetmanagement.h"
+          },
+          "hashes": {
+            "sha-256": "5ecfb7bcf7cdda4afffbe2e5cdea8eaa843a61e209744760e6208cc7e7a93614"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/d010949n/documents/github/low-level-gameplay/low-level-gameplay/pickup.h"
+          },
+          "hashes": {
+            "sha-256": "eec47c5a6255c7bfcc94834a61f2fc8a96aa6d7bdc5825efb9e885bb0a6e9702"
+          }
+        }
+      ]
+    }
+  ]
+}

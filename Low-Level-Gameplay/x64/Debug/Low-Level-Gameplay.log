@@ -1,2 +1,28 @@
-﻿  sphere.cpp
-  Low-Level-Gameplay.vcxproj -> D:\Git\MyFiles\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe
+﻿  assetmanagement.cpp
+  assetmanagement.h
+  bomb.cpp
+  club.cpp
+  block.cpp
+  collisions.cpp
+  pickupmanager.cpp
+  enemy.cpp
+  entity.cpp
+  entitymanager.cpp
+  game.cpp
+  level.cpp
+  orb.cpp
+  pickup.cpp
+  powerupcoin.cpp
+  scoremanager.cpp
+  spawnpoint.cpp
+  sphere.cpp
+  main.cpp
+  player.cpp
+  Generating Code...
+  Compiling...
+  screenbounds.cpp
+  skeleton.cpp
+  Generating Code...
+x64\Debug\assetmanagement.obj : warning LNK4042: object specified more than once; extras ignored
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Low-Level-Gameplay.vcxproj -> C:\Users\d010949n\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe

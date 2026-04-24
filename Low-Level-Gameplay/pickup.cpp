@@ -15,6 +15,7 @@ Pickup::~Pickup()
 void Pickup::Update(float deltaTime)
 {
     if (player == nullptr) return;
+    if (player->isDead) return;
 
     Animations(deltaTime);
 
@@ -24,8 +25,8 @@ void Pickup::Update(float deltaTime)
         position.y - spriteRect.size.y < player->position.y + player->spriteRect.size.y)
     {
         if (state != State::PICKED_UP) {
+            OnPickup(); 
             state = State::PICKED_UP;
-            OnPickup();
         }
     }
 

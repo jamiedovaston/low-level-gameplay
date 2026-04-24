@@ -6,8 +6,6 @@ Bomb::Bomb(Player* player, sf::Vector2u screen) : Pickup(player, screen)
 	sprite = new sf::Sprite(*LoadResource("../Images/bomb-sprite-sheet.png"));
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(4.0f, 20.0f), sf::Vector2f(40.0f / 2.0f, 28.0f / 2.0f));
-
-	position = sf::Vector2f(250.0f, 250.0f);
 }
 
 Bomb::~Bomb()
@@ -17,7 +15,8 @@ Bomb::~Bomb()
 
 void Bomb::OnPickup()
 {
-	std::cout << "Picked up!" << std::endl;
+	std::string s = (bstate == BState::FUSED) ? " FUSED!" : "!";
+	std::cout << "Picked up" << s << std::endl;
 }
 
 void Bomb::Animations(float deltaTime)

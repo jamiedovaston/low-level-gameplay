@@ -45,6 +45,8 @@ public:
 class Club : public Enemy
 {
 public:
+	sf::Vector2f projectedDirection;
+
 	Club(Player* player, sf::Vector2u screen);
 	~Club();
 
@@ -54,8 +56,9 @@ public:
 
 class Sphere : public Enemy
 {
-	float projectedDirection = 0.0f;
 public:
+	float projectedDirection = 0.0f;
+
 	Sphere(Player* player, sf::Vector2u screen);
 	~Sphere();
 
@@ -65,8 +68,9 @@ public:
 
 class Orb : public Enemy
 {
-	float projectedDirection = 0.0f;
 public:
+	float projectedDirection = 0.0f;
+
 	Orb(Player* player, sf::Vector2u screen);
 	~Orb();
 
