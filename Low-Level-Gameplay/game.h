@@ -39,6 +39,8 @@ class EntityManager
 	sf::Vector2u screen;
 	Player* player;
 	ScoreManager* score;
+
+	float runtime = 0.0f;
 public:
 	enum State {
 		NONE,
@@ -51,6 +53,7 @@ public:
 	EntityManager(Player* player, sf::Vector2u screen, ScoreManager* score);
 	~EntityManager();
 
+	void AssignLevel(Level* lvl);
 	void Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
@@ -77,10 +80,28 @@ public:
 
 class ScoreManager {
 public:
-	struct Round {
+	class Round {
+	public:
+		int fusedCount = 0;
+		int enemyIncrement = 0;
 		bool isPowerUp = false;
-		bool isPreviousFused = false;
-		int fusedCount;
+
+	private:
+		float pwrUpTimer = 0.0f;
+	public:
+		void ActivatePowerUp() {
+			pwrUpTimer = 5.0f;
+			isPowerUp = true;
+		};
+		void Update(float deltaTime) {
+			if (isPowerUp) {
+				pwrUpTimer -= deltaTime;
+				if (pwrUpTimer < 0.0f) {
+					pwrUpTimer = 0.0f;
+					isPowerUp = false;
+				}
+			}
+		};
 	};
 	
 	std::unique_ptr<Round> currentRound;
@@ -88,6 +109,8 @@ public:
 
 	ScoreManager();
 	~ScoreManager();
+
+	void Update(float deltaTime);
 
 	Round* NewRound();
 

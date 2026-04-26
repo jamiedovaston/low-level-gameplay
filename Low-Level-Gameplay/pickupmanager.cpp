@@ -50,11 +50,11 @@ void PickupManager::Update(float deltaTime)
 			if (p->state == Pickup::State::PICKED_UP) {
 				if (Bomb* b = dynamic_cast<Bomb*>(p))
 				{
-					score->AddScore((p->state == Bomb::BState::FUSED));
+					score->AddScore((b->bstate == Bomb::BState::FUSED));
 				}
 				if (PowerUpCoin* puc = dynamic_cast<PowerUpCoin*>(p)) 
 				{
-					// INVINCIBLE
+					score->currentRound.get()->ActivatePowerUp();
 				}
 				delete p;
 				pickups.erase(pickups.begin() + i);

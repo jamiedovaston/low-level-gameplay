@@ -10,6 +10,13 @@ ScoreManager::~ScoreManager()
 
 }
 
+void ScoreManager::Update(float deltaTime)
+{
+	if (currentRound != nullptr) {
+		currentRound.get()->Update(deltaTime);
+	}
+}
+
 ScoreManager::Round* ScoreManager::NewRound()
 {
 	currentRound = std::make_unique<Round>();

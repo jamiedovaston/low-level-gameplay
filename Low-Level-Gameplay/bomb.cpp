@@ -21,7 +21,7 @@ void Bomb::OnPickup()
 
 void Bomb::Animations(float deltaTime)
 {
-	if (state == State::NONE) {
+	if (bstate == BState::NONE) {
 		sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 		return;
 	}

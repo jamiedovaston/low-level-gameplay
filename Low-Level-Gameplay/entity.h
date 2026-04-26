@@ -10,11 +10,7 @@ public:
 	// ENTITY
 	sf::Vector2i spriteSize;
 	sf::Sprite* sprite = nullptr;
-
-	sf::Sprite* coin = nullptr;
-
-	// POSITION = OFFSET | SIZE = ORIGINAL SPRITE SIZE
-	sf::FloatRect spriteRect = sf::FloatRect(sf::Vector2f(28.0f / 2.0f, 25.0f), sf::Vector2f(37.0f / 2.0f, 43.0f / 2.0f)); // TEMP PLAYER
+	sf::FloatRect spriteRect; // POSITION = OFFSET | SIZE = ORIGINAL SPRITE SIZE
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;

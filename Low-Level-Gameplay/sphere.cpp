@@ -21,7 +21,7 @@ void Sphere::Update(float deltaTime)
 {
 	Enemy::Update(deltaTime);
 
-	if (player->isDead) return;
+	if (player->isDead || flags == Enemy_Flags::POWERUP) return;
 
 	Animations(deltaTime);
 

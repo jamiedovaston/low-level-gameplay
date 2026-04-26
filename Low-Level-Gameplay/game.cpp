@@ -12,6 +12,7 @@ Game::Game(sf::Vector2u screen)
 
     scoreManager = std::make_unique<ScoreManager>();
     entityManager = std::make_unique<EntityManager>(player, screen, scoreManager.get());
+    entityManager.get()->AssignLevel(lvl);
     currencyManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
 
     for (sf::Vector2f p : lvl->bombs) {
@@ -25,6 +26,7 @@ Game::Game(sf::Vector2u screen)
             currencyManager->Spawn(lvl, new PowerUpCoin(player, screen), sp->Position());
         }
     }
+
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
 
@@ -59,40 +61,41 @@ void Game::Update(float deltaTime)
         lvl->collisions[i]->Collision(player);
     }
 
+    scoreManager.get()->Update(deltaTime);
     entityManager->Update(deltaTime);
     currencyManager->Update(deltaTime);
 
     text->setString(std::string("Score: ") + std::to_string(scoreManager.get()->score));
 
-    if(!player->isDead)
-        runtime -= deltaTime;
+    // if(!player->isDead && !scoreManager.get()->currentRound.get()->isPowerUp)
+    //     runtime -= deltaTime;
 
-    if (runtime <= 0.0f) {
-		runtime = 5.0f;
-        if (entityManager->parent[lvl].size() < lvl->enemyList.size()) 
-        {
-            SpawnPoint* furthest = nullptr;
-            float maxDist = -1.0f;
-
-            // GET THE FURTHEST AWAY
-            for (auto& colPtr : lvl->collisions) {
-                Collider* col = colPtr.get();
-
-                if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
-                    float d = sp->Distance(player);
-
-                    if (d > maxDist) {
-                        maxDist = d;
-                        furthest = sp;
-                    }
-                }
-            }
-
-            if (furthest) {
-                entityManager->Spawn(lvl, new Skeleton(player, screen), furthest->Position());
-            }
-        }
-    }
+    // if (runtime <= 0.0f) {
+	// 	runtime = 5.0f;
+    //     if (entityManager->parent[lvl].size() < lvl->enemyList.size()) 
+    //     {
+    //         SpawnPoint* furthest = nullptr;
+    //         float maxDist = -1.0f;
+    // 
+    //         // GET THE FURTHEST AWAY
+    //         for (auto& colPtr : lvl->collisions) {
+    //             Collider* col = colPtr.get();
+    // 
+    //             if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
+    //                 float d = sp->Distance(player);
+    // 
+    //                 if (d > maxDist) {
+    //                     maxDist = d;
+    //                     furthest = sp;
+    //                 }
+    //             }
+    //         }
+    // 
+    //         if (furthest) {
+    //             entityManager->Spawn(lvl, new Skeleton(player, screen), furthest->Position());
+    //         }
+    //     }
+    // }
 }
 
 void Game::Render(sf::RenderWindow* window)

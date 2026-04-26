@@ -6,6 +6,10 @@ class Enemy : public Entity
 	float runtime;
 protected:
 	Player* player;
+	
+private:
+	sf::Vector2i coinSize = sf::Vector2i(36, 36);
+	sf::Sprite* coin = nullptr;
 
 	// ANIMATIONS
 protected:
@@ -15,6 +19,7 @@ public:
 	enum Enemy_Flags {
 		NONE = 0,
 		TRANSFORM,
+		POWERUP,
 		KILL
 	} flags = Enemy_Flags::NONE;
 
