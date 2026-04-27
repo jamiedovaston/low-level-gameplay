@@ -15,7 +15,7 @@ Pickup::~Pickup()
 void Pickup::Update(float deltaTime)
 {
     if (player == nullptr) return;
-    if (player->isDead) return;
+    if (player->freeze.size() != 0) return;
 
     Animations(deltaTime);
 

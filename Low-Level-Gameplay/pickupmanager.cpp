@@ -64,11 +64,32 @@ void PickupManager::Update(float deltaTime)
 				if (Bomb* b = dynamic_cast<Bomb*>(p))
 				{
 					score->AddScore((b->bstate == Bomb::BState::FUSED));
+					if (b->bstate == Bomb::BState::FUSED) score->currentRound->pwrUpSpawnFusedCount++;
+					if (score->currentRound->pwrUpSpawnFusedCount >= 10) // FUSED POWER UP COUNT
+					{
+						score->currentRound->pwrUpSpawnFusedCount = 0;
+
+						std::vector<SpawnPoint*> spawnPoints;
+
+						for (std::shared_ptr<Collider>& colPtr : lvl->collisions)
+						{
+							if (!colPtr) continue;
+							Collider* col = colPtr.get();
+
+							if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
+								spawnPoints.push_back(sp);
+							}
+						}
+						
+						int random = rand() % spawnPoints.size();
+						Spawn(lvl, new PowerUpCoin(player, screen), spawnPoints[random]->Position());
+					}
+
 					bombCount--;
 				}
 				if (PowerUpCoin* puc = dynamic_cast<PowerUpCoin*>(p)) 
 				{
-					score->currentRound.get()->ActivatePowerUp();
+					score->currentRound->ActivatePowerUp();
 				}
 				delete p;
 				pickups.erase(pickups.begin() + i);

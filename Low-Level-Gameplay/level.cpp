@@ -13,13 +13,13 @@ Level::Level(std::string levelPath)
         std::string type = j["type"];
 
         if (type == "Block") {
-            collisions.push_back(std::make_unique<Block>(originPoint, j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
+            collisions.push_back(std::make_shared<Block>(originPoint, json["block"], j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
         }
         else if (type == "ScreenBounds") {
-            collisions.push_back(std::make_unique<ScreenBounds>(originPoint));
+            collisions.push_back(std::make_shared<ScreenBounds>(originPoint, json["border"]));
         }
         else if (type == "SpawnPoint") {
-            collisions.push_back(std::make_unique<SpawnPoint>(originPoint, j["position"][0], j["position"][1]));
+            collisions.push_back(std::make_shared<SpawnPoint>(originPoint, j["position"][0], j["position"][1], j["isRight"]));
         }
         else std::cout << "(!) Insufficient block type! : " << type << " (!)" << std::endl;
     }

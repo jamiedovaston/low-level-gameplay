@@ -3,6 +3,7 @@
 #include "pickup.h"
 #include "iostream"
 #include "assetmanagement.h"
+#include "string.h"
 
 class Collider
 {
@@ -23,7 +24,7 @@ protected:
 	float w = 100.0f, h = 100.0f;
 
 public:
-	Block(sf::Vector2f originPoint, float x, float y, float w = 100.0f, float h = 100.0f);
+	Block(sf::Vector2f originPoint, std::string filePath, float x, float y, float w = 100.0f, float h = 100.0f);
 	~Block();
 
 public:
@@ -40,7 +41,7 @@ class ScreenBounds : public Collider
 	int borderSize = 23; //px
 
 public:
-	ScreenBounds(sf::Vector2f originPoint);
+	ScreenBounds(sf::Vector2f originPoint, std::string filePath);
 	~ScreenBounds();
 
 public:
@@ -52,7 +53,9 @@ public:
 class SpawnPoint : public Block
 {
 public:
-	SpawnPoint(sf::Vector2f originPoint, float x, float y);
+	bool isRight = true;
+
+	SpawnPoint(sf::Vector2f originPoint, float x, float y, bool isRight);
 	~SpawnPoint();
 
 	void Collision(Entity* behaviour) override;

@@ -1,0 +1,134 @@
+{
+  "background" : "../Images/bombjackbg2.png",
+  "border" : "../Images/Border2.png",
+  "block" : "../Images/Block2.png",
+  "origin" : [0, 100],
+  
+  "map" : [
+    { 
+      "type" : "Block",
+      "rect" : [24, 240, 5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [90, 390, 5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [160, 540, 5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [491, 240, 5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [425, 390, 5, 1]
+    },
+    { 
+      "type" : "Block",
+      "rect" : [355, 540, 5, 1]
+    },
+    { 
+      "type" : "ScreenBounds"
+    },
+    { 
+      "type" : "SpawnPoint",
+      "position" : [100, 100],
+      "isRight" : false
+    },
+    { 
+      "type" : "SpawnPoint",
+      "position" : [550, 50],
+      "isRight" : true
+    }
+  ],
+  
+  "enemies" : [
+	"Club",
+	"Orb",
+	"Sphere"
+  ],
+
+  "bombs" : [
+    {
+      "position" : [370, 375]
+    },
+    {
+      "position" : [440, 375]
+    },
+    {
+      "position" : [510, 375]
+    },
+
+    {
+      "position" : [440, 150]
+    },
+    {
+      "position" : [510, 150]
+    },
+    {
+      "position" : [580, 150]
+    },
+
+    {
+      "position" : [385, 220]
+    },
+    {
+      "position" : [315, 220]
+    },
+    {
+      "position" : [245, 220]
+    },
+
+    {
+      "position" : [385, 60]
+    },
+    {
+      "position" : [315, 60]
+    },
+    {
+      "position" : [245, 60]
+    },
+
+    {
+      "position" : [50, 150]
+    },
+    {
+      "position" : [120, 150]
+    },
+    {
+      "position" : [190, 150]
+    },
+
+    {
+      "position" : [120, 375]
+    },
+    {
+      "position" : [190, 375]
+    },
+    {
+      "position" : [260, 375]
+    },
+
+    {
+      "position" : [120, 525]
+    },
+    {
+      "position" : [190, 525]
+    },
+    {
+      "position" : [260, 525]
+    },
+
+    {
+      "position" : [370, 525]
+    },
+    {
+      "position" : [440, 525]
+    },
+    {
+      "position" : [510, 525]
+    }
+  ]
+}

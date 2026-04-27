@@ -19,7 +19,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime) 
 {
-    if (isDead) 
+    if ((std::count(freeze.begin(), freeze.end(), FreezeState::DEATH) > 0))
     {
         if (velocity.x > 0.0f || velocity.x < 0.0f) {
             velocity.x = 0.0f;
@@ -30,6 +30,11 @@ void Player::Update(float deltaTime)
             projectedVelocity.y = 0.0f;
         }
 		direction = sf::Vector2f(0.0f, 0.0f);
+    }
+    else if ((std::count(freeze.begin(), freeze.end(), FreezeState::WIN) > 0)) {
+        velocity = sf::Vector2f(0.0f, 0.0f);
+        projectedVelocity = sf::Vector2f(0.0f, 0.0f);
+        direction = sf::Vector2f(0.0f, 0.0f);
     }
     else {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
@@ -69,17 +74,7 @@ void Player::Update(float deltaTime)
         {
             direction.x += 1.0f;
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && !is_pressed[sf::Keyboard::Key::LShift])
-        {
-            is_pressed[sf::Keyboard::Key::LShift] = true;
-            freeze = !freeze;
-        }
-        if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) && is_pressed[sf::Keyboard::Key::LShift])
-            is_pressed[sf::Keyboard::Key::LShift] = false;
     }
-
-    if (freeze) return;
 
     // ANIMATIONS
     Animations(deltaTime);
@@ -118,9 +113,10 @@ void Player::Render(sf::RenderWindow* window)
 
 void Player::Hit()
 {
-    if (!isDead) {
+    if (freeze.size() == 0) {
 		std::cout << "Player Hit!" << std::endl;
-		isDead = true;
+        freeze.push_back(FreezeState::DEATH);
+
         elapsedTime = 0.0f;
         frame = 0;
     }
@@ -129,6 +125,10 @@ void Player::Hit()
 void Player::Respawn()
 {
     position = sf::Vector2f(315.0f, 460.0f);
+    projectedVelocity = sf::Vector2f(0.0f, 0.0f);
+    velocity = sf::Vector2f(0.0f, 0.0f);
+
+    freeze.clear();
 }
 
 void Player::Movement(float deltaTime)
@@ -138,10 +138,11 @@ void Player::Movement(float deltaTime)
 
 void Player::Animations(float deltaTime)
 {
-    if (isDead) 
+    elapsedTime += deltaTime;
+
+    if ((std::count(freeze.begin(), freeze.end(), FreezeState::DEATH) > 0))
     {
         if (isGrounded) {
-            elapsedTime += deltaTime;
             if (elapsedTime > .25f) {
                 if (frame < 1)
                     frame++;
@@ -153,9 +154,15 @@ void Player::Animations(float deltaTime)
         }
         return;
     }
-    else
+    else if ((std::count(freeze.begin(), freeze.end(), FreezeState::WIN) > 0)) 
     {
-        elapsedTime += deltaTime;
+        if (elapsedTime > .25f) {
+            elapsedTime = 0.0f;
+            frame++;
+            if (frame > 3) { frame = 0; }
+        }
+        sprite->setTextureRect(sf::IntRect(sf::Vector2i(spriteSize.x * frame, spriteSize.y * 5), spriteSize));
+        return;
     }
 
     // DIRECTION X

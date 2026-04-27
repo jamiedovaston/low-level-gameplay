@@ -6,6 +6,7 @@
 
 class Entity
 {
+	
 public:
 	// ENTITY
 	sf::Vector2i spriteSize;
@@ -23,9 +24,6 @@ public:
 	float groundedBuffer = 0.0f;
 	float gravity = -.15f;
 	float drag = .995f;
-
-	bool isDead = false;
-	bool freeze = false;
 public:
 	Entity(sf::Vector2u screen);
 	~Entity();
@@ -49,6 +47,14 @@ class Player : public Entity
 
 	bool canHover = true;
 	float glideValue = -45.0f;
+
+public:
+	enum FreezeState {
+		WIN,
+		DEATH
+	};
+
+	std::vector<FreezeState> freeze;
 
 public:
 

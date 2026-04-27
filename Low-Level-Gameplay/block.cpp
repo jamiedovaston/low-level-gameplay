@@ -1,6 +1,6 @@
 #include "collisions.h"
 
-Block::Block(sf::Vector2f originPoint, float x, float y, float w, float h) : Collider(originPoint)
+Block::Block(sf::Vector2f originPoint, std::string filePath, float x, float y, float w, float h) : Collider(originPoint)
 {
     this->originPoint = originPoint;
     this->x = originPoint.x + x;
@@ -8,7 +8,8 @@ Block::Block(sf::Vector2f originPoint, float x, float y, float w, float h) : Col
     this->w = w;
     this->h = h;
 
-    sprite = new sf::Sprite(*LoadResource("../Images/block.png"));
+    if (filePath != "") { sprite = new sf::Sprite(*LoadResource(filePath)); }
+    else { sprite = new sf::Sprite(*LoadResource("../Images/Block.png")); }
 
     sprite->setScale(sf::Vector2f(w / 23.0f, h / 23.0f));
     sprite->setPosition(sf::Vector2f(this->x, this->y));

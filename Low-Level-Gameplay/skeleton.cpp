@@ -1,13 +1,13 @@
 #include "enemy.h"
 
-Skeleton::Skeleton(Player* player, sf::Vector2u screen) : Enemy(player, screen)
+Skeleton::Skeleton(Player* player, sf::Vector2u screen, bool isRight) : Enemy(player, screen)
 {
 	spriteSize = sf::Vector2i(39, 45);
-	sprite = new sf::Sprite(*LoadResource("../Images/skeleton-sprite-sheet.png").get());
+	sprite = new sf::Sprite(*LoadResource("../Images/skeleton-sprite-sheet.png"));
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(3.0f, 2.0f), sf::Vector2f(34.0f / 2.0f, 43.0f / 2.0f));
 
-	direction = sf::Vector2f(1.0f, 0.0f);
+	direction = sf::Vector2f((isRight ? 1.0f : -1.0f), 0.0f);
 }
 
 Skeleton::~Skeleton()
@@ -19,7 +19,7 @@ void Skeleton::Update(float deltaTime)
 {
 	Enemy::Update(deltaTime);
 
-	if (player->isDead || flags == Enemy_Flags::POWERUP) return;
+	if (player->freeze.size() > 0 || flags == Enemy_Flags::POWERUP) return;
 
 	float projectedVelocityY = gravity;
 	projectedVelocity.y += projectedVelocityY;

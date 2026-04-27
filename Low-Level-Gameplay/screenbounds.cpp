@@ -1,9 +1,9 @@
 #include "collisions.h"
 
-ScreenBounds::ScreenBounds(sf::Vector2f originPoint) : Collider(originPoint)
+ScreenBounds::ScreenBounds(sf::Vector2f originPoint, std::string filePath) : Collider(originPoint)
 {
     this->originPoint = originPoint;
-    sprite = new sf::Sprite(*LoadResource("../Images/Border.png"));
+    sprite = new sf::Sprite(*LoadResource(filePath));
     sprite->setPosition(originPoint);
 }
 

@@ -5,6 +5,9 @@
 #include "level.h"
 #include "collisions.h"
 #include "pickup.h"
+#include <sstream>
+#include <iomanip>
+#include <cstdlib>
 
 class EntityManager;
 class PickupManager;
@@ -15,25 +18,26 @@ class Game
 	sf::Vector2u screen;
 
 	Player* player;
-	Level* lvl;
+
+	std::unique_ptr<Level> lvl;
+	// Level* lvl;
 
 	std::unique_ptr<ScoreManager> scoreManager;
 	std::unique_ptr<EntityManager> entityManager;
 	std::unique_ptr<PickupManager> pickupManager;
 
-	sf::Font font;
-	sf::Text* text;
-
 	float runtime = 0.0f;
 	int spawnIncrement = 0;
 
-	bool playerDeadBuffer = false;
+	bool loadSceneBuffer = false;
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();
 
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
+
+	void InitialiseNewLevel(std::string filePath);
 }; 
 
 class EntityManager
@@ -42,7 +46,6 @@ class EntityManager
 	Player* player;
 	ScoreManager* score;
 
-	float runtime = 0.0f;
 public:
 	enum State {
 		NONE,
@@ -51,6 +54,9 @@ public:
 
 	std::map<Level*, std::vector<Enemy*>> parent;
 	std::map<Level*, int> enemySpawnCount;
+	std::unordered_map<Level*, float> runtime;
+
+	float spawnRate = 3.5f;
 
 	EntityManager(Player* player, sf::Vector2u screen, ScoreManager* score);
 	~EntityManager();
@@ -83,16 +89,27 @@ public:
 	void Render(sf::RenderWindow* window);
 };
 
-class ScoreManager {
+class ScoreManager 
+{
+	sf::Font font;
+	std::unique_ptr<sf::Text> scoreText;
+	std::unique_ptr<sf::Text> powerUpCountdownText;
+
+	std::unique_ptr<sf::Sprite> backgroundSprite;
+	float gradientRuntime = 0.0f;
+
 public:
 	class Round {
 	public:
 		int fusedCount = 0;
 		int enemyIncrement = 0;
 		bool isPowerUp = false;
-
-	private:
+		
 		float pwrUpTimer = 0.0f;
+		int pwrUpSpawnFusedCount = 0;
+
+		bool win = false;
+
 	public:
 		void ActivatePowerUp() {
 			pwrUpTimer = 5.0f;
@@ -116,6 +133,7 @@ public:
 	~ScoreManager();
 
 	void Update(float deltaTime);
+	void Render(sf::RenderWindow* window);
 
 	Round* NewRound();
 

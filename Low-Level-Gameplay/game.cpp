@@ -8,48 +8,17 @@ Game::Game(sf::Vector2u screen)
 
     player = new Player(screen);
 
-    lvl = new Level("../Data/Levels/level.json");
-
     scoreManager = std::make_unique<ScoreManager>();
     entityManager = std::make_unique<EntityManager>(player, screen, scoreManager.get());
-    entityManager.get()->AssignLevel(lvl);
     pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
 
-    for (sf::Vector2f p : lvl->bombs) {
-        pickupManager->Spawn(lvl, new Bomb(player, screen), p);
-    }
-
-    for (auto& colPtr : lvl->collisions) {
-        Collider* col = colPtr.get();
-
-        if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
-            pickupManager->Spawn(lvl, new PowerUpCoin(player, screen), sp->Position());
-        }
-    }
-
-    if (!font.openFromFile("../font.ttf"))
-        std::cout << "Failed to load font\n";
-
-	text = new sf::Text(font);
-
-    text->setFont(font);
-
-    text->setCharacterSize(60);
-    text->setFillColor(sf::Color::White);
-    text->setStyle(sf::Text::Bold);
-    text->setPosition(sf::Vector2f(10.0f, 10.0f));
+    InitialiseNewLevel("../Data/Levels/level2.json");
 }
 
 Game::~Game()
 {
     delete player;
     player = nullptr;
-
-    delete text;
-	text = nullptr;
-
-    delete lvl;
-    lvl = nullptr;
 }
 
 void Game::Update(float deltaTime)
@@ -64,58 +33,68 @@ void Game::Update(float deltaTime)
         }
     }
 
-    scoreManager.get()->Update(deltaTime);
+    scoreManager->Update(deltaTime);
     entityManager->Update(deltaTime);
     pickupManager->Update(deltaTime);
 
-    text->setString(std::string("Score: ") + std::to_string(scoreManager.get()->score));
-    
-    if (player->isDead && runtime <= 0.0f && !playerDeadBuffer) {
-        playerDeadBuffer = true;
+    if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && !loadSceneBuffer) {
+        loadSceneBuffer = true;
         runtime = 5.0f;
     }
 
-    if (player->isDead && runtime <= 0.0f && playerDeadBuffer) {
-        playerDeadBuffer = false;
-        player->isDead = false;
+    if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && runtime <= 0.0f && loadSceneBuffer) {
+        loadSceneBuffer = false;
 
-        std::cout << "Respawn!" << std::endl;
+        std::cout << "# Respawn!" << std::endl;
 
-        entityManager.get()->Clear(lvl);
-        scoreManager.get()->NewRound();
+        entityManager->Clear(lvl.get());
+        scoreManager->NewRound();
 
         player->Respawn();
     }
 
-    if (pickupManager.get()->bombCount <= 0)
+    if (pickupManager->bombCount <= 0 && !loadSceneBuffer) // WIN
     {
-        entityManager.get()->Clear(lvl);
-        pickupManager.get()->Clear(lvl);
+        player->freeze.push_back(Player::FreezeState::WIN);
+        loadSceneBuffer = true;
+        runtime = 5.0f;
+    }
+    if((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::WIN) > 0) && runtime <= 0.0f && loadSceneBuffer) {
+        loadSceneBuffer = false;
 
-        delete lvl;
-        lvl = nullptr;
+        std::cout << "# Load new level!" << std::endl;
 
-        lvl = new Level("../Data/Levels/level.json");
-        entityManager.get()->AssignLevel(lvl);
-
-        scoreManager.get()->NewRound();
-
-        for (sf::Vector2f p : lvl->bombs) {
-            pickupManager->Spawn(lvl, new Bomb(player, screen), p);
-        }
-
-        player->Respawn();
+        InitialiseNewLevel("../Data/Levels/level.json");
     }
 }
 
 void Game::Render(sf::RenderWindow* window)
 {
+    scoreManager->Render(window);
+
     if(lvl != nullptr) lvl->Render(window);
 
-	entityManager->Render(window);
     pickupManager->Render(window);
+	entityManager->Render(window);
 
     player->Render(window);
+}
 
-    window->draw(*text);
+void Game::InitialiseNewLevel(std::string filePath)
+{
+    if (lvl != nullptr) {
+        entityManager->Clear(lvl.get());
+        pickupManager->Clear(lvl.get());
+    }
+
+    lvl = std::make_unique<Level>(filePath);
+    entityManager->AssignLevel(lvl.get());
+
+    scoreManager->NewRound();
+
+    for (sf::Vector2f p : lvl->bombs) {
+        pickupManager->Spawn(lvl.get(), new Bomb(player, screen), p);
+    }
+
+    player->Respawn();
 }

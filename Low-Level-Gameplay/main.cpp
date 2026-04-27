@@ -2,7 +2,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 630, 920 }), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode({ 630, 920 }), "Bombjack: Reborn!");
 
     Game* game = new Game(window.getSize());
 

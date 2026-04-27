@@ -17,7 +17,7 @@ PowerUpCoin::~PowerUpCoin()
 
 void PowerUpCoin::Update(float deltaTime)
 {
-	if (player->isDead) return;
+	if (player->freeze.size() != 0) return;
 
 	Pickup::Update(deltaTime);
 

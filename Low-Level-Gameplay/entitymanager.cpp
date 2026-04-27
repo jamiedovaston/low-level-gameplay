@@ -19,7 +19,7 @@ EntityManager::~EntityManager()
 void EntityManager::AssignLevel(Level* lvl)
 {
 	parent[lvl] = std::vector<Enemy*>();
-	runtime = 0.0f;
+	runtime[lvl] = 0.0f;
 }
 
 void EntityManager::Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location)
@@ -33,16 +33,16 @@ void EntityManager::Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location)
 
 void EntityManager::Update(float deltaTime)
 {
-	if (!player->isDead && !score->currentRound.get()->isPowerUp) {
-		runtime -= deltaTime;
-	}
-	if (score->currentRound.get()->isPowerUp) {
-		runtime = 0.0f;
-	}
-
 	for (auto& [lvl, enemies] : parent) {
-		if (runtime < 0.0f) {
-			runtime = 5.0f;
+		if (!player->freeze.size() > 0 && !score->currentRound->isPowerUp) {
+			runtime[lvl] -= deltaTime;
+		}
+		if (score->currentRound.get()->isPowerUp) {
+			runtime[lvl] = 0.0f;
+		}
+
+		if (runtime[lvl] < 0.0f) {
+			runtime[lvl] = spawnRate;
 			if (enemies.size() < lvl->enemyList.size())
 			{
 				SpawnPoint* furthest = nullptr;
@@ -63,7 +63,7 @@ void EntityManager::Update(float deltaTime)
 				}
 
 				if (furthest) {
-					Spawn(lvl, new Skeleton(player, screen), furthest->Position());
+					Spawn(lvl, new Skeleton(player, screen, furthest->isRight), furthest->Position());
 				}
 			}
 		}
@@ -88,8 +88,6 @@ void EntityManager::Update(float deltaTime)
 
 					if (enemySpawnCount[lvl] >= lvl->enemyList.size() - 1) enemySpawnCount[lvl] = 0;
 					else enemySpawnCount[lvl]++;
-
-					std::cout << "Enemy Count : " << enemySpawnCount[lvl] << std::endl;
 				}
 			}
 			if (e->flags == Enemy::Enemy_Flags::TRANSFORM || e->flags == Enemy::Enemy_Flags::KILL)

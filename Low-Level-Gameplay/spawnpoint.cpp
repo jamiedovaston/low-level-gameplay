@@ -1,8 +1,8 @@
 #include "collisions.h"
 
-SpawnPoint::SpawnPoint(sf::Vector2f originPoint, float x, float y) : Block(originPoint, x, y, 0.0f, 0.0f)
+SpawnPoint::SpawnPoint(sf::Vector2f originPoint, float x, float y, bool isRight) : Block(originPoint, "", x, y, 0.0f, 0.0f)
 {
-	
+    this->isRight = isRight;
 }
 
 SpawnPoint::~SpawnPoint()

@@ -12,7 +12,7 @@ class Level
 	std::unique_ptr<sf::Sprite> backgroundSprite;
 
 public:
-	std::vector<std::unique_ptr<Collider>> collisions;
+	std::vector<std::shared_ptr<Collider>> collisions;
 
 	int enemyCount;
 	std::vector<std::string> enemyList;

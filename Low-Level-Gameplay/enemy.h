@@ -38,7 +38,7 @@ class Skeleton : public Enemy
 
 	int directionChangeCount = 3;
 public:
-	Skeleton(Player* player, sf::Vector2u screen);
+	Skeleton(Player* player, sf::Vector2u screen, bool isRight);
 	~Skeleton();
 
 	void Update(float deltaTime) override;

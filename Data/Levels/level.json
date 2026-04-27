@@ -1,5 +1,7 @@
 {
   "background" : "../Images/bombjackbg.png",
+  "border" : "../Images/Border.png",
+  "block" : "../Images/Block.png",
   "origin" : [0, 100],
   
   "map" : [
@@ -28,11 +30,13 @@
     },
     { 
       "type" : "SpawnPoint",
-      "position" : [400, 0]
+      "position" : [400, 0],
+      "isRight" : true
     },
     { 
       "type" : "SpawnPoint",
-      "position" : [175, 50]
+      "position" : [175, 50],
+      "isRight" : true
     }
   ],
   
