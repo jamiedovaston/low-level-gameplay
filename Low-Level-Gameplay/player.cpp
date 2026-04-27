@@ -9,7 +9,7 @@ Player::Player(sf::Vector2u screen) : Entity(screen)
     spriteRect = sf::FloatRect(sf::Vector2f(28.0f / 2.0f, 25.0f), sf::Vector2f(37.0f / 2.0f, 43.0f / 2.0f));
 
     // SPAWN AT POSITION
-    position = sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f);
+    Respawn();
 }
 
 Player::~Player()
@@ -124,6 +124,11 @@ void Player::Hit()
         elapsedTime = 0.0f;
         frame = 0;
     }
+}
+
+void Player::Respawn()
+{
+    position = sf::Vector2f(315.0f, 460.0f);
 }
 
 void Player::Movement(float deltaTime)

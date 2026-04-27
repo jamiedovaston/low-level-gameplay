@@ -19,6 +19,7 @@ EntityManager::~EntityManager()
 void EntityManager::AssignLevel(Level* lvl)
 {
 	parent[lvl] = std::vector<Enemy*>();
+	runtime = 0.0f;
 }
 
 void EntityManager::Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location)
@@ -34,11 +35,13 @@ void EntityManager::Update(float deltaTime)
 {
 	if (!player->isDead && !score->currentRound.get()->isPowerUp) {
 		runtime -= deltaTime;
-
+	}
+	if (score->currentRound.get()->isPowerUp) {
+		runtime = 0.0f;
 	}
 
 	for (auto& [lvl, enemies] : parent) {
-		if (runtime <= 0.0f) {
+		if (runtime < 0.0f) {
 			runtime = 5.0f;
 			if (enemies.size() < lvl->enemyList.size())
 			{
@@ -129,9 +132,4 @@ void EntityManager::Clear(Level* lvl)
 		delete e;
 	}
 	parent[lvl].clear();
-}
-
-void EntityManager::ChangeState(State state)
-{
-
 }

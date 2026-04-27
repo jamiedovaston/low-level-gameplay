@@ -20,9 +20,22 @@ void PickupManager::Spawn(Level* lvl, Pickup* pickup, sf::Vector2f location)
 {
 	if (parent[lvl].empty()) parent[lvl] = std::vector<Pickup*>();
 
+	if (dynamic_cast<Bomb*>(pickup)) { bombCount++; }
+
 	parent[lvl].push_back(pickup);
 
 	pickup->position = lvl->originPoint + location;
+}
+
+void PickupManager::Clear(Level* lvl)
+{
+	for (auto& a : parent[lvl]) {
+		delete a;
+		a = nullptr;
+	}
+	parent[lvl].clear();
+
+	bombCount = 0;
 }
 
 void PickupManager::Update(float deltaTime)
@@ -51,6 +64,7 @@ void PickupManager::Update(float deltaTime)
 				if (Bomb* b = dynamic_cast<Bomb*>(p))
 				{
 					score->AddScore((b->bstate == Bomb::BState::FUSED));
+					bombCount--;
 				}
 				if (PowerUpCoin* puc = dynamic_cast<PowerUpCoin*>(p)) 
 				{

@@ -22,8 +22,10 @@ void Enemy::Update(float deltaTime)
 
     if (player == nullptr) return;
 
+    if (flags == Enemy_Flags::POWERUP) runtime = 0.0f;
+
     // WAIT FOR A SECOND
-    if (runtime <= 1.0f) return;
+    if (runtime <= 1.0f && flags != Enemy_Flags::POWERUP) return;
 
     // MULTIPLIED FOR AFFORDANCE
     if (position.x + (spriteRect.size.x * .8f) > player->position.x - player->spriteRect.size.x &&

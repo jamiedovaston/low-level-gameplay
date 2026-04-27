@@ -13,17 +13,17 @@ Game::Game(sf::Vector2u screen)
     scoreManager = std::make_unique<ScoreManager>();
     entityManager = std::make_unique<EntityManager>(player, screen, scoreManager.get());
     entityManager.get()->AssignLevel(lvl);
-    currencyManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
+    pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
 
     for (sf::Vector2f p : lvl->bombs) {
-        currencyManager->Spawn(lvl, new Bomb(player, screen), p);
+        pickupManager->Spawn(lvl, new Bomb(player, screen), p);
     }
 
     for (auto& colPtr : lvl->collisions) {
         Collider* col = colPtr.get();
 
         if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
-            currencyManager->Spawn(lvl, new PowerUpCoin(player, screen), sp->Position());
+            pickupManager->Spawn(lvl, new PowerUpCoin(player, screen), sp->Position());
         }
     }
 
@@ -54,56 +54,66 @@ Game::~Game()
 
 void Game::Update(float deltaTime)
 {
-    lvl->Update(deltaTime);
+    runtime -= deltaTime;
+    if(lvl != nullptr) lvl->Update(deltaTime);
     player->Update(deltaTime);
 
-    for (int i = 0; i < lvl->collisions.size(); i++) {
-        lvl->collisions[i]->Collision(player);
+    if (lvl != nullptr) {
+        for (int i = 0; i < lvl->collisions.size(); i++) {
+            lvl->collisions[i]->Collision(player);
+        }
     }
 
     scoreManager.get()->Update(deltaTime);
     entityManager->Update(deltaTime);
-    currencyManager->Update(deltaTime);
+    pickupManager->Update(deltaTime);
 
     text->setString(std::string("Score: ") + std::to_string(scoreManager.get()->score));
+    
+    if (player->isDead && runtime <= 0.0f && !playerDeadBuffer) {
+        playerDeadBuffer = true;
+        runtime = 5.0f;
+    }
 
-    // if(!player->isDead && !scoreManager.get()->currentRound.get()->isPowerUp)
-    //     runtime -= deltaTime;
+    if (player->isDead && runtime <= 0.0f && playerDeadBuffer) {
+        playerDeadBuffer = false;
+        player->isDead = false;
 
-    // if (runtime <= 0.0f) {
-	// 	runtime = 5.0f;
-    //     if (entityManager->parent[lvl].size() < lvl->enemyList.size()) 
-    //     {
-    //         SpawnPoint* furthest = nullptr;
-    //         float maxDist = -1.0f;
-    // 
-    //         // GET THE FURTHEST AWAY
-    //         for (auto& colPtr : lvl->collisions) {
-    //             Collider* col = colPtr.get();
-    // 
-    //             if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
-    //                 float d = sp->Distance(player);
-    // 
-    //                 if (d > maxDist) {
-    //                     maxDist = d;
-    //                     furthest = sp;
-    //                 }
-    //             }
-    //         }
-    // 
-    //         if (furthest) {
-    //             entityManager->Spawn(lvl, new Skeleton(player, screen), furthest->Position());
-    //         }
-    //     }
-    // }
+        std::cout << "Respawn!" << std::endl;
+
+        entityManager.get()->Clear(lvl);
+        scoreManager.get()->NewRound();
+
+        player->Respawn();
+    }
+
+    if (pickupManager.get()->bombCount <= 0)
+    {
+        entityManager.get()->Clear(lvl);
+        pickupManager.get()->Clear(lvl);
+
+        delete lvl;
+        lvl = nullptr;
+
+        lvl = new Level("../Data/Levels/level.json");
+        entityManager.get()->AssignLevel(lvl);
+
+        scoreManager.get()->NewRound();
+
+        for (sf::Vector2f p : lvl->bombs) {
+            pickupManager->Spawn(lvl, new Bomb(player, screen), p);
+        }
+
+        player->Respawn();
+    }
 }
 
 void Game::Render(sf::RenderWindow* window)
 {
-    lvl->Render(window);
+    if(lvl != nullptr) lvl->Render(window);
 
 	entityManager->Render(window);
-    currencyManager->Render(window);
+    pickupManager->Render(window);
 
     player->Render(window);
 

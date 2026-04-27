@@ -37,7 +37,7 @@ void PowerUpCoin::Update(float deltaTime)
 
 void PowerUpCoin::OnPickup()
 {
-
+	
 }
 
 void PowerUpCoin::Animations(float deltaTime)

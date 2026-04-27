@@ -19,13 +19,15 @@ class Game
 
 	std::unique_ptr<ScoreManager> scoreManager;
 	std::unique_ptr<EntityManager> entityManager;
-	std::unique_ptr<PickupManager> currencyManager;
+	std::unique_ptr<PickupManager> pickupManager;
 
 	sf::Font font;
 	sf::Text* text;
 
 	float runtime = 0.0f;
 	int spawnIncrement = 0;
+
+	bool playerDeadBuffer = false;
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();
@@ -58,7 +60,6 @@ public:
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
 	void Clear(Level* lvl);
-	void ChangeState(State state);
 };
 
 class PickupManager 
@@ -66,13 +67,17 @@ class PickupManager
 	sf::Vector2u screen;
 	Player* player;
 	ScoreManager* score;
+
 public:
+	int bombCount = 0;
+
 	std::map<Level*, std::vector<Pickup*>> parent;
 
 	PickupManager(Player* player, sf::Vector2u screen, ScoreManager* score);
 	~PickupManager();
 
 	void Spawn(Level* lvl, Pickup* enemy, sf::Vector2f location);
+	void Clear(Level* lvl);
 
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);

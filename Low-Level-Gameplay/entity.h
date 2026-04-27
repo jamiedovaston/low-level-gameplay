@@ -59,6 +59,7 @@ public:
 	void Render(sf::RenderWindow* window) override;
 
 	void Hit();
+	void Respawn();
 
 	void Movement(float deltaTime);
 	void Animations(float deltaTime);
