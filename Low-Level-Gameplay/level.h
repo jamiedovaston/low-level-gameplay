@@ -8,11 +8,10 @@
 
 class Level 
 {
-	std::unique_ptr<sf::Texture> background;
 	std::unique_ptr<sf::Sprite> backgroundSprite;
 
 public:
-	std::vector<std::shared_ptr<Collider>> collisions;
+	std::vector<Collider*> collisions;
 
 	int enemyCount;
 	std::vector<std::string> enemyList;
@@ -22,6 +21,7 @@ public:
 	sf::Vector2f originPoint;
 
 	Level(std::string levelPath);
+	~Level();
 
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);

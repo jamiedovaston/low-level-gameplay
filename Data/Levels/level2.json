@@ -46,6 +46,8 @@
   
   "enemies" : [
 	"Club",
+	"Club",
+	"Club",
 	"Orb",
 	"Sphere"
   ],

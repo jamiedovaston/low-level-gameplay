@@ -3,7 +3,7 @@
 Bomb::Bomb(Player* player, sf::Vector2u screen) : Pickup(player, screen)
 {
 	spriteSize = sf::Vector2i(48, 48);
-	sprite = new sf::Sprite(*LoadResource("../Images/bomb-sprite-sheet.png"));
+	sprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/bomb-sprite-sheet.png"));
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(4.0f, 20.0f), sf::Vector2f(40.0f / 2.0f, 28.0f / 2.0f));
 }

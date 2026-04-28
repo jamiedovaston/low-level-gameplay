@@ -3,7 +3,7 @@
 Sphere::Sphere(Player* player, sf::Vector2u screen) : Enemy(player, screen)
 {
 	spriteSize = sf::Vector2i(42, 42);
-	sprite = new sf::Sprite(*LoadResource("../Images/ball-sprite-sheet.png"));
+	sprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/ball-sprite-sheet.png"));
 	sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
 	spriteRect = sf::FloatRect(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(42.0f / 2.0f, 42.0f / 2.0f));
 

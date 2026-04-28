@@ -13,13 +13,13 @@ Level::Level(std::string levelPath)
         std::string type = j["type"];
 
         if (type == "Block") {
-            collisions.push_back(std::make_shared<Block>(originPoint, json["block"], j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
+            collisions.push_back(new Block(originPoint, json["block"], j["rect"][0], j["rect"][1], 23.0f * j["rect"][2], 23.0f * j["rect"][3]));
         }
         else if (type == "ScreenBounds") {
-            collisions.push_back(std::make_shared<ScreenBounds>(originPoint, json["border"]));
+            collisions.push_back(new ScreenBounds(originPoint, json["border"]));
         }
         else if (type == "SpawnPoint") {
-            collisions.push_back(std::make_shared<SpawnPoint>(originPoint, j["position"][0], j["position"][1], j["isRight"]));
+            collisions.push_back(new SpawnPoint(originPoint, j["position"][0], j["position"][1], j["isRight"]));
         }
         else std::cout << "(!) Insufficient block type! : " << type << " (!)" << std::endl;
     }
@@ -31,10 +31,17 @@ Level::Level(std::string levelPath)
     }
 
     // BACKGROUND
-    background = std::make_unique<sf::Texture>(json["background"]);
-
-    backgroundSprite = std::make_unique<sf::Sprite>(*background);
+    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource(json["background"]));
     backgroundSprite->setPosition(originPoint);
+}
+
+Level::~Level()
+{
+    for (Collider* col : collisions) {
+        delete col;
+        col = nullptr;
+    }
+    collisions.clear();
 }
 
 void Level::Update(float deltaTime)

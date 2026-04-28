@@ -9,105 +9,106 @@ PickupManager::PickupManager(Player* player, sf::Vector2u screen, ScoreManager* 
 
 PickupManager::~PickupManager()
 {
-	for (auto& [lvl, pickups] : parent) {
-		for (Pickup* p : pickups) {
-			delete p;
-		}
+	for (Pickup* p : pickups) {
+		delete p;
 	}
 }
 
-void PickupManager::Spawn(Level* lvl, Pickup* pickup, sf::Vector2f location)
+void PickupManager::AssignLevel(Level* lvl)
 {
-	if (parent[lvl].empty()) parent[lvl] = std::vector<Pickup*>();
+	currentLevel = lvl;
+	pickups = std::vector<Pickup*>();
+}
+
+void PickupManager::Spawn(Pickup* pickup, sf::Vector2f location)
+{
+	if (pickups.empty()) pickups = std::vector<Pickup*>();
 
 	if (dynamic_cast<Bomb*>(pickup)) { bombCount++; }
 
-	parent[lvl].push_back(pickup);
+	pickups.push_back(pickup);
 
-	pickup->position = lvl->originPoint + location;
+	pickup->position = currentLevel->originPoint + location;
 }
 
-void PickupManager::Clear(Level* lvl)
+void PickupManager::Clear()
 {
-	for (auto& a : parent[lvl]) {
+	for (Pickup* a : pickups) {
 		delete a;
 		a = nullptr;
 	}
-	parent[lvl].clear();
+	pickups.clear();
 
 	bombCount = 0;
 }
 
 void PickupManager::Update(float deltaTime)
 {
-	for (auto& [lvl, pickups] : parent) {
-		Bomb* firstBomb = nullptr;
+	Bomb* firstBomb = nullptr;
 
-		for (Pickup* p : pickups) {
-			if (p->state != Pickup::State::PICKED_UP) {
-				if (Bomb* b = dynamic_cast<Bomb*>(p)) {
-					firstBomb = b;
-					break;
-				}
-			}
-		}
-
-		if (firstBomb) {
-			firstBomb->bstate = Bomb::BState::FUSED;
-		}
-
-		for (int i = 0; i < pickups.size(); i++) {
-			Pickup* p = pickups[i];
-			p->Update(deltaTime);
-
-			if (p->state == Pickup::State::PICKED_UP) {
-				if (Bomb* b = dynamic_cast<Bomb*>(p))
-				{
-					score->AddScore((b->bstate == Bomb::BState::FUSED));
-					if (b->bstate == Bomb::BState::FUSED) score->currentRound->pwrUpSpawnFusedCount++;
-					if (score->currentRound->pwrUpSpawnFusedCount >= 10) // FUSED POWER UP COUNT
-					{
-						score->currentRound->pwrUpSpawnFusedCount = 0;
-
-						std::vector<SpawnPoint*> spawnPoints;
-
-						for (std::shared_ptr<Collider>& colPtr : lvl->collisions)
-						{
-							if (!colPtr) continue;
-							Collider* col = colPtr.get();
-
-							if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
-								spawnPoints.push_back(sp);
-							}
-						}
-						
-						int random = rand() % spawnPoints.size();
-						Spawn(lvl, new PowerUpCoin(player, screen), spawnPoints[random]->Position());
-					}
-
-					bombCount--;
-				}
-				if (PowerUpCoin* puc = dynamic_cast<PowerUpCoin*>(p)) 
-				{
-					score->currentRound->ActivatePowerUp();
-				}
-				delete p;
-				pickups.erase(pickups.begin() + i);
-			}
-		}
-		for (int i = 0; i < lvl->collisions.size(); i++) {
-			for (Pickup* p : pickups) {
-				lvl->collisions[i]->Collision(p);
+	for (Pickup* p : pickups) {
+		if (p->state != Pickup::State::PICKED_UP) {
+			if (Bomb* b = dynamic_cast<Bomb*>(p)) {
+				firstBomb = b;
+				break;
 			}
 		}
 	}
+
+	if (firstBomb) {
+		firstBomb->bstate = Bomb::BState::FUSED;
+	}
+
+	for (int i = 0; i < pickups.size(); i++) {
+		Pickup* p = pickups[i];
+		p->Update(deltaTime);
+
+		if (p->state == Pickup::State::PICKED_UP) {
+			if (Bomb* b = dynamic_cast<Bomb*>(p))
+			{
+				score->AddScore((b->bstate == Bomb::BState::FUSED));
+				if (b->bstate == Bomb::BState::FUSED) score->currentRound->pwrUpSpawnFusedCount++;
+				if (score->currentRound->pwrUpSpawnFusedCount >= 10) // FUSED POWER UP COUNT
+				{
+					score->currentRound->pwrUpSpawnFusedCount = 0;
+
+					std::vector<SpawnPoint*> spawnPoints;
+
+					for (Collider* colPtr : currentLevel->collisions)
+					{
+						Collider* col = colPtr;
+
+						if (auto sp = dynamic_cast<SpawnPoint*>(col)) {
+							spawnPoints.push_back(sp);
+						}
+					}
+					
+					int random = rand() % spawnPoints.size();
+					Spawn(new PowerUpCoin(player, screen), spawnPoints[random]->Position());
+				}
+
+				bombCount--;
+			}
+			if (PowerUpCoin* puc = dynamic_cast<PowerUpCoin*>(p)) 
+			{
+				score->currentRound->ActivatePowerUp();
+			}
+			delete p;
+			pickups.erase(pickups.begin() + i);
+		}
+	}
+	for (int i = 0; i < currentLevel->collisions.size(); i++) {
+		for (Pickup* p : pickups) {
+			currentLevel->collisions[i]->Collision(p);
+		}
+	}
+	
 }
 
 void PickupManager::Render(sf::RenderWindow* window)
 {
-	for (auto& [lvl, pickup] : parent) {
-		for (Pickup* e : pickup) {
-			e->Render(window);
-		}
+	for (Pickup* p : pickups) {
+		if(p != nullptr)
+			p->Render(window);
 	}
 }

@@ -1,15 +1,2 @@
-﻿  entitymanager.cpp
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\entitymanager.cpp(37,7): warning C4804: '>': unsafe use of type 'bool' in operation
-  scoremanager.cpp
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,85): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,85): warning C4244:         with
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,85): warning C4244:         [
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,85): warning C4244:             T=int
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,85): warning C4244:         ]
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,66): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,66): warning C4244:         with
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,66): warning C4244:         [
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,66): warning C4244:             T=int
-D:\Git\MyFiles\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(51,66): warning C4244:         ]
-  Generating Code...
-  Low-Level-Gameplay.vcxproj -> D:\Git\MyFiles\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe
+﻿  game.cpp
+  Low-Level-Gameplay.vcxproj -> C:\Users\d010949n\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe

@@ -8,19 +8,32 @@
 #include <sstream>
 #include <iomanip>
 #include <cstdlib>
-
+ 
 class EntityManager;
 class PickupManager;
 class ScoreManager;
 
 class Game 
 {
+	enum State {
+		HOME,
+		GAMEPLAY,
+		SCORE,
+		WAITING_FOR_LEVEL_START,
+		WAITING_FOR_NEXT_LEVEL
+	} state;
+
 	sf::Vector2u screen;
 
 	Player* player;
 
-	std::unique_ptr<Level> lvl;
-	// Level* lvl;
+	int levelCount = 0;
+	std::vector<std::string> levelLib = {
+		"../Data/Levels/level.json",
+		"../Data/Levels/level2.json",
+	};
+
+	Level* lvl;
 
 	std::unique_ptr<ScoreManager> scoreManager;
 	std::unique_ptr<EntityManager> entityManager;
@@ -30,6 +43,12 @@ class Game
 	int spawnIncrement = 0;
 
 	bool loadSceneBuffer = false;
+
+	sf::Sprite* logo;
+
+	sf::Font font;
+	std::unique_ptr<sf::Text> text;
+
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();
@@ -46,26 +65,27 @@ class EntityManager
 	Player* player;
 	ScoreManager* score;
 
+	Level* currentLevel;
+	std::vector<Enemy*> enemies;
+	int enemySpawnCount;
+	float runtime;
+
 public:
 	enum State {
 		NONE,
 		POWERUP
 	} state;
 
-	std::map<Level*, std::vector<Enemy*>> parent;
-	std::map<Level*, int> enemySpawnCount;
-	std::unordered_map<Level*, float> runtime;
-
-	float spawnRate = 3.5f;
+	float spawnRate = 4.0f;
 
 	EntityManager(Player* player, sf::Vector2u screen, ScoreManager* score);
 	~EntityManager();
 
 	void AssignLevel(Level* lvl);
-	void Spawn(Level* lvl, Enemy* enemy, sf::Vector2f location);
+	void Spawn(Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
-	void Clear(Level* lvl);
+	void Clear();
 };
 
 class PickupManager 
@@ -74,16 +94,20 @@ class PickupManager
 	Player* player;
 	ScoreManager* score;
 
+	Level* currentLevel;
+
 public:
 	int bombCount = 0;
 
-	std::map<Level*, std::vector<Pickup*>> parent;
+	std::vector<Pickup*> pickups;
 
 	PickupManager(Player* player, sf::Vector2u screen, ScoreManager* score);
 	~PickupManager();
 
-	void Spawn(Level* lvl, Pickup* enemy, sf::Vector2f location);
-	void Clear(Level* lvl);
+	void AssignLevel(Level* lvl);
+	void Spawn(Pickup* enemy, sf::Vector2f location);
+	void Clear();
+
 
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
@@ -91,6 +115,8 @@ public:
 
 class ScoreManager 
 {
+	Player* player;
+
 	sf::Font font;
 	std::unique_ptr<sf::Text> scoreText;
 	std::unique_ptr<sf::Text> powerUpCountdownText;
@@ -129,13 +155,15 @@ public:
 	std::unique_ptr<Round> currentRound;
 	int score = 0;
 
-	ScoreManager();
+	ScoreManager(Player* player);
 	~ScoreManager();
 
 	void Update(float deltaTime);
 	void Render(sf::RenderWindow* window);
 
 	Round* NewRound();
+
+	void Reset();
 
 	void AddScore(bool isFused);
 	void AddScore(int amount);

@@ -1,7 +1,9 @@
 #include "game.h"
 
-ScoreManager::ScoreManager()
+ScoreManager::ScoreManager(Player* player)
 {
+	this->player = player;
+
 	NewRound();
 
 	if (!font.openFromFile("../font.ttf"))
@@ -39,6 +41,12 @@ void ScoreManager::Update(float deltaTime)
 		currentRound->Update(deltaTime);
 	}
 
+	if (player->freeze.size() > 0)
+	{
+		currentRound->isPowerUp = false;
+		currentRound->pwrUpTimer = 0.0f;
+	}
+
 	scoreText->setString(std::string("Score: ") + std::to_string(score));
 
 	std::ostringstream ss;
@@ -65,6 +73,11 @@ ScoreManager::Round* ScoreManager::NewRound()
 {
 	currentRound = std::make_unique<Round>();
 	return currentRound.get();
+}
+
+void ScoreManager::Reset()
+{
+	score = 0;
 }
 
 void ScoreManager::AddScore(bool isFused)

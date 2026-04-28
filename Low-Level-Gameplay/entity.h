@@ -10,7 +10,7 @@ class Entity
 public:
 	// ENTITY
 	sf::Vector2i spriteSize;
-	sf::Sprite* sprite = nullptr;
+	std::unique_ptr<sf::Sprite> sprite = nullptr;
 	sf::FloatRect spriteRect; // POSITION = OFFSET | SIZE = ORIGINAL SPRITE SIZE
 
 	sf::Vector2f position;
@@ -51,7 +51,8 @@ class Player : public Entity
 public:
 	enum FreezeState {
 		WIN,
-		DEATH
+		DEATH,
+		WAITING_TO_START
 	};
 
 	std::vector<FreezeState> freeze;

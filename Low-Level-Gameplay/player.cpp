@@ -4,7 +4,7 @@ Player::Player(sf::Vector2u screen) : Entity(screen)
 {
     // CREATE PLAYER
     spriteSize = sf::Vector2i(65, 68);
-    sprite = new sf::Sprite(*LoadResource("../Images/jack-sprite-sheet.png"));
+    sprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/jack-sprite-sheet.png"));
     sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
     spriteRect = sf::FloatRect(sf::Vector2f(28.0f / 2.0f, 25.0f), sf::Vector2f(37.0f / 2.0f, 43.0f / 2.0f));
 
@@ -31,7 +31,7 @@ void Player::Update(float deltaTime)
         }
 		direction = sf::Vector2f(0.0f, 0.0f);
     }
-    else if ((std::count(freeze.begin(), freeze.end(), FreezeState::WIN) > 0)) {
+    else if ((std::count(freeze.begin(), freeze.end(), FreezeState::WIN) > 0) || (std::count(freeze.begin(), freeze.end(), FreezeState::WAITING_TO_START) > 0)) {
         velocity = sf::Vector2f(0.0f, 0.0f);
         projectedVelocity = sf::Vector2f(0.0f, 0.0f);
         direction = sf::Vector2f(0.0f, 0.0f);
