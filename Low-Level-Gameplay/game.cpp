@@ -33,16 +33,18 @@ Game::Game(sf::Vector2u screen)
     text->setCharacterSize(30);
     text->setFillColor(sf::Color::White);
     text->setStyle(sf::Text::Bold);
-    text->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f)));
-
+    text->setOutlineThickness(3.0f);
     text->setString(std::string("Press Space to play!"));
+
+    sf::FloatRect textRect = text->getLocalBounds();
+    text->setOrigin(textRect.getCenter());
+    text->setPosition(sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f));
 
     scoreText = std::make_unique<sf::Text>(font);
 
     scoreText->setCharacterSize(30);
     scoreText->setFillColor(sf::Color::White);
     scoreText->setStyle(sf::Text::Bold);
-    scoreText->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f)));
 
     backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/gradient.png"));
     backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
@@ -123,6 +125,12 @@ void Game::Update(float deltaTime)
                     runtime = 5.0f;
                     std::cout << "# SCORE STATE" << std::endl;
                     state = State::SCORE; // Show score.
+
+                    scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
+
+                    sf::FloatRect textRect = scoreText->getLocalBounds();
+                    scoreText->setOrigin(textRect.getCenter());
+                    scoreText->setPosition(sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f));
                 }
                 else {
                     std::cout << "# Respawn!" << std::endl;
@@ -161,6 +169,12 @@ void Game::Update(float deltaTime)
             runtime = 5.0f;
             std::cout << "# SCORE STATE" << std::endl;
             state = State::SCORE;
+
+            scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
+
+            sf::FloatRect textRect = scoreText->getLocalBounds();
+            scoreText->setOrigin(textRect.getCenter());
+            scoreText->setPosition(sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f));
         }
         else {
             InitialiseNewLevel(levelLib[levelCount - 1]);
@@ -171,7 +185,6 @@ void Game::Update(float deltaTime)
     }
     if (state == State::SCORE) 
     {
-        scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
         if (runtime <= 0.0f) {
             std::cout << "# HOME STATE" << std::endl;
             state = State::HOME;

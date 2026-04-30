@@ -30,7 +30,8 @@ class Game
 	int levelCount = 0;
 	std::vector<std::string> levelLib = {
 		"../Data/Levels/level.json",
-		"../Data/Levels/level2.json",
+		"../Data/Levels/level2.json"
+		"../Data/Levels/level3.json",
 	};
 
 	Level* lvl;
