@@ -44,10 +44,16 @@ class Game
 
 	bool loadSceneBuffer = false;
 
-	sf::Sprite* logo;
+	std::unique_ptr<sf::Sprite> logo;
+	std::vector<std::unique_ptr<sf::Sprite>> start;
+	std::unique_ptr<sf::Sprite> gameOver;
 
 	sf::Font font;
 	std::unique_ptr<sf::Text> text;
+	std::unique_ptr<sf::Text> scoreText;
+
+	float gradientRuntime = 0.0f;
+	std::unique_ptr<sf::Sprite> backgroundSprite;
 
 public:
 	Game(sf::Vector2u screenSize);
@@ -124,6 +130,8 @@ class ScoreManager
 	std::unique_ptr<sf::Sprite> backgroundSprite;
 	float gradientRuntime = 0.0f;
 
+	std::vector<std::unique_ptr<sf::Sprite>> livesDisplay;
+
 public:
 	class Round {
 	public:
@@ -154,6 +162,7 @@ public:
 	
 	std::unique_ptr<Round> currentRound;
 	int score = 0;
+	int lives = 3;
 
 	ScoreManager(Player* player);
 	~ScoreManager();
@@ -162,6 +171,8 @@ public:
 	void Render(sf::RenderWindow* window);
 
 	Round* NewRound();
+
+	bool Death();
 
 	void Reset();
 

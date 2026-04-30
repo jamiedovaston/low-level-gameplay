@@ -13,6 +13,12 @@ ScoreManager::ScoreManager(Player* player)
 	backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
 	backgroundSprite->setScale(sf::Vector2f(63.0f, 96.0f));
 
+	livesDisplay.resize(3);
+	for (int i = 0; i < livesDisplay.size(); i++) {
+		livesDisplay[i] = std::make_unique<sf::Sprite>(*LoadResource("../Images/jack.png"));
+		livesDisplay[i]->setPosition(sf::Vector2f(25.0f + 45.0f * i, 845.0f));
+	}
+
 	scoreText = std::make_unique<sf::Text>(font);
 	powerUpCountdownText = std::make_unique<sf::Text>(font);
 
@@ -24,10 +30,10 @@ ScoreManager::ScoreManager(Player* player)
 	scoreText->setStyle(sf::Text::Bold | sf::Text::Italic);
 	scoreText->setPosition(sf::Vector2f(10.0f, 10.0f));
 
-	powerUpCountdownText->setCharacterSize(35);
+	powerUpCountdownText->setCharacterSize(28);
 	powerUpCountdownText->setFillColor(sf::Color::White);
 	powerUpCountdownText->setStyle(sf::Text::Bold);
-	powerUpCountdownText->setPosition(sf::Vector2f(10.0f, 845.0f));
+	powerUpCountdownText->setPosition(sf::Vector2f(180.0f, 845.0f));
 }
 
 ScoreManager::~ScoreManager()
@@ -65,6 +71,10 @@ void ScoreManager::Render(sf::RenderWindow* window)
 		window->draw(*backgroundSprite); 
 		window->draw(*powerUpCountdownText);
 	}
+
+	for (int i = 0; i < lives; i++) {
+		window->draw(*livesDisplay[i]);
+	}
 	
 	window->draw(*scoreText);
 }
@@ -75,9 +85,16 @@ ScoreManager::Round* ScoreManager::NewRound()
 	return currentRound.get();
 }
 
+bool ScoreManager::Death()
+{
+	lives--;
+	return lives == 0;
+}
+
 void ScoreManager::Reset()
 {
 	score = 0;
+	lives = 3;
 }
 
 void ScoreManager::AddScore(bool isFused)

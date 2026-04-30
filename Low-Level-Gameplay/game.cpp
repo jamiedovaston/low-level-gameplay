@@ -15,14 +15,20 @@ Game::Game(sf::Vector2u screen)
     state = State::HOME;
     std::cout << "# HOME STATE" << std::endl;
 
-    logo = new sf::Sprite(*LoadResource("../Images/bombjack_logo.png"));
+    logo = std::make_unique<sf::Sprite>(*LoadResource("../Images/bombjack_logo.png"));
     logo->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f) - 200.0f));
+
+    gameOver = std::make_unique<sf::Sprite>(*LoadResource("../Images/game-over.png"));
+    gameOver->setPosition(sf::Vector2f(screen.x / 2.0f - 90.0f, screen.y / 2.0f - 69.0f));
+
+    start.resize(2);
+    start[0] = std::make_unique<sf::Sprite>(*LoadResource("../Images/start_1.png"));
+    start[1] = std::make_unique<sf::Sprite>(*LoadResource("../Images/start_2.png"));
 
     if (!font.openFromFile("../font.ttf"))
         std::cout << "Failed to load font\n";
 
     text = std::make_unique<sf::Text>(font);
-    text->setFont(font);
 
     text->setCharacterSize(30);
     text->setFillColor(sf::Color::White);
@@ -30,6 +36,17 @@ Game::Game(sf::Vector2u screen)
     text->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f)));
 
     text->setString(std::string("Press Space to play!"));
+
+    scoreText = std::make_unique<sf::Text>(font);
+
+    scoreText->setCharacterSize(30);
+    scoreText->setFillColor(sf::Color::White);
+    scoreText->setStyle(sf::Text::Bold);
+    scoreText->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f)));
+
+    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/gradient.png"));
+    backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
+    backgroundSprite->setScale(sf::Vector2f(63.0f, 96.0f));
 }
 
 Game::~Game()
@@ -43,8 +60,14 @@ Game::~Game()
 
 void Game::Update(float deltaTime)
 {
+    runtime -= deltaTime;
     if (state == State::HOME) 
     {
+        gradientRuntime += deltaTime;
+        if (gradientRuntime >= 9.9f) { gradientRuntime = 0.0f; }
+
+        backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(10.0f * gradientRuntime, 0.0f), sf::Vector2i(10, 10)));
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             std::cout << "# WAITING_FOR_NEXT_LEVEL STATE" << std::endl;
             state = State::WAITING_FOR_NEXT_LEVEL;
@@ -55,7 +78,6 @@ void Game::Update(float deltaTime)
     }
     if (state == State::GAMEPLAY || state == State::WAITING_FOR_LEVEL_START) 
     {
-        runtime -= deltaTime;
         if (lvl != nullptr) lvl->Update(deltaTime);
         player->Update(deltaTime);
 
@@ -75,6 +97,9 @@ void Game::Update(float deltaTime)
                 if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::WAITING_TO_START) <= 0)) {
                     player->freeze.push_back(Player::FreezeState::WAITING_TO_START);
                 }
+
+                start[0]->setPosition(sf::Vector2f(((screen.x / 2.0f) - 84.0f) - 200.0f + (400.0f * std::clamp((2.0f - runtime), 0.0f, .5f)), (screen.y / 2.0f) - 18.0f));
+                start[1]->setPosition(sf::Vector2f(((screen.x / 2.0f) - 84.0f) + 200.0f - (400.0f * std::clamp((2.0f - runtime), 0.0f, .5f)), (screen.y / 2.0f) - 18.0f));
             }
             else if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::WAITING_TO_START) > 0)) {
                 player->freeze.clear();
@@ -88,13 +113,24 @@ void Game::Update(float deltaTime)
             if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && !loadSceneBuffer) {
                 loadSceneBuffer = true;
                 runtime = 5.0f;
+                scoreManager->Death();
             }
 
             if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && runtime <= 0.0f && loadSceneBuffer) {
                 loadSceneBuffer = false;
 
-                std::cout << "# Respawn!" << std::endl;
-        
+                if (scoreManager->lives <= 0) {
+                    runtime = 5.0f;
+                    std::cout << "# SCORE STATE" << std::endl;
+                    state = State::SCORE; // Show score.
+                }
+                else {
+                    std::cout << "# Respawn!" << std::endl;
+                    std::cout << "# WAITING_FOR_LEVEL_START STATE" << std::endl;
+                    runtime = 2.0f;
+                    state = State::WAITING_FOR_LEVEL_START;
+                }
+
                 entityManager->Clear();
                 scoreManager->NewRound();
 
@@ -121,23 +157,33 @@ void Game::Update(float deltaTime)
     if (state == State::WAITING_FOR_NEXT_LEVEL) 
     {
         levelCount++;
-        if (levelCount - 1 == levelLib.size()) {
-            state = State::HOME;
-            std::cout << "# HOME STATE" << std::endl;
+        if (levelCount - 1 >= levelLib.size()) {
+            runtime = 5.0f;
+            std::cout << "# SCORE STATE" << std::endl;
+            state = State::SCORE;
         }
         else {
             InitialiseNewLevel(levelLib[levelCount - 1]);
             std::cout << "# WAITING_FOR_LEVEL_START STATE" << std::endl;
-            runtime = 3.0f;
+            runtime = 2.0f;
             state = State::WAITING_FOR_LEVEL_START;
+        }
+    }
+    if (state == State::SCORE) 
+    {
+        scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
+        if (runtime <= 0.0f) {
+            std::cout << "# HOME STATE" << std::endl;
+            state = State::HOME;
         }
     }
 }
 
 void Game::Render(sf::RenderWindow* window)
 {
-    if (state == State::HOME) 
+    if (state == State::HOME)
     {
+        window->draw(*backgroundSprite);
         window->draw(*logo);
         window->draw(*text);
     }
@@ -145,12 +191,27 @@ void Game::Render(sf::RenderWindow* window)
     {
         scoreManager->Render(window);
 
-        if(lvl != nullptr) lvl->Render(window);
+        if (lvl != nullptr) lvl->Render(window);
 
         pickupManager->Render(window);
-	    entityManager->Render(window);
+        entityManager->Render(window);
 
         player->Render(window);
+
+        if (state == State::WAITING_FOR_LEVEL_START)
+        {
+            for (auto& img : start) {
+                window->draw(*img);
+            }
+        }
+    }
+
+    if (state == State::SCORE) {
+        window->draw(*scoreText);
+    }
+
+    if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && scoreManager->lives <= 0) {
+        window->draw(*gameOver);
     }
 }
 
