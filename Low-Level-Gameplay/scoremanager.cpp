@@ -21,14 +21,18 @@ ScoreManager::ScoreManager(Player* player)
 
 	scoreText = std::make_unique<sf::Text>(font);
 	powerUpCountdownText = std::make_unique<sf::Text>(font);
+	highScoreText = std::make_unique<sf::Text>(font);
 
-	scoreText->setFont(font);
-	powerUpCountdownText->setFont(font);
-
-	scoreText->setCharacterSize(60);
+	scoreText->setCharacterSize(55);
 	scoreText->setFillColor(sf::Color::White);
-	scoreText->setStyle(sf::Text::Bold | sf::Text::Italic);
-	scoreText->setPosition(sf::Vector2f(10.0f, 10.0f));
+	scoreText->setStyle(sf::Text::Bold);
+	scoreText->setPosition(sf::Vector2f(10.0f, 5.0f));
+
+	highScoreText->setCharacterSize(20);
+	highScoreText->setFillColor(sf::Color::White);
+	highScoreText->setStyle(sf::Text::Bold | sf::Text::Italic);
+	highScoreText->setPosition(sf::Vector2f(10.0f, 65.0f));
+	highScoreText->setString("Highscore: ");
 
 	powerUpCountdownText->setCharacterSize(28);
 	powerUpCountdownText->setFillColor(sf::Color::White);
@@ -65,7 +69,7 @@ void ScoreManager::Update(float deltaTime)
 	backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(10.0f * gradientRuntime, 0.0f), sf::Vector2i(10, 10)));
 }
 
-void ScoreManager::Render(sf::RenderWindow* window) 
+void ScoreManager::Render(sf::RenderWindow* window) const
 {
 	if(currentRound->isPowerUp) { 
 		window->draw(*backgroundSprite); 
@@ -77,6 +81,7 @@ void ScoreManager::Render(sf::RenderWindow* window)
 	}
 	
 	window->draw(*scoreText);
+	window->draw(*highScoreText);
 }
 
 ScoreManager::Round* ScoreManager::NewRound()
@@ -112,4 +117,9 @@ void ScoreManager::AddScore(bool isFused)
 void ScoreManager::AddScore(int amount)
 {
 	score += amount;
+}
+
+void ScoreManager::SetHighscoreText(int score)
+{
+	highScoreText->setString("Highscore: " + std::to_string(score));
 }

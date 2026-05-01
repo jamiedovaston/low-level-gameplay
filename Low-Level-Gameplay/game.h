@@ -2,12 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+
+#include "../Library/json.hpp"
+#include <iostream>
+#include <fstream>
+
 #include "level.h"
 #include "collisions.h"
 #include "pickup.h"
+
 #include <sstream>
 #include <iomanip>
 #include <cstdlib>
+#include <string.h>
+
  
 class EntityManager;
 class PickupManager;
@@ -30,8 +38,9 @@ class Game
 	int levelCount = 0;
 	std::vector<std::string> levelLib = {
 		"../Data/Levels/level.json",
-		"../Data/Levels/level2.json"
+		"../Data/Levels/level2.json",
 		"../Data/Levels/level3.json",
+		"../Data/Levels/level4.json"
 	};
 
 	Level* lvl;
@@ -48,20 +57,27 @@ class Game
 	std::unique_ptr<sf::Sprite> logo;
 	std::vector<std::unique_ptr<sf::Sprite>> start;
 	std::unique_ptr<sf::Sprite> gameOver;
+	std::unique_ptr<sf::Sprite> background;
 
 	sf::Font font;
 	std::unique_ptr<sf::Text> text;
 	std::unique_ptr<sf::Text> scoreText;
+	std::unique_ptr<sf::Text> highscoreText;
 
 	float gradientRuntime = 0.0f;
 	std::unique_ptr<sf::Sprite> backgroundSprite;
+
+	int highscore = 100;
 
 public:
 	Game(sf::Vector2u screenSize);
 	~Game();
 
 	void Update(float deltaTime);
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderWindow* window) const;
+
+	void UpdateHighscore();
+	void CheckHighscore(int score);
 
 	void InitialiseNewLevel(std::string filePath);
 }; 
@@ -91,7 +107,7 @@ public:
 	void AssignLevel(Level* lvl);
 	void Spawn(Enemy* enemy, sf::Vector2f location);
 	void Update(float deltaTime);
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderWindow* window) const;
 	void Clear();
 };
 
@@ -117,7 +133,7 @@ public:
 
 
 	void Update(float deltaTime);
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderWindow* window) const;
 };
 
 class ScoreManager 
@@ -127,6 +143,7 @@ class ScoreManager
 	sf::Font font;
 	std::unique_ptr<sf::Text> scoreText;
 	std::unique_ptr<sf::Text> powerUpCountdownText;
+	std::unique_ptr<sf::Text> highScoreText;
 
 	std::unique_ptr<sf::Sprite> backgroundSprite;
 	float gradientRuntime = 0.0f;
@@ -169,7 +186,7 @@ public:
 	~ScoreManager();
 
 	void Update(float deltaTime);
-	void Render(sf::RenderWindow* window);
+	void Render(sf::RenderWindow* window) const;
 
 	Round* NewRound();
 
@@ -179,4 +196,5 @@ public:
 
 	void AddScore(bool isFused);
 	void AddScore(int amount);
+	void SetHighscoreText(int score);
 };

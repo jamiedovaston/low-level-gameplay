@@ -102,10 +102,9 @@ void PickupManager::Update(float deltaTime)
 			currentLevel->collisions[i]->Collision(p);
 		}
 	}
-	
 }
 
-void PickupManager::Render(sf::RenderWindow* window)
+void PickupManager::Render(sf::RenderWindow* window) const
 {
 	for (Pickup* p : pickups) {
 		if(p != nullptr)

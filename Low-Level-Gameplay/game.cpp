@@ -1,5 +1,6 @@
 #include "game.h"
 
+
 Game::Game(sf::Vector2u screen)
 {
     this->screen = screen;
@@ -11,12 +12,17 @@ Game::Game(sf::Vector2u screen)
     scoreManager = std::make_unique<ScoreManager>(player);
     entityManager = std::make_unique<EntityManager>(player, screen, scoreManager.get());
     pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
+    pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
+
     
     state = State::HOME;
     std::cout << "# HOME STATE" << std::endl;
 
     logo = std::make_unique<sf::Sprite>(*LoadResource("../Images/bombjack_logo.png"));
-    logo->setPosition(sf::Vector2f(screen.x / 2.0f - 175.0f, (screen.y / 2.0f - 75.0f) - 200.0f));
+    logo->setPosition(sf::Vector2f(screen.x / 2.0f - 262.0f, (screen.y / 2.0f - 112.0f) - 200.0f));
+
+    background = std::make_unique<sf::Sprite>(*LoadResource("../Images/black-background.png"));
+    background->setPosition(sf::Vector2f(40.0f, 40.0f));
 
     gameOver = std::make_unique<sf::Sprite>(*LoadResource("../Images/game-over.png"));
     gameOver->setPosition(sf::Vector2f(screen.x / 2.0f - 90.0f, screen.y / 2.0f - 69.0f));
@@ -29,26 +35,32 @@ Game::Game(sf::Vector2u screen)
         std::cout << "Failed to load font\n";
 
     text = std::make_unique<sf::Text>(font);
+    scoreText = std::make_unique<sf::Text>(font);
+    highscoreText = std::make_unique<sf::Text>(font);
 
-    text->setCharacterSize(30);
+    text->setCharacterSize(40.0f);
     text->setFillColor(sf::Color::White);
     text->setStyle(sf::Text::Bold);
     text->setOutlineThickness(3.0f);
     text->setString(std::string("Press Space to play!"));
 
-    sf::FloatRect textRect = text->getLocalBounds();
-    text->setOrigin(textRect.getCenter());
+    highscoreText->setCharacterSize(30);
+    highscoreText->setFillColor(sf::Color::White);
+    highscoreText->setStyle(sf::Text::Bold);
+    highscoreText->setOutlineThickness(3.0f);
+
+    text->setOrigin(text->getLocalBounds().getCenter());
     text->setPosition(sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f));
 
-    scoreText = std::make_unique<sf::Text>(font);
-
-    scoreText->setCharacterSize(30);
+    scoreText->setCharacterSize(45.0f);
     scoreText->setFillColor(sf::Color::White);
     scoreText->setStyle(sf::Text::Bold);
 
     backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/gradient.png"));
     backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
     backgroundSprite->setScale(sf::Vector2f(63.0f, 96.0f));
+
+    UpdateHighscore();
 }
 
 Game::~Game()
@@ -125,6 +137,7 @@ void Game::Update(float deltaTime)
                     runtime = 5.0f;
                     std::cout << "# SCORE STATE" << std::endl;
                     state = State::SCORE; // Show score.
+                    CheckHighscore(scoreManager->score);
 
                     scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
 
@@ -169,6 +182,7 @@ void Game::Update(float deltaTime)
             runtime = 5.0f;
             std::cout << "# SCORE STATE" << std::endl;
             state = State::SCORE;
+            CheckHighscore(scoreManager->score);
 
             scoreText->setString(std::string("Score: ") + std::to_string(scoreManager->score));
 
@@ -192,13 +206,15 @@ void Game::Update(float deltaTime)
     }
 }
 
-void Game::Render(sf::RenderWindow* window)
+void Game::Render(sf::RenderWindow* window) const
 {
     if (state == State::HOME)
     {
         window->draw(*backgroundSprite);
+        window->draw(*background);
         window->draw(*logo);
         window->draw(*text);
+        window->draw(*highscoreText);
     }
     if (state == State::GAMEPLAY || state == State::WAITING_FOR_LEVEL_START)
     {
@@ -221,11 +237,46 @@ void Game::Render(sf::RenderWindow* window)
 
     if (state == State::SCORE) {
         window->draw(*scoreText);
+        window->draw(*highscoreText);
     }
 
     if ((std::count(player->freeze.begin(), player->freeze.end(), Player::FreezeState::DEATH) > 0) && scoreManager->lives <= 0) {
         window->draw(*gameOver);
     }
+}
+
+void Game::UpdateHighscore()
+{
+    nlohmann::json json = nlohmann::json::parse(std::ifstream{ "../Data/score.json" });
+
+    highscore = json["highscore"];
+
+    scoreManager->SetHighscoreText(highscore);
+    highscoreText->setString("Highscore: " + std::to_string(highscore));
+
+    highscoreText->setOrigin(highscoreText->getLocalBounds().getCenter());
+    highscoreText->setPosition(sf::Vector2f(screen.x / 2.0f, (screen.y / 2.0f) + 100.0f));
+}
+
+void Game::CheckHighscore(int score)
+{
+    std::ifstream in("../Data/score.json");
+    nlohmann::json json;
+
+    if (in.is_open()) {
+        in >> json;
+        in.close();
+    }
+
+    if (json["highscore"] < score) {
+        json["highscore"] = score;
+
+        std::ofstream out("../Data/score.json", std::ios::trunc);
+        out << std::setw(4) << json << std::endl;
+        out.close();
+    }
+
+    UpdateHighscore();
 }
 
 void Game::InitialiseNewLevel(std::string filePath)

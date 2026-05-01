@@ -1,2 +1,46 @@
-﻿  main.cpp
+﻿  block.cpp
+  bomb.cpp
+  club.cpp
+  collisions.cpp
+  enemy.cpp
+  entity.cpp
+  entitymanager.cpp
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\entitymanager.cpp(22,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\entitymanager.cpp(38,6): warning C4804: '>': unsafe use of type 'bool' in operation
+  game.cpp
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(41,28): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(55,33): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,92): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,92): warning C4244:         with
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,92): warning C4244:         [
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,92): warning C4244:             T=int
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,92): warning C4244:         ]
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,73): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,73): warning C4244:         with
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,73): warning C4244:         [
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,73): warning C4244:             T=int
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\game.cpp(83,73): warning C4244:         ]
+  level.cpp
+  main.cpp
+  orb.cpp
+  pickup.cpp
+  pickupmanager.cpp
+  player.cpp
+  powerupcoin.cpp
+  scoremanager.cpp
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,85): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,85): warning C4244:         with
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,85): warning C4244:         [
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,85): warning C4244:             T=int
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,85): warning C4244:         ]
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,66): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,66): warning C4244:         with
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,66): warning C4244:         [
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,66): warning C4244:             T=int
+C:\Users\d010949n\Documents\GitHub\low-level-gameplay\Low-Level-Gameplay\scoremanager.cpp(69,66): warning C4244:         ]
+  screenbounds.cpp
+  skeleton.cpp
+  spawnpoint.cpp
+  sphere.cpp
+  Generating Code...
   Low-Level-Gameplay.vcxproj -> C:\Users\d010949n\Documents\GitHub\low-level-gameplay\x64\Debug\Low-Level-Gameplay.exe

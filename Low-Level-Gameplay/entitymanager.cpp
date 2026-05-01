@@ -114,7 +114,7 @@ void EntityManager::Update(float deltaTime)
 	}
 }
 
-void EntityManager::Render(sf::RenderWindow* window)
+void EntityManager::Render(sf::RenderWindow* window) const
 {
 	for (Enemy* e : enemies) {
 		if(e != nullptr) e->Render(window);

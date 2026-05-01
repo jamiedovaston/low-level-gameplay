@@ -38,7 +38,7 @@ class Player : public Entity
 	// INPUT PRESSED DOWN
 	std::map<sf::Keyboard::Key, bool> is_pressed;
 
-	float jumpSpeed = 1000.0f, horizontalSpeed = 1.4f;
+	float jumpSpeed = 1000.0f, horizontalSpeed = 1.2f;
 
 	// ANIMATIONS
 	float previousDirectionX = 0.0f;
