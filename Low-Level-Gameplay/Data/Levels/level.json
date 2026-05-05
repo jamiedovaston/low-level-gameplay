@@ -1,7 +1,7 @@
 {
-  "background" : "../Images/bombjackbg.png",
-  "border" : "../Images/Border.png",
-  "block" : "../Images/Block.png",
+  "background" : "Images/bombjackbg.png",
+  "border" : "Images/Border.png",
+  "block" : "Images/Block.png",
   "origin" : [0, 100],
   
   "map" : [

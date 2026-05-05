@@ -6,16 +6,16 @@ ScoreManager::ScoreManager(Player* player)
 
 	NewRound();
 
-	if (!font.openFromFile("../font.ttf"))
+	if (!font.openFromFile("font.ttf"))
 		std::cout << "Failed to load font\n";
 
-    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/gradient.png"));
+    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("Images/gradient.png"));
 	backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
 	backgroundSprite->setScale(sf::Vector2f(63.0f, 96.0f));
 
 	livesDisplay.resize(3);
 	for (int i = 0; i < livesDisplay.size(); i++) {
-		livesDisplay[i] = std::make_unique<sf::Sprite>(*LoadResource("../Images/jack.png"));
+		livesDisplay[i] = std::make_unique<sf::Sprite>(*LoadResource("Images/jack.png"));
 		livesDisplay[i]->setPosition(sf::Vector2f(25.0f + 45.0f * i, 845.0f));
 	}
 

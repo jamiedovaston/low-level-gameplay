@@ -14,35 +14,48 @@ Game::Game(sf::Vector2u screen)
     pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
     pickupManager = std::make_unique<PickupManager>(player, screen, scoreManager.get());
 
-    
-    state = State::HOME;
-    std::cout << "# HOME STATE" << std::endl;
+    runtime = 3.0f;
+    state = State::SPLASH_SCREEN;
+    std::cout << "# SPLASH SCREEN STATE" << std::endl;
 
-    logo = std::make_unique<sf::Sprite>(*LoadResource("../Images/bombjack_logo.png"));
+    jamdovLogo = std::make_unique<sf::Sprite>(*LoadResource("Images/jamdov-small.png"));
+    jamdovLogo->setOrigin(jamdovLogo->getLocalBounds().getCenter());
+    jamdovLogo->setPosition(sf::Vector2f(screen.x / 2.0f, (screen.y / 2.0f) - 100.0f));
+
+    logo = std::make_unique<sf::Sprite>(*LoadResource("Images/bombjack_logo.png"));
     logo->setPosition(sf::Vector2f(screen.x / 2.0f - 262.0f, (screen.y / 2.0f - 112.0f) - 200.0f));
 
-    background = std::make_unique<sf::Sprite>(*LoadResource("../Images/black-background.png"));
+    background = std::make_unique<sf::Sprite>(*LoadResource("Images/black-background.png"));
     background->setPosition(sf::Vector2f(40.0f, 40.0f));
 
-    gameOver = std::make_unique<sf::Sprite>(*LoadResource("../Images/game-over.png"));
+    gameOver = std::make_unique<sf::Sprite>(*LoadResource("Images/game-over.png"));
     gameOver->setPosition(sf::Vector2f(screen.x / 2.0f - 90.0f, screen.y / 2.0f - 69.0f));
 
     start.resize(2);
-    start[0] = std::make_unique<sf::Sprite>(*LoadResource("../Images/start_1.png"));
-    start[1] = std::make_unique<sf::Sprite>(*LoadResource("../Images/start_2.png"));
+    start[0] = std::make_unique<sf::Sprite>(*LoadResource("Images/start_1.png"));
+    start[1] = std::make_unique<sf::Sprite>(*LoadResource("Images/start_2.png"));
 
-    if (!font.openFromFile("../font.ttf"))
+    if (!font.openFromFile("font.ttf"))
+        std::cout << "Failed to load font\n";
+    if (!jamdovFont.openFromFile("jamdov.ttf"))
         std::cout << "Failed to load font\n";
 
     text = std::make_unique<sf::Text>(font);
     scoreText = std::make_unique<sf::Text>(font);
     highscoreText = std::make_unique<sf::Text>(font);
 
+    jamdovText = std::make_unique<sf::Text>(jamdovFont);
+
     text->setCharacterSize(40.0f);
     text->setFillColor(sf::Color::White);
     text->setStyle(sf::Text::Bold);
     text->setOutlineThickness(3.0f);
     text->setString(std::string("Press Space to play!"));
+
+    jamdovText->setCharacterSize(55.0f);
+    jamdovText->setFillColor(sf::Color::White);
+    jamdovText->setOutlineThickness(3.0f);
+    jamdovText->setString(std::string("jamdov"));
 
     highscoreText->setCharacterSize(30);
     highscoreText->setFillColor(sf::Color::White);
@@ -52,11 +65,14 @@ Game::Game(sf::Vector2u screen)
     text->setOrigin(text->getLocalBounds().getCenter());
     text->setPosition(sf::Vector2f(screen.x / 2.0f, screen.y / 2.0f));
 
+    jamdovText->setOrigin(jamdovText->getLocalBounds().getCenter());
+    jamdovText->setPosition(sf::Vector2f(screen.x / 2.0f, (screen.y / 2.0f) + 100.0f));
+
     scoreText->setCharacterSize(45.0f);
     scoreText->setFillColor(sf::Color::White);
     scoreText->setStyle(sf::Text::Bold);
 
-    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/gradient.png"));
+    backgroundSprite = std::make_unique<sf::Sprite>(*LoadResource("Images/gradient.png"));
     backgroundSprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(10, 10)));
     backgroundSprite->setScale(sf::Vector2f(63.0f, 96.0f));
 
@@ -75,6 +91,26 @@ Game::~Game()
 void Game::Update(float deltaTime)
 {
     runtime -= deltaTime;
+
+    if (state == State::SPLASH_SCREEN) {
+        if (runtime < 0.0f) {
+            state = State::HOME;
+        }
+
+        float val = std::clamp((3.0f - runtime) - 1.5f, -1.5f, 1.5f);
+        if (val != 0) {
+            val = val != 0 ? -std::abs(val) : 1.5f;
+            jamdovLogo->setColor(sf::Color(255, 255, 255, val * 170.0f));
+            jamdovText->setFillColor(sf::Color(255, 255, 255, val * 170.0f));
+            jamdovText->setOutlineColor(sf::Color(100.0f, 100.0f, 100.0f, val * 170.0f));
+
+        }
+        else {
+            jamdovLogo->setColor(sf::Color(255, 255, 255, 255.0f));
+            jamdovText->setFillColor(sf::Color(255, 255, 255, 255.0f));
+        }
+    }
+
     if (state == State::HOME) 
     {
         gradientRuntime += deltaTime;
@@ -208,6 +244,10 @@ void Game::Update(float deltaTime)
 
 void Game::Render(sf::RenderWindow* window) const
 {
+    if (state == State::SPLASH_SCREEN) {
+        window->draw(*jamdovLogo);
+        window->draw(*jamdovText);
+    }
     if (state == State::HOME)
     {
         window->draw(*backgroundSprite);
@@ -247,7 +287,7 @@ void Game::Render(sf::RenderWindow* window) const
 
 void Game::UpdateHighscore()
 {
-    nlohmann::json json = nlohmann::json::parse(std::ifstream{ "../Data/score.json" });
+    nlohmann::json json = nlohmann::json::parse(std::ifstream{ "Data/score.json" });
 
     highscore = json["highscore"];
 
@@ -260,7 +300,7 @@ void Game::UpdateHighscore()
 
 void Game::CheckHighscore(int score)
 {
-    std::ifstream in("../Data/score.json");
+    std::ifstream in("Data/score.json");
     nlohmann::json json;
 
     if (in.is_open()) {
@@ -271,7 +311,7 @@ void Game::CheckHighscore(int score)
     if (json["highscore"] < score) {
         json["highscore"] = score;
 
-        std::ofstream out("../Data/score.json", std::ios::trunc);
+        std::ofstream out("Data/score.json", std::ios::trunc);
         out << std::setw(4) << json << std::endl;
         out.close();
     }

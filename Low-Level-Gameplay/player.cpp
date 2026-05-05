@@ -4,7 +4,7 @@ Player::Player(sf::Vector2u screen) : Entity(screen)
 {
     // CREATE PLAYER
     spriteSize = sf::Vector2i(65, 68);
-    sprite = std::make_unique<sf::Sprite>(*LoadResource("../Images/jack-sprite-sheet.png"));
+    sprite = std::make_unique<sf::Sprite>(*LoadResource("Images/jack-sprite-sheet.png"));
     sprite->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), spriteSize));
     spriteRect = sf::FloatRect(sf::Vector2f(28.0f / 2.0f, 25.0f), sf::Vector2f(37.0f / 2.0f, 43.0f / 2.0f));
 

@@ -2,7 +2,10 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 630, 920 }), "Bombjack: Reborn!");
+    sf::RenderWindow window(sf::VideoMode({ 630, 920 }), "Bombjack: Reborn!", sf::Style::Titlebar | sf::Style::Close);
+
+    sf::Image icon;
+    if(icon.loadFromFile("Images/jack.png")) window.setIcon(icon.getSize(), icon.getPixelsPtr());
 
     Game* game = new Game(window.getSize());
 

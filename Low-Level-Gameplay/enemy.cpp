@@ -5,7 +5,7 @@ Enemy::Enemy(Player* player, sf::Vector2u screen) : Entity(screen)
 	this->player = player;
 
     coinSize = sf::Vector2i(36, 36);
-    coin = new sf::Sprite(*LoadResource("../Images/coins.png"));
+    coin = new sf::Sprite(*LoadResource("Images/coins.png"));
     coin->setTextureRect(sf::IntRect(sf::Vector2i(0, 0), coinSize));
 }
 

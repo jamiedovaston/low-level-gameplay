@@ -9,7 +9,7 @@ Block::Block(sf::Vector2f originPoint, std::string filePath, float x, float y, f
     this->h = h;
 
     if (filePath != "") { sprite = new sf::Sprite(*LoadResource(filePath)); }
-    else { sprite = new sf::Sprite(*LoadResource("../Images/Block.png")); }
+    else { sprite = new sf::Sprite(*LoadResource("Images/Block.png")); }
 
     sprite->setScale(sf::Vector2f(w / 23.0f, h / 23.0f));
     sprite->setPosition(sf::Vector2f(this->x, this->y));

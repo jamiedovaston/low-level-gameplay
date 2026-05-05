@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cmath>
 
-#include "../Library/json.hpp"
+#include "Library/json.hpp"
 #include <iostream>
 #include <fstream>
 
@@ -28,8 +28,9 @@ class Game
 		GAMEPLAY,
 		SCORE,
 		WAITING_FOR_LEVEL_START,
-		WAITING_FOR_NEXT_LEVEL
-	} state;
+		WAITING_FOR_NEXT_LEVEL,
+		SPLASH_SCREEN
+	} state = SPLASH_SCREEN;
 
 	sf::Vector2u screen;
 
@@ -37,10 +38,10 @@ class Game
 
 	int levelCount = 0;
 	std::vector<std::string> levelLib = {
-		"../Data/Levels/level.json",
-		"../Data/Levels/level2.json",
-		"../Data/Levels/level3.json",
-		"../Data/Levels/level4.json"
+		"Data/Levels/level.json",
+		"Data/Levels/level2.json",
+		"Data/Levels/level3.json",
+		"Data/Levels/level4.json"
 	};
 
 	Level* lvl;
@@ -54,12 +55,16 @@ class Game
 
 	bool loadSceneBuffer = false;
 
+	std::unique_ptr<sf::Sprite> jamdovLogo;
+	std::unique_ptr<sf::Text> jamdovText;
+
 	std::unique_ptr<sf::Sprite> logo;
 	std::vector<std::unique_ptr<sf::Sprite>> start;
 	std::unique_ptr<sf::Sprite> gameOver;
 	std::unique_ptr<sf::Sprite> background;
 
 	sf::Font font;
+	sf::Font jamdovFont;
 	std::unique_ptr<sf::Text> text;
 	std::unique_ptr<sf::Text> scoreText;
 	std::unique_ptr<sf::Text> highscoreText;

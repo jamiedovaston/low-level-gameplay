@@ -1,0 +1,113 @@
+{
+  "background" : "Images/bombjackbg4.png",
+  "border" : "Images/Border3.png",
+  "block" : "Images/Block.png",
+  "origin" : [0, 100],
+  
+  "map" : [
+    { 
+      "type" : "ScreenBounds"
+    },
+    
+    { 
+      "type" : "SpawnPoint",
+      "position" : [220, 10],
+      "isRight" : false
+    },
+    { 
+      "type" : "SpawnPoint",
+      "position" : [425, 10],
+      "isRight" : true
+    }
+  ],
+  
+  "enemies" : [
+	"Club",
+	"Club",
+	"Club",
+	"Orb",
+	"Sphere"
+  ],
+
+  "bombs" : [
+    {
+      "position" : [480, 440]
+    },
+    {
+      "position" : [480, 510]
+    },
+    {
+      "position" : [480, 580]
+    },
+    
+    {
+      "position" : [370, 150]
+    },
+    {
+      "position" : [370, 220]
+    },
+    {
+      "position" : [370, 290]
+    },
+    
+    {
+      "position" : [260, 440]
+    },
+    {
+      "position" : [260, 510]
+    },
+    {
+      "position" : [260, 580]
+    },
+
+    {
+      "position" : [150, 150]
+    },
+    {
+      "position" : [150, 220]
+    },
+    {
+      "position" : [150, 290]
+    },
+
+    {
+      "position" : [150, 440]
+    },
+    {
+      "position" : [150, 510]
+    },
+    {
+      "position" : [150, 580]
+    },
+
+    {
+      "position" : [370, 440]
+    },
+    {
+      "position" : [370, 510]
+    },
+    {
+      "position" : [370, 580]
+    },
+    
+    {
+      "position" : [260, 150]
+    },
+    {
+      "position" : [260, 220]
+    },
+    {
+      "position" : [260, 290]
+    },
+
+    {
+      "position" : [480, 150]
+    },
+    {
+      "position" : [480, 220]
+    },
+    {
+      "position" : [480, 290]
+    }
+  ]
+}
